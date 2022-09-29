@@ -7,9 +7,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8B89A894-D81
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{DA3CEA36-A343-4FD9-82CC-358B7D06AB2B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CM.TeamReportAPI", "src\CM.TeamReportAPI\CM.TeamReportAPI.csproj", "{D8A62CFF-94A6-4609-97F3-F515D8E2988F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CM.TeamReportAPI", "src\CM.TeamReportAPI\CM.TeamReportAPI.csproj", "{D8A62CFF-94A6-4609-97F3-F515D8E2988F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CM.TeamReportAPI.UnitTests", "tests\CM.TeamReportAPI.UnitTests\CM.TeamReportAPI.UnitTests.csproj", "{84722B2B-4839-4BDD-9EE4-6D883D65FCF3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CM.TeamReportAPI.UnitTests", "tests\CM.TeamReportAPI.UnitTests\CM.TeamReportAPI.UnitTests.csproj", "{84722B2B-4839-4BDD-9EE4-6D883D65FCF3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CM.TeamRepots.DataLayer", "src\CM.TeamRepots.DataLayer\CM.TeamRepots.DataLayer.csproj", "{7603D439-4D5F-4999-B317-AED732B21668}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CM.TeamReports.DataLayer.tests", "tests\CM.TeamReports.DataLayer.tests\CM.TeamReports.DataLayer.tests.csproj", "{E9BA2220-5AD4-49E2-8BB1-EBF1F10FBE6D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +29,14 @@ Global
 		{84722B2B-4839-4BDD-9EE4-6D883D65FCF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84722B2B-4839-4BDD-9EE4-6D883D65FCF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84722B2B-4839-4BDD-9EE4-6D883D65FCF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7603D439-4D5F-4999-B317-AED732B21668}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7603D439-4D5F-4999-B317-AED732B21668}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7603D439-4D5F-4999-B317-AED732B21668}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7603D439-4D5F-4999-B317-AED732B21668}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9BA2220-5AD4-49E2-8BB1-EBF1F10FBE6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9BA2220-5AD4-49E2-8BB1-EBF1F10FBE6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9BA2220-5AD4-49E2-8BB1-EBF1F10FBE6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9BA2220-5AD4-49E2-8BB1-EBF1F10FBE6D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +44,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{D8A62CFF-94A6-4609-97F3-F515D8E2988F} = {8B89A894-D813-4A1A-A8F1-B0B5952AD9C0}
 		{84722B2B-4839-4BDD-9EE4-6D883D65FCF3} = {DA3CEA36-A343-4FD9-82CC-358B7D06AB2B}
+		{7603D439-4D5F-4999-B317-AED732B21668} = {8B89A894-D813-4A1A-A8F1-B0B5952AD9C0}
+		{E9BA2220-5AD4-49E2-8BB1-EBF1F10FBE6D} = {DA3CEA36-A343-4FD9-82CC-358B7D06AB2B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BE74406E-BED9-4898-8361-AD66685CCD11}
