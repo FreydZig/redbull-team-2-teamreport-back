@@ -10,8 +10,10 @@ namespace CM.TeamRepots.DataLayer.Entity
     public class Teams
     {
         [Required]
+        [Key]
         public int TeamId { get; set; }
+
         [StringLength(50, MinimumLength = 1)]
-        public int TeamName { get; set; }
+        public string TeamName { get; set; }
     }
 }

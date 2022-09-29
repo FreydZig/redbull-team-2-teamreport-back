@@ -10,6 +10,7 @@ namespace CM.TeamRepots.DataLayer.Entity
     public class Reports
     {
         [Required]
+        [Key]
         public int ReportId { get; set; }
 
         [Required]

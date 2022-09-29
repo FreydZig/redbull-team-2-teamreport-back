@@ -10,7 +10,8 @@ namespace CM.TeamRepots.DataLayer.Entity
     public class Leaders
     {
         [Required]
-        public int LiderId { get; set; }
+        [Key]
+        public int LeaderId { get; set; }
 
         [Required]
         public int UserId { get; set; }
