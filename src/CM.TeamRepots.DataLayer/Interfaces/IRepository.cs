@@ -10,6 +10,6 @@
 
         void Delete(int entityCode);
 
-        List<TEntity> GetAll(int entityCode);
+        List<TEntity> GetAll();
     }
 }

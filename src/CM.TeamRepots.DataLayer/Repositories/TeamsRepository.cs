@@ -14,29 +14,45 @@ namespace CM.TeamRepots.DataLayer.Repositories
 
         public void Create(Teams entity)
         {
-            _context.Teams.Add(entity);
-            _context.SaveChanges();
+            _context
+                .Teams
+                .Add(entity);
+            _context
+                .SaveChanges();
         }
 
         public void Delete(int entityCode)
         {
-            throw new NotImplementedException();
+            _context
+                .Teams
+                .Remove(Read(entityCode));
+            _context
+                .SaveChanges();
         }
 
-        public List<Teams> GetAll(int entityCode)
+        public List<Teams> GetAll()
         {
-            var list = _context.Teams.ToList();
-            return list;
+            var teams = _context
+                .Teams
+                .ToList();
+            return teams;
         }
 
         public Teams Read(int entityCode)
         {
-            throw new NotImplementedException();
+            var team = _context
+                .Teams
+                .FirstOrDefault(t => t.TeamId == entityCode);
+            return team;
         }
 
         public void Update(Teams entity)
         {
-            throw new NotImplementedException();
+            _context
+                .Teams
+                .Update(entity);
+            _context
+                .SaveChanges();
         }
     }
 }
