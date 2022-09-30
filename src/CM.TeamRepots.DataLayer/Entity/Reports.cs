@@ -20,7 +20,7 @@ namespace CM.TeamRepots.DataLayer.Entity
         public int Morale { get; set; }
 
         [StringLength(255)]
-        public string MoraleeDescription { get; set; }
+        public string MoraleDescription { get; set; }
 
         [Required]
         public int Stress { get; set; }
@@ -45,9 +45,8 @@ namespace CM.TeamRepots.DataLayer.Entity
         [StringLength(255)]
         public string AnythingElse { get; set; }
 
-        [Required]
-        [StringLength(100)]
-        public string DateRange { get; set; }
+        [Required]  
+        public DateTime DateRange { get; set; }
 
     }
 }
