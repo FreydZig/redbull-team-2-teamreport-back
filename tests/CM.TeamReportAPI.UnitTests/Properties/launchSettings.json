@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "CM.TeamReportAPI.UnitTests": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:1850;http://localhost:1851"
+    }
+  }
+}
