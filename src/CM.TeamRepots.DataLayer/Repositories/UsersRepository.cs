@@ -3,7 +3,7 @@ using CM.TeamRepots.DataLayer.Interfaces;
 
 namespace CM.TeamRepots.DataLayer.Repositories
 {
-    public class UsersRepository : IRepository<Users>
+    public class UsersRepository : IUserRepository
     {
         private readonly TRDbContext _context;
 
@@ -68,6 +68,13 @@ namespace CM.TeamRepots.DataLayer.Repositories
                 .Update(entity);
             _context
                 .SaveChanges();
+        }
+
+        public Users GetUserByEmail(string email)
+        {
+            return _context.
+                Users.
+                FirstOrDefault(c => c.Email == email);
         }
     }
 }
