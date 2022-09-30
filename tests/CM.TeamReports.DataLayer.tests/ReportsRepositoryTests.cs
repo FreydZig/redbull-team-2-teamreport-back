@@ -77,5 +77,13 @@ namespace CM.TeamReports.DataLayer.tests
 
             Assert.Equal(2, reports.Read(10).Morale);
         }
+
+        [Fact]
+        public void ShouldNotBeAbleToUpdateReport()
+        {
+            ReportsRepository reports = new ReportsRepository();
+
+            Assert.Throws<System.NotImplementedException>(() => reports.Update(new Reports()));
+        }
     }
 }

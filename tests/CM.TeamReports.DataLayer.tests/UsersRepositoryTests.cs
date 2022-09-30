@@ -37,6 +37,16 @@ namespace CM.TeamReports.DataLayer.tests
         }
 
         [Fact]
+        public void ShouldBeAbleToReturnUserByEmail()
+        {
+            UsersRepository user = new UsersRepository();
+
+            var user2 = user.Read("bob@mail.com");
+
+            Assert.Equal(12, user2.UserId);
+        }
+
+        [Fact]
         public void ShouldBeAbleToCreateUser()
         {
             UsersRepository users = new UsersRepository();

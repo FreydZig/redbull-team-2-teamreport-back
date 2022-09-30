@@ -53,6 +53,14 @@ namespace CM.TeamRepots.DataLayer.Repositories
             return user;
         }
 
+        public Users Read(string email)
+        {
+            var user = _context
+                .Users
+                .FirstOrDefault(u => u.Email == email);
+            return user;
+        }
+
         public void Update(Users entity)
         {
             _context
