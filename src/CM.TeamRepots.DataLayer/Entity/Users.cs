@@ -12,7 +12,8 @@ namespace CM.TeamRepots.DataLayer.Entity
         [Required]
         [Key]
         public int UserId { get; set; }
-        
+
+        [Required]
         public int TeamId { get; set; }
 
         public string FirstName { get; set; } = string.Empty;

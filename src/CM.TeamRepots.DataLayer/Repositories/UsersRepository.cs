@@ -53,6 +53,14 @@ namespace CM.TeamRepots.DataLayer.Repositories
             return user;
         }
 
+        public Users Read(string email)
+        {
+            var user = _context
+                .Users
+                .FirstOrDefault(u => u.Email == email);
+            return user;
+        }
+
         public void Update(Users entity)
         {
             _context
@@ -62,11 +70,11 @@ namespace CM.TeamRepots.DataLayer.Repositories
                 .SaveChanges();
         }
 
-        public Users GetUserByEmail(string email)
-        {
-            return _context.
-                Users.
-                FirstOrDefault(c => c.Email == email);
-        }
+        //public Users GetUserByEmail(string email)
+        //{
+        //    return _context.
+        //        Users.
+        //        FirstOrDefault(c => c.Email == email);
+        //}
     }
 }

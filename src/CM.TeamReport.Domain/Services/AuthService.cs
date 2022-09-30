@@ -25,7 +25,7 @@ namespace CM.TeamReport.Domain.Services
 
         public Users UserLogin(string email, string password)
         {
-            var user = _usersRepository.GetUserByEmail(email);
+            var user = _usersRepository.Read(email);
             var passwordSaltHash = user.Password.Split('.');
             var passwordVerify = new PasswordHash();
             if (!passwordVerify.VerifyPasswordHash(password, Encoding.ASCII.GetBytes(passwordSaltHash[0]), Encoding.ASCII.GetBytes(passwordSaltHash[1])))

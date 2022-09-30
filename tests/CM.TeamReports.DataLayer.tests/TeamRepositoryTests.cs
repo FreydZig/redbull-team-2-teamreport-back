@@ -14,7 +14,7 @@ namespace CM.TeamReports.DataLayer.tests
             var teams = team.GetAll();
 
             Assert.NotNull(team);
-            Assert.Equal(8, teams.Count);
+            Assert.Equal(9, teams.Count);
 
         }
 
@@ -36,7 +36,7 @@ namespace CM.TeamReports.DataLayer.tests
 
             team.Create(new Teams{ TeamName = "Team" });
 
-            Assert.Equal("Team", team.Read(7).TeamName);
+            Assert.Equal("Team", team.Read(8).TeamName);
         }
 
         [Fact]
@@ -44,9 +44,9 @@ namespace CM.TeamReports.DataLayer.tests
         {
             TeamsRepository team = new TeamsRepository();
 
-            team.Update(new Teams { TeamId = 7, TeamName = "NoName" });
+            team.Update(new Teams { TeamId = 8, TeamName = "NoName" });
 
-            Assert.Equal("NoName", team.Read(7).TeamName);
+            Assert.Equal("NoName", team.Read(8).TeamName);
         }
 
         [Fact]
@@ -54,9 +54,9 @@ namespace CM.TeamReports.DataLayer.tests
         {
             TeamsRepository team = new TeamsRepository();
 
-            team.Delete(7);
+            team.Delete(8);
 
-            Assert.Null(team.Read(7));
+            Assert.Null(team.Read(8));
         }
     }
 }
