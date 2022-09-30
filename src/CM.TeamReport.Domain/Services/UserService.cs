@@ -1,6 +1,7 @@
 ﻿
 using CM.TeamReport.Domain.Services.Interfaces;
 using CM.TeamRepots.DataLayer.Entity;
+using CM.TeamRepots.DataLayer.Interfaces;
 using CM.TeamRepots.DataLayer.Repositories;
 using System;
 using System.Collections.Generic;
@@ -12,8 +13,8 @@ namespace CM.TeamReport.Domain.Services
 {
     public class UserService : IUserService
     {
-        private readonly UsersRepository _usersRepository;
-        public UserService(UsersRepository usersRepository)
+        private readonly IUserRepository _usersRepository;
+        public UserService(IUserRepository usersRepository)
         {
             _usersRepository = usersRepository;
         }

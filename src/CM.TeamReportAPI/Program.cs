@@ -1,11 +1,13 @@
 using CM.TeamReport.Domain.Services;
 using CM.TeamReport.Domain.Services.Interfaces;
 using CM.TeamReportAPI.Configurations;
+using CM.TeamReportAPI.MapperStore;
 using CM.TeamRepots.DataLayer.Interfaces;
 using CM.TeamRepots.DataLayer.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,8 +19,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IAuthService, AuthService>();
-//builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UsersRepository>();
+builder.Services.AddAutoMapper(typeof(MapperProfile));
 
 builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection("JwtConfig"));
 
