@@ -11,10 +11,10 @@ namespace CM.TeamRepots.DataLayer.Repositories
         public TRDbContext()
         {
         }
-        public TRDbContext(DbContextOptions<TRDbContext> options)
-        : base(options)
-        {
-        }
+        //public TRDbContext(DbContextOptions<TRDbContext> options)
+        //: base(options)
+        //{
+        //}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
