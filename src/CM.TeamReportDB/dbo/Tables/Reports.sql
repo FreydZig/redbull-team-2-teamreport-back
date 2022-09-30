@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[Report] (
+﻿CREATE TABLE [dbo].[Reports] (
     [ReportId]            INT            IDENTITY (1, 1) NOT NULL,
     [UserId]              INT            NOT NULL,
     [Morale]              INT            NOT NULL,
@@ -10,7 +10,7 @@
     [High]                NVARCHAR (255) NOT NULL,
     [Low]                 NVARCHAR (255) NOT NULL,
     [AnythingElse]        NVARCHAR (255) NULL,
-    [DateRange]           NVARCHAR (100) NOT NULL,
+    [DateRange]           DATE           NOT NULL,
     PRIMARY KEY CLUSTERED ([ReportId] ASC),
     CHECK ([DateRange]<>NULL),
     CHECK ([Morale]<=(5) AND [Morale]>=(1)),
