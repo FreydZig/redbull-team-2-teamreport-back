@@ -1,3 +1,5 @@
+using CM.TeamReport.Domain.Services;
+using CM.TeamReport.Domain.Services.Interfaces;
 using CM.TeamReportAPI.Configurations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -36,6 +38,8 @@ builder.Services.AddAuthentication(options =>
 
         };
     });
+
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 var app = builder.Build();
 
