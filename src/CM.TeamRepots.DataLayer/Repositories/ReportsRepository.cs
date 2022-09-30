@@ -3,7 +3,7 @@ using CM.TeamRepots.DataLayer.Interfaces;
 
 namespace CM.TeamRepots.DataLayer.Repositories
 {
-    public class ReportsRepository : IReportsRepository<Reports>
+    public class ReportsRepository : IReportsRepository
     {
         private readonly TRDbContext _context;
 

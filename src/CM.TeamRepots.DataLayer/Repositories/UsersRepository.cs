@@ -70,11 +70,11 @@ namespace CM.TeamRepots.DataLayer.Repositories
                 .SaveChanges();
         }
 
-        public Users GetUserByEmail(string email)
-        {
-            return _context.
-                Users.
-                FirstOrDefault(c => c.Email == email);
-        }
+        //public Users GetUserByEmail(string email)
+        //{
+        //    return _context.
+        //        Users.
+        //        FirstOrDefault(c => c.Email == email);
+        //}
     }
 }

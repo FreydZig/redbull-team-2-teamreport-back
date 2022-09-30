@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CM.TeamRepots.DataLayer.Interfaces
 {
-    public interface IReportsRepository<TEntity> : IRepository<Reports>
+    public interface IReportsRepository : IRepository<Reports>
     {
         public List<Reports> GetAllByTeamId(int entityCode);
         public List<Reports> GetAllByUserId(int entityCode);

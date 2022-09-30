@@ -84,9 +84,9 @@ namespace CM.TeamReports.DataLayer.tests
         {
             UsersRepository users = new UsersRepository();
 
-            users.Delete(15);
+            users.Delete(16);
 
-            Assert.Null(users.Read(15));
+            Assert.Null(users.Read(16));
         }
     }
 }

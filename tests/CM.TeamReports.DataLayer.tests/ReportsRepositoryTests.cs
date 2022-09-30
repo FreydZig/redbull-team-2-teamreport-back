@@ -11,9 +11,11 @@ namespace CM.TeamReports.DataLayer.tests
         {
             ReportsRepository reports = new ReportsRepository();
 
-            var reports2 = reports.GetAll();
+            Assert.NotNull(reports);
 
-            Assert.Equal(8, reports2.Count);
+            var r = reports.GetAll();
+
+            Assert.Equal(11, r.Count);
         }
 
         [Fact]
@@ -51,9 +53,9 @@ namespace CM.TeamReports.DataLayer.tests
         {
             ReportsRepository reports = new ReportsRepository();
 
-            reports.Delete(8);
+            reports.Delete(9);
 
-            Assert.Null(reports.Read(8));
+            Assert.Null(reports.Read(9));
         }
 
         [Fact]
@@ -64,14 +66,14 @@ namespace CM.TeamReports.DataLayer.tests
             reports.Create(new Reports {
                 UserId = 14,
                 Morale = 2,
-                MoraleDescription = "Wow",
+                //MoraleDescription = "Wow",
                 Stress = 5,
-                StressDescription = "Woow",
+                //StressDescription = "Woow",
                 Workload = 3,
-                WorkloadDescription = "Hooh",
+               // WorkloadDescription = "Hooh",
                 High = "High",
                 Low = "Low",
-                AnythingElse = "Nothing",
+                //AnythingElse = "Nothing",
                 DateRange = new System.DateTime(2022, 09, 14)
             });
 
