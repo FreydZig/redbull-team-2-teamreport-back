@@ -50,9 +50,9 @@ namespace CM.TeamReports.DataLayer.tests
         {
             LeaderRepository leader = new LeaderRepository();
 
-            leader.Delete(4);
+            leader.Delete(5);
 
-            Assert.Null(leader.Read(4));
+            Assert.Null(leader.Read(5));
         }
     }
 }

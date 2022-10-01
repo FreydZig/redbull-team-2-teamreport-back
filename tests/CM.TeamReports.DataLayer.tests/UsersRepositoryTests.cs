@@ -31,9 +31,19 @@ namespace CM.TeamReports.DataLayer.tests
         {
             UsersRepository user = new UsersRepository();
 
-            var user2 = user.Read(12);
+            var user2 = user.Read(21);
 
-            Assert.Equal(12, user2.UserId);
+            Assert.Equal(21, user2.UserId);
+        }
+
+        [Fact]
+        public void ShouldBeAbleToReturnUserByEmail()
+        {
+            UsersRepository user = new UsersRepository();
+
+            var user2 = user.Read("usr@example.com");
+
+            Assert.Equal(26, user2.UserId);
         }
 
         [Fact]
@@ -74,9 +84,9 @@ namespace CM.TeamReports.DataLayer.tests
         {
             UsersRepository users = new UsersRepository();
 
-            users.Delete(15);
+            users.Delete(16);
 
-            Assert.Null(users.Read(15));
+            Assert.Null(users.Read(16));
         }
     }
 }

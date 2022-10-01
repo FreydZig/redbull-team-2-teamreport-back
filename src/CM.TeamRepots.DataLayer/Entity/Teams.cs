@@ -13,6 +13,7 @@ namespace CM.TeamRepots.DataLayer.Entity
         [Key]
         public int TeamId { get; set; }
 
+        [Required]
         [StringLength(50, MinimumLength = 1)]
         public string TeamName { get; set; }
     }
