@@ -49,16 +49,24 @@ namespace CM.TeamRepots.DataLayer.Repositories
         {
             var user = _context
                 .Users
-                .FirstOrDefault( u => u.UserId == entityCode);
+                .First( u => u.UserId == entityCode);
             return user;
         }
 
         public Users Read(string email)
         {
-            var user = _context
-                .Users
-                .FirstOrDefault(u => u.Email == email);
-            return user;
+            try
+            {
+                var user = _context
+                    .Users
+                    .First(u => u.Email == email);
+                return user;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+            
         }
 
         public void Update(Users entity)
