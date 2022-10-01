@@ -1,6 +1,8 @@
 using CM.TeamReport.Domain.Services;
 using CM.TeamReport.Domain.Services.Interfaces;
 using CM.TeamReportAPI.Configurations;
+using CM.TeamRepots.DataLayer.Interfaces;
+using CM.TeamRepots.DataLayer.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -8,8 +10,11 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.AddTransient<IUserRepository, UsersRepository>();
+builder.Services.AddTransient<IAuthService, AuthService>();
+builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -39,7 +44,6 @@ builder.Services.AddAuthentication(options =>
         };
     });
 
-builder.Services.AddScoped<IAuthService, AuthService>();
 
 var app = builder.Build();
 
