@@ -29,7 +29,8 @@ namespace CM.TeamReport.Domain.Services
                     expires: DateTime.UtcNow.Add(TimeSpan.FromDays(1)),
                     signingCredentials: new SigningCredentials(JwtOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
 
-            return new JwtSecurityTokenHandler().WriteToken(jwt); throw new NotImplementedException();
+            return new JwtSecurityTokenHandler().WriteToken(jwt); 
+            throw new NotImplementedException();
         }
 
         public Users UserLogin(string email, string password)
@@ -40,8 +41,10 @@ namespace CM.TeamReport.Domain.Services
                 throw new DataException("Email isn't correct!");
             }
             var passwordSaltHash = user.Password.Split('.');
+            byte[] passwordHash = Convert.FromBase64String(passwordSaltHash[1]);
+            byte[] passwordSalt = Convert.FromBase64String(passwordSaltHash[0]);
             var passwordVerify = new PasswordHash();
-            if (!passwordVerify.VerifyPasswordHash(password, Encoding.ASCII.GetBytes(passwordSaltHash[0]), Encoding.ASCII.GetBytes(passwordSaltHash[1])))
+            if (!passwordVerify.VerifyPasswordHash(password,passwordSalt, passwordHash))
             {
                 throw new Exception();
                 //TODO: add Exception

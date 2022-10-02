@@ -35,7 +35,7 @@ namespace CM.TeamReportAPI.Controllers
 
             var email = _userRpository.Read(userModel.Email);
 
-            if (email != null) throw new DataException("It Email is registred!");
+            if (email != null) throw new DataException("This Email is registred!");
 
             _userService.AddUser(userModel);
 
