@@ -1,5 +1,6 @@
 ﻿using CM.TeamRepots.DataLayer.Entity;
 using CM.TeamRepots.DataLayer.Interfaces;
+using System;
 
 namespace CM.TeamRepots.DataLayer.Repositories
 {
@@ -58,15 +59,14 @@ namespace CM.TeamRepots.DataLayer.Repositories
             try
             {
                 var user = _context
-                    .Users
-                    .First(u => u.Email == email);
+                        .Users
+                        .First(u => u.Email == email);
                 return user;
             }
             catch (Exception e)
             {
                 return null;
             }
-            
         }
 
         public void Update(Users entity)

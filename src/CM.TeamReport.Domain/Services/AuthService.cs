@@ -23,17 +23,25 @@ namespace CM.TeamReport.Domain.Services
                 throw new DataException("Data is empty!");
             }
 
+            //var userEmail = _usersRepository.Read(user.Email);
+
+            //if (user.Email != null)
+            //{
+            //    throw new Exception("User with it email is registred!");
+            //}
+
             var jwt = new JwtSecurityToken(
                     issuer: JwtOptions.ISSUER,
                     audience: JwtOptions.AUDIENCE,
                     expires: DateTime.UtcNow.Add(TimeSpan.FromDays(1)),
                     signingCredentials: new SigningCredentials(JwtOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
 
-            return new JwtSecurityTokenHandler().WriteToken(jwt); throw new NotImplementedException();
+            return new JwtSecurityTokenHandler().WriteToken(jwt); /*throw new NotImplementedException();*/
         }
 
         public Users UserLogin(string email, string password)
         {
+            //TODO: Доделать
             var user = _usersRepository.Read(email);
             if (user == null)
             {
