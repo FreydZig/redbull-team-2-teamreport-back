@@ -13,7 +13,7 @@ namespace CM.TeamReports.DataLayer.tests
 
             var users = user.GetAll();
 
-            Assert.Equal(4, users.Count);
+            Assert.Equal(3, users.Count);
         }
 
         [Fact]

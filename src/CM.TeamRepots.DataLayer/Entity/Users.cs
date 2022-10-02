@@ -13,8 +13,7 @@ namespace CM.TeamRepots.DataLayer.Entity
         [Key]
         public int UserId { get; set; }
 
-        [Required]
-        public int TeamId { get; set; }
+        public int? TeamId { get; set; }
 
         public string FirstName { get; set; } = string.Empty;
 
