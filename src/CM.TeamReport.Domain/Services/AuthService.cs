@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Data;
+using CM.TeamReport.Domain.Exceptions;
 
 namespace CM.TeamReport.Domain.Services
 {
@@ -46,8 +47,7 @@ namespace CM.TeamReport.Domain.Services
             var passwordVerify = new PasswordHash();
             if (!passwordVerify.VerifyPasswordHash(password,passwordSalt, passwordHash))
             {
-                throw new Exception();
-                //TODO: add Exception
+                throw new LoginException("Password isn't correct!");
             }
             return user;
         }
