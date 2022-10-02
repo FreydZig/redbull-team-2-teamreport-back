@@ -26,3 +26,4 @@ namespace CM.TeamReport.Domain.Services
         }
     }
 }
+
