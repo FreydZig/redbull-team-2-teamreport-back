@@ -49,6 +49,46 @@ namespace CM.TeamReports.DataLayer.tests
         }
 
         [Fact]
+        public void ShouldBeAbleToReturnReportByDate()
+        {
+            ReportsRepository reports = new ReportsRepository();
+
+            var report = reports.ReadByDate(new System.DateTime(2022 , 09 , 14));
+
+            Assert.Equal(15, report.ReportId);
+        }
+
+        [Fact]
+        public void ShouldNotBeAbleToReturnReportByDate()
+        {
+            ReportsRepository reports = new ReportsRepository();
+
+            var report = reports.ReadByDate(new System.DateTime(2021, 09, 14));
+
+            Assert.Null(report);
+        }
+
+        [Fact]
+        public void ShouldBeAbleToReturnReportByPeriod()
+        {
+            ReportsRepository reports = new ReportsRepository();
+
+            var report = reports.ReadByPeriod(new System.DateTime(2021, 09, 14), new System.DateTime(2022, 09, 14), 28);
+
+            Assert.Equal(3, report);
+        }
+
+        [Fact]
+        public void ShouldNotBeAbleToReturnReportByPeriod()
+        {
+            ReportsRepository reports = new ReportsRepository();
+
+            var report = reports.ReadByPeriod(new System.DateTime(2021, 09, 14), new System.DateTime(2012, 09, 14), 28);
+
+            Assert.Null(report);
+        }
+
+        [Fact]
         public void ShouldBeAbleToDeleteReport()
         {
             ReportsRepository reports = new ReportsRepository();
@@ -64,7 +104,7 @@ namespace CM.TeamReports.DataLayer.tests
             ReportsRepository reports = new ReportsRepository();
 
             reports.Create(new Reports {
-                UserId = 14,
+                UserId = 28,
                 Morale = 2,
                 //MoraleDescription = "Wow",
                 Stress = 5,
@@ -77,7 +117,7 @@ namespace CM.TeamReports.DataLayer.tests
                 DateRange = new System.DateTime(2022, 09, 14)
             });
 
-            Assert.Equal(2, reports.Read(10).Morale);
+            Assert.Equal(2, reports.Read(15).Morale);
         }
 
         [Fact]
