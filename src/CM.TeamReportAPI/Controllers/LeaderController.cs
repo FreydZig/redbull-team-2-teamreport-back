@@ -1,5 +1,5 @@
 ﻿using CM.TeamReport.Domain.Services.Interfaces;
-using CM.TeamReportAPI.Models;
+using CM.TeamReport.Domain.Models;
 using CM.TeamRepots.DataLayer.Entity;
 using CM.TeamRepots.DataLayer.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -21,6 +21,14 @@ namespace CM.TeamReportAPI.Controllers
             _userRepository = userRepository;
         }
 
+
+        [HttpGet]
+        [Route("teamreports")]
+        public IEnumerable<TeamReports> TeamReports()
+        {
+            var list = _leaderService.OverallReports(1);
+            return list;
+        }
         //[HttpPost]
         //[Route("invite")]
         //public IActionResult Invite(InviteUser user)
@@ -33,11 +41,11 @@ namespace CM.TeamReportAPI.Controllers
         //    _leaderService.InviteTeam
         //}
 
-        [HttpGet]
-        [Authorize]
-        public IResult aa()
-        {
-            return Results.Json(_userRepository.Read(29));
-        }
+    //    [HttpGet]
+    //    [Authorize(userId = "34")]
+    //    public IActionResult aa()
+    //    {
+            
+    //    }
     }
 }

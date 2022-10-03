@@ -7,6 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Data;
 using CM.TeamReport.Domain.Exceptions;
+using System.Security.Claims;
 
 namespace CM.TeamReport.Domain.Services
 {
@@ -24,30 +25,19 @@ namespace CM.TeamReport.Domain.Services
                 throw new DataException("Data is empty!");
             }
 
-            //var userEmail = _usersRepository.Read(user.Email);
-
-            //if (user.Email != null)
-            //{
-            //    throw new Exception("User with it email is registred!");
-            //}
-
             var jwt = new JwtSecurityToken(
                     issuer: JwtOptions.ISSUER,
                     audience: JwtOptions.AUDIENCE,
                     expires: DateTime.UtcNow.Add(TimeSpan.FromDays(1)),
+                    claims: new List<Claim>(){ new Claim("userId", user.UserId.ToString()), new Claim("teamId", user.TeamId.ToString()) },
                     signingCredentials: new SigningCredentials(JwtOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
 
-<<<<<<< HEAD
-            return new JwtSecurityTokenHandler().WriteToken(jwt); /*throw new NotImplementedException();*/
-=======
             return new JwtSecurityTokenHandler().WriteToken(jwt); 
             throw new NotImplementedException();
->>>>>>> 72ff43f715a1b8746ccf5d2ece6b5aa4997c4e53
         }
 
         public Users UserLogin(string email, string password)
         {
-            //TODO: Доделать
             var user = _usersRepository.Read(email);
             if (user == null)
             {
