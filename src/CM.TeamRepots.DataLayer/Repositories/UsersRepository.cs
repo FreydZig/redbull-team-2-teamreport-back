@@ -50,7 +50,7 @@ namespace CM.TeamRepots.DataLayer.Repositories
         {
             var user = _context
                 .Users
-                .First( u => u.UserId == entityCode);
+                .FirstOrDefault( u => u.UserId == entityCode);
             return user;
         }
 
