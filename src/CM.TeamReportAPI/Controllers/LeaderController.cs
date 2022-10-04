@@ -23,29 +23,19 @@ namespace CM.TeamReportAPI.Controllers
 
 
         [HttpGet]
-        [Route("teamreports")]
-        public IEnumerable<TeamReports> TeamReports()
+        [Route("olderreports")]
+        public IEnumerable<OverallReports> OlderReports(int id)
         {
-            var list = _leaderService.OverallReports(1);
+            var list = _leaderService.OverallReports(id);
             return list;
         }
-        //[HttpPost]
-        //[Route("invite")]
-        //public IActionResult Invite(InviteUser user)
-        //{
-        //    if(user == null)
-        //    {
-        //        return BadRequest("Not Valid data!");
-        //    }
 
-        //    _leaderService.InviteTeam
-        //}
-
-    //    [HttpGet]
-    //    [Authorize(userId = "34")]
-    //    public IActionResult aa()
-    //    {
-            
-    //    }
+        [HttpGet]
+        [Route("previousperiod")]
+        public IEnumerable<PreviousReports> PreviousPeriod(int id)
+        {
+            var list = _leaderService.PreviousReports(id);
+            return list;
+        }
     }
 }

@@ -29,15 +29,15 @@ namespace CM.TeamReport.Domain.Services
             _userRepository.Update(user);
         }
 
-        public List<TeamReports> OverallReports(int TeamId)
+        public List<OverallReports> OverallReports(int TeamId)
         {
             var users = _userRepository.GetAll(TeamId);
 
-            List<TeamReports> teamReports = new List<TeamReports>();
+            List<OverallReports> teamReports = new List<OverallReports>();
 
             foreach (var user in users)
             {
-                var teamReport = new TeamReports();
+                var teamReport = new OverallReports();
 
                 teamReport.Current = _reportsRepository.ReadByPeriod(DateTime.Now.AddDays(-7), DateTime.Now, user.UserId);
                 teamReport.ago9 = _reportsRepository.ReadByPeriod(DateTime.Now.AddDays(-79), DateTime.Now.AddDays(-72), user.UserId);
@@ -56,6 +56,33 @@ namespace CM.TeamReport.Domain.Services
             }
 
             return  teamReports;
+        }
+
+        public List<PreviousReports> PreviousReports(int TeamId)
+        {
+            var users = _userRepository.GetAll(TeamId);
+
+            List<PreviousReports> previousReports = new List<PreviousReports>();
+
+            foreach (var user in users)
+            {
+                var previousReport = new PreviousReports();
+
+                var report = _reportsRepository.ReadByUserId(user.UserId);
+
+                previousReport.Name = user.FirstName + ' ' + user.LastName;
+
+                if (report != null)
+                {         
+                    previousReport.Morale = report.Morale;
+                    previousReport.Workload = report.Workload;
+                    previousReport.Stress = report.Stress;
+                }
+
+                previousReports.Add(previousReport);
+            }
+
+            return previousReports;
         }
     }
 }

@@ -13,6 +13,7 @@ namespace CM.TeamRepots.DataLayer.Interfaces
         public List<Reports> GetAllByUserId(int entityCode);
         public Reports ReadByDate (DateTime date);
         public int ReadByPeriod (DateTime start, DateTime end, int entityId);
+        public Reports ReadByUserId(int entityId);
 
     }
 }

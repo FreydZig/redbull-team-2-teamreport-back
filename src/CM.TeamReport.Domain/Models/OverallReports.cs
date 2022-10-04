@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CM.TeamReport.Domain.Models
 {
-    public class TeamReports
+    public class OverallReports
     {
         public string UserName { get; set; }
 
