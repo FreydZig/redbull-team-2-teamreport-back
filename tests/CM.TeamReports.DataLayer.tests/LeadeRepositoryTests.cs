@@ -22,9 +22,19 @@ namespace CM.TeamReports.DataLayer.tests
         {
             LeaderRepository leaders = new LeaderRepository();
 
+            var leader = leaders.Read(28);
+
+            Assert.Equal(9, leader.LeaderId);
+        }
+
+        [Fact]
+        public void ShouldNotBeAbleToReturnLeader()
+        {
+            LeaderRepository leaders = new LeaderRepository();
+
             var leader = leaders.Read(1);
 
-            Assert.Equal(1, leader.LeaderId);
+            Assert.Null(leader);
         }
 
         [Fact]
@@ -32,9 +42,9 @@ namespace CM.TeamReports.DataLayer.tests
         {
             LeaderRepository leaders = new LeaderRepository();
 
-            leaders.Create(new Leaders { TeamId = 4, UserId = 12 });
+            leaders.Create(new Leaders { TeamId = 1, UserId = 28 });
 
-            Assert.Equal(12, leaders.Read(1).UserId);
+            Assert.Equal(28, leaders.Read(28).UserId);
         }
 
         [Fact]

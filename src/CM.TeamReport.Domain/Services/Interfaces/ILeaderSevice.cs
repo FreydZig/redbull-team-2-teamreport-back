@@ -14,5 +14,7 @@ namespace CM.TeamReport.Domain.Services.Interfaces
         public List<OverallReports> OverallReports(int TeamId);
 
         public List<PreviousReports> PreviousReports(int TeamId);
+
+        public bool IsLeader (int UserId);
     }
 }

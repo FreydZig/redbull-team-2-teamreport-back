@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using AutoMapper;
+using CM.TeamRepots.DataLayer.Entity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +28,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UsersRepository>();
 builder.Services.AddScoped<ILeaderSevice, LeaderService>();
 builder.Services.AddScoped<IReportsRepository, ReportsRepository>();
+builder.Services.AddScoped<IRepository<Leaders>, LeaderRepository>();
 builder.Services.AddAutoMapper(typeof(MapperProfile));
 
 builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection("JwtConfig"));

@@ -1,5 +1,6 @@
 ﻿using CM.TeamReport.Domain.Models;
 using CM.TeamReport.Domain.Services.Interfaces;
+using CM.TeamRepots.DataLayer.Entity;
 using CM.TeamRepots.DataLayer.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -13,11 +14,13 @@ namespace CM.TeamReport.Domain.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IReportsRepository _reportsRepository; 
+        private readonly IRepository<Leaders> _leadersRepository; 
 
-        public LeaderService(IUserRepository userRepository, IReportsRepository reportsRepository)
+        public LeaderService(IUserRepository userRepository, IReportsRepository reportsRepository, IRepository<Leaders> leadersRepository)
         {
             _userRepository = userRepository;
             _reportsRepository = reportsRepository;
+            _leadersRepository = leadersRepository;
         }
 
         //public void InviteTeam(string email, int TeamId)
@@ -83,6 +86,13 @@ namespace CM.TeamReport.Domain.Services
             }
 
             return previousReports;
+        }
+
+        public bool IsLeader(int UserId)
+        {
+            var leader = _leadersRepository.Read(UserId);
+            
+            return leader != null;
         }
     }
 }

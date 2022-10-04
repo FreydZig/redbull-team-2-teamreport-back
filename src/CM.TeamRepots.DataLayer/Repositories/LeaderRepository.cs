@@ -43,7 +43,7 @@ namespace CM.TeamRepots.DataLayer.Repositories
         {
             var leader = _context
                 .Leaders
-                .FirstOrDefault(l => l.LeaderId == entityCode);
+                .FirstOrDefault(l => l.UserId == entityCode);
 
             return leader;
         }

@@ -19,8 +19,9 @@ namespace CM.TeamReports.Domain.Tests
         {
             var reportsMock = new Mock<IReportsRepository>();
             var usersMock = new Mock<IUserRepository>();
+            var leaderMock = new Mock<IRepository<Leaders>>();
 
-            LeaderService leader = new LeaderService(usersMock.Object, reportsMock.Object);
+            LeaderService leader = new LeaderService(usersMock.Object, reportsMock.Object, leaderMock.Object);
 
             Assert.NotNull(leader);
         }
@@ -53,13 +54,14 @@ namespace CM.TeamReports.Domain.Tests
         {
             var reportsMock = new Mock<IReportsRepository>();
             var usersMock = new Mock<IUserRepository>();
+            var leaderMock = new Mock<IRepository<Leaders>>();
 
             usersMock.Setup(u => u.GetAll(It.IsAny<int>())).Returns(new List<Users>()
             {
                 new Users()
             });
 
-            LeaderService leader = new LeaderService(usersMock.Object, reportsMock.Object);
+            LeaderService leader = new LeaderService(usersMock.Object, reportsMock.Object, leaderMock.Object);
 
             var list = leader.OverallReports(1);
 
@@ -72,13 +74,14 @@ namespace CM.TeamReports.Domain.Tests
         {
             var reportsMock = new Mock<IReportsRepository>();
             var usersMock = new Mock<IUserRepository>();
+            var leaderMock = new Mock<IRepository<Leaders>>();
 
             usersMock.Setup(u => u.GetAll(It.IsAny<int>())).Returns(new List<Users>()
             {
                 new Users()
             });
 
-            LeaderService leader = new LeaderService(usersMock.Object, reportsMock.Object);
+            LeaderService leader = new LeaderService(usersMock.Object, reportsMock.Object, leaderMock.Object);
 
             var list = leader.PreviousReports(1);
 
@@ -90,6 +93,7 @@ namespace CM.TeamReports.Domain.Tests
         {
             var reportsMock = new Mock<IReportsRepository>();
             var usersMock = new Mock<IUserRepository>();
+            var leaderMock = new Mock<IRepository<Leaders>>();
 
             usersMock.Setup(u => u.GetAll(It.IsAny<int>())).Returns(new List<Users>()
             {
@@ -98,11 +102,45 @@ namespace CM.TeamReports.Domain.Tests
 
             reportsMock.Setup(r => r.ReadByUserId(It.IsAny<int>())).Returns(new Reports());
 
-            LeaderService leader = new LeaderService(usersMock.Object, reportsMock.Object);
+            LeaderService leader = new LeaderService(usersMock.Object, reportsMock.Object, leaderMock.Object);
 
             var list = leader.PreviousReports(1);
 
             Assert.Equal(1, list.Count);
+        }
+
+        [Fact]
+        public void ShouldBeAbleToReturnTrueFromIsLeader()
+        {
+            var reportsMock = new Mock<IReportsRepository>();
+            var usersMock = new Mock<IUserRepository>();
+            var leaderMock = new Mock<IRepository<Leaders>>();
+
+          leaderMock.Setup(l => l.Read(It.IsAny<int>())).Returns(new Leaders { 
+          
+              UserId = 28,
+              TeamId = 1,
+              LeaderId = 9
+
+          });
+
+            LeaderService leader = new LeaderService(usersMock.Object, reportsMock.Object, leaderMock.Object);
+
+            Assert.True(leader.IsLeader(28));
+        }
+
+        [Fact]
+        public void ShouldNotBeAbleToReturnTrueFromIsLeader()
+        {
+            var reportsMock = new Mock<IReportsRepository>();
+            var usersMock = new Mock<IUserRepository>();
+            var leaderMock = new Mock<IRepository<Leaders>>();
+
+            leaderMock.Setup(l => l.Read(It.IsAny<int>())).Returns((Leaders)null);
+
+            LeaderService leader = new LeaderService(usersMock.Object, reportsMock.Object, leaderMock.Object);
+
+            Assert.False(leader.IsLeader(21));
         }
     }
 }

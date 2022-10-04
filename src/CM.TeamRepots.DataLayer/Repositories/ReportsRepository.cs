@@ -81,18 +81,11 @@ namespace CM.TeamRepots.DataLayer.Repositories
 
         public Reports ReadByUserId(int entityCode)
         {
-            try
-            {
-                var report = _context
+            var report = _context
                     .Reports
                     .FirstOrDefault(r => r.UserId == entityCode && r.DateRange <= DateTime.Now && r.DateRange >= DateTime.Now.AddDays(-7));
 
-                return report;
-            }
-            catch
-            {
-                return null;
-            }
+            return report;
         }
          
         public Reports ReadByDate(DateTime date)
