@@ -79,6 +79,39 @@ namespace CM.TeamRepots.DataLayer.Repositories
             return report;
         }
 
+        public Reports ReadByDate(DateTime date)
+        {
+            try
+            {
+                var report = _context
+                   .Reports
+                   .First(r => r.DateRange == date);
+
+                return report;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public int ReadByPeriod(DateTime start, DateTime end, int Id)
+        {
+            try
+            {
+                var report = _context
+                   .Reports
+                   .First(r => r.DateRange >= start && r.DateRange <= end && r.UserId == Id);
+
+                return (report.Morale + report.Stress + report.Workload) / 3;
+            }
+            catch
+            { 
+                return 0;
+            }
+        }
+
+
         //Не трогать!!!!
         public void Update(Reports entity)
         {

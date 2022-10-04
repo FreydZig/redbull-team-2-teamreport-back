@@ -4,7 +4,7 @@ namespace CM.TeamReportAPI.Models
 {
     public class UserCreateModel
     {
-        public int TeamId { get; set; }
+        //public int TeamId { get; set; }
 
         public string FirstName { get; set; } = string.Empty;
 

@@ -12,7 +12,7 @@ namespace CM.TeamRepots.DataLayer.Interfaces
 
         //void Delete(int entityCode);
 
-        //List<Users> GetAll();
+        List<Users> GetAll(int entityId);
 
         //Users GetUserByEmail(string email);
     }

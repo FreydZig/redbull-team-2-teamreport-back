@@ -15,6 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddTransient<IUserRepository, UsersRepository>();
 builder.Services.AddTransient<IAuthService, AuthService>();
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<ILeaderSevice, LeaderService>();
 builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -24,6 +25,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UsersRepository>();
+builder.Services.AddScoped<ILeaderSevice, LeaderService>();
+builder.Services.AddScoped<IReportsRepository, ReportsRepository>();
 builder.Services.AddAutoMapper(typeof(MapperProfile));
 
 builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection("JwtConfig"));

@@ -13,7 +13,7 @@ namespace CM.TeamReports.DataLayer.tests
 
             var users = user.GetAll();
 
-            Assert.Equal(4, users.Count);
+            Assert.Equal(3, users.Count);
         }
 
         [Fact]
@@ -31,9 +31,9 @@ namespace CM.TeamReports.DataLayer.tests
         {
             UsersRepository user = new UsersRepository();
 
-            var user2 = user.Read(21);
+            var user2 = user.Read(28);
 
-            Assert.Equal(21, user2.UserId);
+            Assert.Equal(28, user2.UserId);
         }
 
         [Fact]
@@ -41,9 +41,19 @@ namespace CM.TeamReports.DataLayer.tests
         {
             UsersRepository user = new UsersRepository();
 
+            var user2 = user.Read("user@example.com");
+
+            Assert.Equal(28, user2.UserId);
+        }
+
+        [Fact]
+        public void ShouldNotBeAbleToReturnUserByEmail()
+        {
+            UsersRepository user = new UsersRepository();
+
             var user2 = user.Read("usr@example.com");
 
-            Assert.Equal(26, user2.UserId);
+            Assert.Equal(null, user2);
         }
 
         [Fact]

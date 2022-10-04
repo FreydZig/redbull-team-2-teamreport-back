@@ -7,6 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Data;
 using CM.TeamReport.Domain.Exceptions;
+using System.Security.Claims;
 
 namespace CM.TeamReport.Domain.Services
 {
@@ -28,6 +29,7 @@ namespace CM.TeamReport.Domain.Services
                     issuer: JwtOptions.ISSUER,
                     audience: JwtOptions.AUDIENCE,
                     expires: DateTime.UtcNow.Add(TimeSpan.FromDays(1)),
+                    claims: new List<Claim>(){ new Claim("userId", user.UserId.ToString()), new Claim("teamId", user.TeamId.ToString()) },
                     signingCredentials: new SigningCredentials(JwtOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
 
             return new JwtSecurityTokenHandler().WriteToken(jwt); 
