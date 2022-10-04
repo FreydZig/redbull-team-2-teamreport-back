@@ -20,14 +20,14 @@ namespace CM.TeamReport.Domain.Services
             _reportsRepository = reportsRepository;
         }
 
-        public void InviteTeam(string email, int TeamId)
-        {
-            var user = _userRepository.Read(email);
+        //public void InviteTeam(string email, int TeamId)
+        //{
+        //    var user = _userRepository.Read(email);
 
-            user.TeamId = TeamId;
+        //    user.TeamId = TeamId;
 
-            _userRepository.Update(user);
-        }
+        //    _userRepository.Update(user);
+        //}
 
         public List<OverallReports> OverallReports(int TeamId)
         {

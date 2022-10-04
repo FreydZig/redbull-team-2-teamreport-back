@@ -105,7 +105,7 @@ namespace CM.TeamRepots.DataLayer.Repositories
 
                 return report;
             }
-            catch (Exception ex)
+            catch
             {
                 return null;
             }

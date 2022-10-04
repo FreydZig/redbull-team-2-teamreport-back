@@ -9,7 +9,7 @@ namespace CM.TeamReport.Domain.Services.Interfaces
 {
     public interface ILeaderSevice
     {
-        public void InviteTeam(string email, int TeamId);
+        //public void InviteTeam(string email, int TeamId);
 
         public List<OverallReports> OverallReports(int TeamId);
 

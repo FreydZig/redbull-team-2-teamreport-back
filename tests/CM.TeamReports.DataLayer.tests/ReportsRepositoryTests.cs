@@ -93,7 +93,7 @@ namespace CM.TeamReports.DataLayer.tests
         {
             ReportsRepository reports = new ReportsRepository();
 
-            var report = reports.ReadByUserId(29);
+            var report = reports.ReadByUserId(145);
 
             Assert.Null(report);
         }
