@@ -13,12 +13,10 @@ namespace CM.TeamReportAPI.Controllers
     public class LeaderController : ControllerBase
     {
         private readonly ILeaderSevice _leaderService; 
-        private readonly IUserRepository _userRepository; 
 
-        public LeaderController(ILeaderSevice leaderSevice, IUserRepository userRepository)
+        public LeaderController(ILeaderSevice leaderSevice)
         {
             _leaderService = leaderSevice;
-            _userRepository = userRepository;
         }
 
 
@@ -36,6 +34,13 @@ namespace CM.TeamReportAPI.Controllers
         {
             var list = _leaderService.PreviousReports(id);
             return list;
+        }
+
+        [HttpGet]
+        [Route("check")]
+        public bool Check(int id)
+        {
+            return _leaderService.IsLeader(id);
         }
     }
 }
