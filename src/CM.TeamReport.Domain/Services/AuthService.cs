@@ -37,9 +37,9 @@ namespace CM.TeamReport.Domain.Services
         public Users UserLogin(string email, string password)
         {
             var user = _usersRepository.Read(email);
-            if (user == null)
+            if (user == null || user.Email == null)
             {
-                throw new DataException("Email isn't correct!");
+                throw new LoginException("Email isn't correct!");
             }
             var passwordSaltHash = user.Password.Split('.');
             byte[] passwordHash = Convert.FromBase64String(passwordSaltHash[1]);
