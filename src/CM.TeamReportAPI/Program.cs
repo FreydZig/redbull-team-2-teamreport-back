@@ -17,6 +17,7 @@ builder.Services.AddTransient<IUserRepository, UsersRepository>();
 builder.Services.AddTransient<IAuthService, AuthService>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<ILeaderSevice, LeaderService>();
+builder.Services.AddTransient<IReportsService, ReportsService>();
 builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
