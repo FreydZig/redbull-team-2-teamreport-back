@@ -83,7 +83,14 @@ namespace CM.TeamRepots.DataLayer.Repositories
         {
             var report = _context
                     .Reports
-                    .FirstOrDefault(r => r.UserId == entityCode && r.DateRange <= start && r.DateRange >= end);
+                    .FirstOrDefault
+                    (r => 
+                        r.UserId == entityCode
+                        && 
+                        r.DateRange <= start 
+                        &&
+                        r.DateRange >= end
+                    );
 
             return report;
         }
@@ -92,7 +99,14 @@ namespace CM.TeamRepots.DataLayer.Repositories
         {
             var report = _context
                     .Reports
-                    .FirstOrDefault(r => r.UserId == entityCode && r.DateRange <= end && r.DateRange >= start);
+                    .FirstOrDefault
+                    (r =>
+                        r.UserId == entityCode
+                        &&
+                        r.DateRange <= end
+                        &&
+                        r.DateRange >= start
+                    );
             if(report == null) return 0;
 
             switch (state)
@@ -126,7 +140,14 @@ namespace CM.TeamRepots.DataLayer.Repositories
             {
                 var report = _context
                    .Reports
-                   .First(r => r.DateRange >= start && r.DateRange <= end && r.UserId == Id);
+                   .First
+                   (r => 
+                        r.DateRange >= start
+                        && 
+                        r.DateRange <= end
+                        &&
+                        r.UserId == Id
+                    );
 
                 return (report.Morale + report.Stress + report.Workload) / 3;
             }

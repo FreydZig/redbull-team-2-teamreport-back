@@ -1,6 +1,5 @@
 ﻿using CM.TeamRepots.DataLayer.Entity;
 using CM.TeamRepots.DataLayer.Interfaces;
-using System;
 
 namespace CM.TeamRepots.DataLayer.Repositories
 {

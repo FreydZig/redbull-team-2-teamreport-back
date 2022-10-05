@@ -33,9 +33,9 @@ namespace CM.TeamReports.DataLayer.tests
         {
             ReportsRepository reports = new ReportsRepository();
 
-            var reports2 = reports.GetAllByUserId(13);
+            var reports2 = reports.GetAllByUserId(34);
 
-            Assert.Equal(0, reports2.Count);
+            Assert.Equal(5, reports2.Count);
         }
 
         [Fact]

@@ -5,7 +5,7 @@ using Xunit;
 
 namespace CM.TeamReports.DataLayer.tests
 {
-    public class LeadeRepositoryTests
+    public class LeaderRepositoryTests
     {
         [Fact]
         public void ShouldBeAbleToGetAllLeaders()
@@ -34,7 +34,7 @@ namespace CM.TeamReports.DataLayer.tests
 
             var leader = leaders.Read(1);
 
-            Assert.Null(leader);
+            Assert.Equal(1,leader.LeaderId);
         }
 
         [Fact]

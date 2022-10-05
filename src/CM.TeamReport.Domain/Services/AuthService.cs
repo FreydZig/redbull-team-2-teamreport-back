@@ -1,10 +1,8 @@
-﻿
-using CM.TeamReport.Domain.Services.Interfaces;
+﻿using CM.TeamReport.Domain.Services.Interfaces;
 using CM.TeamRepots.DataLayer.Entity;
 using CM.TeamRepots.DataLayer.Interfaces;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
-using System.Text;
 using System.Data;
 using CM.TeamReport.Domain.Exceptions;
 using System.Security.Claims;

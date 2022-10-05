@@ -5,12 +5,7 @@ using CM.TeamReportAPI.Models;
 using CM.TeamRepots.DataLayer.Entity;
 using CM.TeamRepots.DataLayer.Interfaces;
 using Moq;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CM.TeamReportAPI.UnitTests.Controllers
 {

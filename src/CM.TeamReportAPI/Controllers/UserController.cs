@@ -1,7 +1,6 @@
 ﻿using CM.TeamReport.Domain.Models;
 using CM.TeamReport.Domain.Services.Interfaces;
 using CM.TeamReportAPI.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CM.TeamReportAPI.Controllers
@@ -19,9 +18,9 @@ namespace CM.TeamReportAPI.Controllers
 
         [HttpPost]
         [Route("add")]
-        public IActionResult LeaderChose([FromBody] LeaderFromBody lfb)
+        public IActionResult LeaderChose([FromBody] LeaderFromBody leaderFromBody)
         {
-            var response = _userService.ChoseLeader(lfb.TeamId, lfb.UserId);
+            var response = _userService.ChoseLeader(leaderFromBody.TeamId, leaderFromBody.UserId);
 
             if(response) return Ok(response);
             return BadRequest(response);

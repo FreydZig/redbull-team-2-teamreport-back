@@ -1,9 +1,4 @@
 ﻿using CM.TeamReportAPI.MapperStore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CM.TeamReportAPI.UnitTests.MapperStorage
 {
@@ -12,9 +7,9 @@ namespace CM.TeamReportAPI.UnitTests.MapperStorage
         [Fact]
         public void ShouldBeAbleToCreateMapperProfile()
         {
-            MapperProfile m = new MapperProfile();
+            MapperProfile mapperProfile = new MapperProfile();
 
-            Assert.NotNull(m);
+            Assert.NotNull(mapperProfile);
         }
     }
 }

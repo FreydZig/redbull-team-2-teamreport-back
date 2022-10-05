@@ -11,19 +11,19 @@ namespace CM.TeamReportAPI.Models
         public int Morale { get; set; }
 
         [StringLength(255)]
-        public string MoraleDescription { get; set; } = String.Empty;
+        public string MoraleDescription { get; set; } = string.Empty;
 
         [Required]
         public int Stress { get; set; }
 
         [StringLength(255)]
-        public string StressDescription { get; set; } = String.Empty;
+        public string StressDescription { get; set; } = string.Empty;
 
         [Required]
         public int Workload { get; set; }
 
         [StringLength(255)]
-        public string WorkloadDescription { get; set; } = String.Empty;
+        public string WorkloadDescription { get; set; } = string.Empty;
 
         [Required]
         [StringLength(255)]

@@ -3,11 +3,6 @@ using CM.TeamRepots.DataLayer.Entity;
 using CM.TeamRepots.DataLayer.Interfaces;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CM.TeamReports.Domain.Tests
 {
@@ -17,7 +12,9 @@ namespace CM.TeamReports.Domain.Tests
         public void ShouldBeAbleToCreateUserService()
         {
             var repositoryMock = new Mock<IUserRepository>();
-            UserService userService = new UserService(repositoryMock.Object);
+            var leaderMock = new Mock<ILeaderRepository>();
+            var teamMock = new Mock<IRepository<Teams>>();
+            UserService userService = new UserService(repositoryMock.Object, leaderMock.Object, teamMock.Object);
             userService.Should().NotBeNull();
         }
 
@@ -25,8 +22,10 @@ namespace CM.TeamReports.Domain.Tests
         public void ShouldBeAbleToAddUser()
         {
             var repositoryMock = new Mock<IUserRepository>();
+            var leaderMock = new Mock<ILeaderRepository>();
+            var teamMock = new Mock<IRepository<Teams>>();
             repositoryMock.Setup(r => r.Create(It.IsAny<Users>()));
-            UserService userService = new UserService(repositoryMock.Object);
+            UserService userService = new UserService(repositoryMock.Object, leaderMock.Object, teamMock.Object);
             var user = new Users() 
             {
                 FirstName = "Examplr Name",

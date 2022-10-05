@@ -1,12 +1,6 @@
 ﻿using CM.TeamReport.Domain.Services.Interfaces;
 using CM.TeamReportAPI.Controllers;
-using CM.TeamRepots.DataLayer.Interfaces;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CM.TeamReportAPI.UnitTests.Controllers
 {
