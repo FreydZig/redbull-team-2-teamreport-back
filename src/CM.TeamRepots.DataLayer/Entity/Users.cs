@@ -20,6 +20,8 @@ namespace CM.TeamRepots.DataLayer.Entity
         [StringLength(50, MinimumLength = 1)]
         public string LastName { get; set; }
 
+        public string? Title { get; set; }
+
         [Required]
         [EmailAddress]
         public string Email { get; set; }

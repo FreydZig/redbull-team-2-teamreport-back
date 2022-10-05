@@ -73,7 +73,7 @@ namespace CM.TeamReports.DataLayer.tests
         {
             ReportsRepository reports = new ReportsRepository();
 
-            var report = reports.ReadByPeriod(new System.DateTime(2021, 09, 14), new System.DateTime(2022, 09, 14), 28);
+            var report = reports.SumOfUserStates(new System.DateTime(2021, 09, 14), new System.DateTime(2022, 09, 14), 28);
 
             Assert.Equal(3, report);
         }
@@ -103,7 +103,7 @@ namespace CM.TeamReports.DataLayer.tests
         {
             ReportsRepository reports = new ReportsRepository();
 
-            var report = reports.ReadByPeriod(new System.DateTime(2021, 09, 14), new System.DateTime(2012, 09, 14), 28);
+            var report = reports.SumOfUserStates(new System.DateTime(2021, 09, 14), new System.DateTime(2012, 09, 14), 28);
 
             Assert.Null(report);
         }

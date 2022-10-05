@@ -15,6 +15,9 @@ namespace CM.TeamReport.Domain.Services.Interfaces
 
         public List<PreviousReports> PreviousReports(int TeamId);
 
+        public List<PreviousReports> CurentReports(int TeamId);
+        public List<OverallReports> StateSort(int TeamId, char state);
+
         public bool IsLeader (int UserId);
     }
 }
