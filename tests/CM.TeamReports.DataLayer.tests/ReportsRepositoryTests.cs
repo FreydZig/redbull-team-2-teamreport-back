@@ -35,7 +35,7 @@ namespace CM.TeamReports.DataLayer.tests
 
             var reports2 = reports.GetAllByUserId(13);
 
-            Assert.Equal(3, reports2.Count);
+            Assert.Equal(0, reports2.Count);
         }
 
         [Fact]
@@ -73,9 +73,29 @@ namespace CM.TeamReports.DataLayer.tests
         {
             ReportsRepository reports = new ReportsRepository();
 
-            var report = reports.ReadByPeriod(new System.DateTime(2021, 09, 14), new System.DateTime(2022, 09, 14), 28);
+            var report = reports.SumOfUserStates(new System.DateTime(2021, 09, 14), new System.DateTime(2022, 09, 14), 28);
 
             Assert.Equal(3, report);
+        }
+
+        [Fact]
+        public void ShouldBeAbleToReturnReportByUserIdAndPeriod()
+        {
+            ReportsRepository reports = new ReportsRepository();
+
+            var report = reports.ReadByUserId(28);
+
+            Assert.Equal(28, report.UserId);
+        }
+
+        [Fact]
+        public void ShouldNotBeAbleToReturnReportByUserIdAndPeriod()
+        {
+            ReportsRepository reports = new ReportsRepository();
+
+            var report = reports.ReadByUserId(145);
+
+            Assert.Null(report);
         }
 
         [Fact]
@@ -83,7 +103,7 @@ namespace CM.TeamReports.DataLayer.tests
         {
             ReportsRepository reports = new ReportsRepository();
 
-            var report = reports.ReadByPeriod(new System.DateTime(2021, 09, 14), new System.DateTime(2012, 09, 14), 28);
+            var report = reports.SumOfUserStates(new System.DateTime(2021, 09, 14), new System.DateTime(2012, 09, 14), 28);
 
             Assert.Null(report);
         }
@@ -114,7 +134,7 @@ namespace CM.TeamReports.DataLayer.tests
                 High = "High",
                 Low = "Low",
                 //AnythingElse = "Nothing",
-                DateRange = new System.DateTime(2022, 09, 14)
+                DateRange = new System.DateTime(2022, 10, 4)
             });
 
             Assert.Equal(2, reports.Read(15).Morale);

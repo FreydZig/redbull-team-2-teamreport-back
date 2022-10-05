@@ -41,9 +41,9 @@ namespace CM.TeamReports.DataLayer.tests
         {
             UsersRepository user = new UsersRepository();
 
-            var user2 = user.Read("user@example.com");
+            var user2 = user.Read("second@example.com");
 
-            Assert.Equal(28, user2.UserId);
+            Assert.Equal(31, user2.UserId);
         }
 
         [Fact]

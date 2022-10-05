@@ -13,39 +13,66 @@ namespace CM.TeamReportAPI.Controllers
     public class LeaderController : ControllerBase
     {
         private readonly ILeaderSevice _leaderService; 
-        private readonly IUserRepository _userRepository; 
 
-        public LeaderController(ILeaderSevice leaderSevice, IUserRepository userRepository)
+        public LeaderController(ILeaderSevice leaderSevice)
         {
             _leaderService = leaderSevice;
-            _userRepository = userRepository;
         }
 
 
         [HttpGet]
-        [Route("teamreports")]
-        public IEnumerable<TeamReports> TeamReports()
+        [Route("olderreports")]
+        public IEnumerable<OverallReports> OlderReports(int id)
         {
-            var list = _leaderService.OverallReports(1);
+            var list = _leaderService.OverallReports(id);
             return list;
         }
-        //[HttpPost]
-        //[Route("invite")]
-        //public IActionResult Invite(InviteUser user)
-        //{
-        //    if(user == null)
-        //    {
-        //        return BadRequest("Not Valid data!");
-        //    }
 
-        //    _leaderService.InviteTeam
-        //}
+        [HttpGet]
+        [Route("olderreports/morale")]
+        public IEnumerable<OverallReports> OlderReportsMorale(int id)
+        {
+            var list = _leaderService.StateSort(id, 'M');
+            return list;
+        }
 
-    //    [HttpGet]
-    //    [Authorize(userId = "34")]
-    //    public IActionResult aa()
-    //    {
-            
-    //    }
+        [HttpGet]
+        [Route("olderreports/stress")]
+        public IEnumerable<OverallReports> OlderReportsStress(int id)
+        {
+            var list = _leaderService.StateSort(id, 'S');
+            return list;
+        }
+
+        [HttpGet]
+        [Route("olderreports/workload")]
+        public IEnumerable<OverallReports> OlderReportsWorkload(int id)
+        {
+            var list = _leaderService.StateSort(id, 'W');
+            return list;
+        }
+
+        [HttpGet]
+        [Route("previousperiod")]
+        public IEnumerable<PreviousReports> PreviousPeriod(int id)
+        {
+            var list = _leaderService.PreviousReports(id);
+            return list;
+        }
+
+        [HttpGet]
+        [Route("curentperiod")]
+        public IEnumerable<PreviousReports> CurentPeriod(int id)
+        {
+            var list = _leaderService.CurentReports(id);
+            return list;
+        }
+
+        [HttpGet]
+        [Route("check")]
+        public bool Check(int id)
+        {
+            return _leaderService.IsLeader(id);
+        }
     }
 }

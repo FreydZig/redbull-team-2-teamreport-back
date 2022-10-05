@@ -79,6 +79,31 @@ namespace CM.TeamRepots.DataLayer.Repositories
             return report;
         }
 
+        public Reports ReadByUserIdAndPeriod(int entityCode, DateTime start, DateTime end)
+        {
+            var report = _context
+                    .Reports
+                    .FirstOrDefault(r => r.UserId == entityCode && r.DateRange <= start && r.DateRange >= end);
+
+            return report;
+        }
+
+        public int UserState(int entityCode, char state, DateTime start, DateTime end)
+        {
+            var report = _context
+                    .Reports
+                    .FirstOrDefault(r => r.UserId == entityCode && r.DateRange <= end && r.DateRange >= start);
+            if(report == null) return 0;
+
+            switch (state)
+            {
+                case 'M': return report.Morale;
+                case 'S': return report.Stress;
+                case 'W': return report.Workload;
+                default: return 0;
+            }
+        }
+         
         public Reports ReadByDate(DateTime date)
         {
             try
@@ -89,13 +114,13 @@ namespace CM.TeamRepots.DataLayer.Repositories
 
                 return report;
             }
-            catch (Exception ex)
+            catch
             {
                 return null;
             }
         }
 
-        public int ReadByPeriod(DateTime start, DateTime end, int Id)
+        public int SumOfUserStates(DateTime start, DateTime end, int Id)
         {
             try
             {

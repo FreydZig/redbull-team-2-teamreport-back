@@ -9,6 +9,7 @@ namespace CM.TeamReportAPI.MapperStore
         public MapperProfile()
         {
             CreateMap<UserCreateModel, Users>();
+            CreateMap<ReportFormBody, Reports>();
         }
     }
 }

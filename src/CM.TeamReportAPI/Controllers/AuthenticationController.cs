@@ -33,7 +33,7 @@ namespace CM.TeamReportAPI.Controllers
         {
             var userModel = _mapper.Map<UserCreateModel, Users>(ucm);
 
-            var email = _userRpository.Read(userModel.Email);
+            var email = _userRpository.Read(ucm.Email);
 
             if (email != null) throw new DataException("This Email is registred!");
 
