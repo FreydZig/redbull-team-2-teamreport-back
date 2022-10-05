@@ -12,10 +12,10 @@ using AutoMapper;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddTransient<IUserRepository, UsersRepository>();
-builder.Services.AddTransient<IAuthService, AuthService>();
-builder.Services.AddTransient<IUserService, UserService>();
-builder.Services.AddTransient<ILeaderSevice, LeaderService>();
+//builder.Services.AddTransient<IUserRepository, UsersRepository>();
+//builder.Services.AddTransient<IAuthService, AuthService>();
+//builder.Services.AddTransient<IUserService, UserService>();
+//builder.Services.AddTransient<ILeaderSevice, LeaderService>();
 builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -23,6 +23,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UsersRepository>();
 builder.Services.AddScoped<ILeaderSevice, LeaderService>();
