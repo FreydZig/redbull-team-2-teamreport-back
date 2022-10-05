@@ -1,4 +1,5 @@
-﻿using CM.TeamReport.Domain.Services.Interfaces;
+﻿using CM.TeamReport.Domain.Models;
+using CM.TeamReport.Domain.Services.Interfaces;
 using CM.TeamReportAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +25,15 @@ namespace CM.TeamReportAPI.Controllers
 
             if(response) return Ok(response);
             return BadRequest(response);
+        }
+
+        [HttpGet]
+        [Route("all")]
+        public List<UserForLeader> GetAllUsersInTeam(int TeamId)
+        {
+            var list = _userService.ListUsers(TeamId);
+
+            return list;
         }
     }
 }

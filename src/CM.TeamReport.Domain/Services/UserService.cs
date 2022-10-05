@@ -1,4 +1,5 @@
 ﻿
+using CM.TeamReport.Domain.Models;
 using CM.TeamReport.Domain.Services.Interfaces;
 using CM.TeamRepots.DataLayer.Entity;
 using CM.TeamRepots.DataLayer.Interfaces;
@@ -48,6 +49,19 @@ namespace CM.TeamReport.Domain.Services
             }
 
             return false;
+        }
+
+        public List<UserForLeader> ListUsers(int teamId)
+        {
+            var list = _usersRepository.GetAll(teamId);
+            var listUFL = new List<UserForLeader>();
+
+            foreach (var user in list)
+            {
+                listUFL.Add(new UserForLeader() { UserId = user.UserId, UserName = user.FirstName + ' ' + user.LastName });
+            }
+            
+            return listUFL;
         }
     }
 }
