@@ -14,9 +14,9 @@ namespace CM.TeamReport.Domain.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IReportsRepository _reportsRepository; 
-        private readonly IRepository<Leaders> _leadersRepository; 
+        private readonly ILeaderRepository _leadersRepository; 
 
-        public LeaderService(IUserRepository userRepository, IReportsRepository reportsRepository, IRepository<Leaders> leadersRepository)
+        public LeaderService(IUserRepository userRepository, IReportsRepository reportsRepository, ILeaderRepository leadersRepository)
         {
             _userRepository = userRepository;
             _reportsRepository = reportsRepository;

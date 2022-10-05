@@ -11,5 +11,8 @@ namespace CM.TeamReport.Domain.Services.Interfaces
     public interface IUserService
     {
         public void AddUser(Users user);
+
+        public bool ChoseLeader(int teamId, int userId);
+
     }
 }

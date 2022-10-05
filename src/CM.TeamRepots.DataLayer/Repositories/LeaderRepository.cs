@@ -3,7 +3,7 @@ using CM.TeamRepots.DataLayer.Interfaces;
 
 namespace CM.TeamRepots.DataLayer.Repositories
 {
-    public class LeaderRepository : IRepository<Leaders>
+    public class LeaderRepository : ILeaderRepository
     {
         private readonly TRDbContext _context;
 
@@ -23,12 +23,17 @@ namespace CM.TeamRepots.DataLayer.Repositories
 
         public void Delete(int entityCode)
         {
-            _context
-                .Leaders
-                .Remove(Read(entityCode));
-            _context
-                .SaveChanges();
+            var entity = Read(entityCode);
+            if (entity != null)
+            {
+                _context
+                    .Leaders
+                    .Remove(Read(entityCode));
+                _context
+                    .SaveChanges();
+            }
         }
+
 
         public List<Leaders> GetAll()
         {
