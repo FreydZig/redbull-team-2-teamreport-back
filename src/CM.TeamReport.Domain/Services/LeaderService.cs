@@ -50,8 +50,9 @@ namespace CM.TeamReport.Domain.Services
         {
             var users = _userRepository.GetAll(TeamId);
 
-            List<OverallReports> teamReports = new List<OverallReports>();
+            var teamReports = new List<OverallReports>();
 
+            if(users != null)
             foreach (var user in users)
             {
                 var teamReport = new OverallReports();
