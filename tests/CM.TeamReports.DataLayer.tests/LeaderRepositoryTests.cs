@@ -60,9 +60,29 @@ namespace CM.TeamReports.DataLayer.tests
         {
             LeaderRepository leader = new LeaderRepository();
 
-            leader.Delete(36);
+            leader.Delete(41);
 
-            Assert.Null(leader.Read(36));
+            Assert.Null(leader.Read(41));
+        }
+
+        [Fact]
+        public void ShouldBeAbleToReadByTeamId()
+        {
+            LeaderRepository leaderRepository = new LeaderRepository();
+
+            var leader = leaderRepository.ReadByTeamId(14);
+
+            Assert.Equal(14, leader.LeaderId);
+        }
+
+        [Fact]
+        public void ShouldBeAbleToDeleteLeaderByTwoArgs()
+        {
+            var leader = new LeaderRepository();
+
+            leader.Delete(34, 13);
+
+            Assert.Null(leader.ReadByTeamId(13));
         }
     }
 }

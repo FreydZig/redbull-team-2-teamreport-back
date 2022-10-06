@@ -34,7 +34,7 @@ namespace CM.TeamReport.Domain.Services
             {
                 var leader = new Leaders() { TeamId = teamId, UserId = userId };
 
-                _leaderRepository.Delete(userId);
+                _leaderRepository.Delete(userId, teamId);
 
                 _leaderRepository.Create(leader);
 
