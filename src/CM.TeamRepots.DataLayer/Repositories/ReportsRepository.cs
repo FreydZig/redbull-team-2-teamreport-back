@@ -117,44 +117,25 @@ namespace CM.TeamRepots.DataLayer.Repositories
                 default: return 0;
             }
         }
-         
-        public Reports ReadByDate(DateTime date)
-        {
-            try
-            {
-                var report = _context
-                   .Reports
-                   .First(r => r.DateRange == date);
 
-                return report;
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
+            
         public int SumOfUserStates(DateTime start, DateTime end, int Id)
         {
-            try
-            {
-                var report = _context
+            var report = _context
                    .Reports
-                   .First
-                   (r => 
+                   .FirstOrDefault
+                   (r =>
                         r.DateRange >= start
-                        && 
+                        &&
                         r.DateRange <= end
                         &&
                         r.UserId == Id
                     );
 
-                return (report.Morale + report.Stress + report.Workload) / 3;
-            }
-            catch
-            { 
-                return 0;
-            }
+            if(report != null)
+            return (report.Morale + report.Stress + report.Workload) / 3;
+
+            return 0;
         }
 
 
