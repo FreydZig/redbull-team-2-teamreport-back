@@ -53,7 +53,7 @@ namespace CM.TeamReports.DataLayer.tests
 
             var user2 = user.Read("usr@example.com");
 
-            Assert.Equal(null, user2);
+            Assert.Null(user2);
         }
 
         [Fact]
@@ -62,14 +62,16 @@ namespace CM.TeamReports.DataLayer.tests
             UsersRepository users = new UsersRepository();
 
             users.Create(new Users { 
-                TeamId = 1, 
+                TeamId = 14, 
                 FirstName = "Tom", 
                 LastName = "Tom", 
+                Title = "dawdwadw",
                 Email = "bon@mail.com", 
                 Password = "qwerty" 
             });
 
-            Assert.Equal("Tom", users.Read(13).FirstName);
+            Assert.Equal("Tom", users.Read(39).FirstName);
+            Assert.Equal("dawdwadw", users.Read(39).Title);
         }
 
         [Fact]
@@ -78,15 +80,15 @@ namespace CM.TeamReports.DataLayer.tests
             UsersRepository users = new UsersRepository();
 
             users.Update(new Users { 
-                UserId= 12 ,
-                TeamId = 1, 
+                UserId= 39 ,
+                TeamId = 14, 
                 FirstName = "Tim", 
                 LastName = "Tim", 
-                Email = "bob@mail.com", 
+                Email = "dawd@mail.com", 
                 Password = "12345566"
             });
 
-            Assert.Equal("Tim", users.Read(12).FirstName);
+            Assert.Equal("Tim", users.Read(39).FirstName);
         }
 
         [Fact]
@@ -94,9 +96,9 @@ namespace CM.TeamReports.DataLayer.tests
         {
             UsersRepository users = new UsersRepository();
 
-            users.Delete(16);
+            users.Delete(40);
 
-            Assert.Null(users.Read(16));
+            Assert.Null(users.Read(40));
         }
     }
 }

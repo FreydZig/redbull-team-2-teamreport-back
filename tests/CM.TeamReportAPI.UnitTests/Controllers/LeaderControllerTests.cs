@@ -1,12 +1,7 @@
-﻿using CM.TeamReport.Domain.Services.Interfaces;
+﻿using CM.TeamReport.Domain.Models;
+using CM.TeamReport.Domain.Services.Interfaces;
 using CM.TeamReportAPI.Controllers;
-using CM.TeamRepots.DataLayer.Interfaces;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CM.TeamReportAPI.UnitTests.Controllers
 {
@@ -55,6 +50,62 @@ namespace CM.TeamReportAPI.UnitTests.Controllers
             LeaderController leaderController = new LeaderController(leaderService.Object);
 
             Assert.True(leaderController.Check(1));
+        }
+
+        [Fact]
+        public void ShouldBeAbleToReturnListOfOlderReportsMorale()
+        {
+            var leaderService = new Mock<ILeaderSevice>();
+
+            leaderService.Setup(l => l.StateSort(1, 'M')).Returns(new List<OverallReports>());
+
+            LeaderController leaderController = new LeaderController(leaderService.Object);
+
+            var list = leaderController.OlderReportsMorale(1);
+
+            Assert.NotNull(list);
+        }
+
+        [Fact]
+        public void ShouldBeAbleToReturnListOfOlderReportsStress()
+        {
+            var leaderService = new Mock<ILeaderSevice>();
+
+            leaderService.Setup(l => l.StateSort(1, 'S')).Returns(new List<OverallReports>());
+
+            LeaderController leaderController = new LeaderController(leaderService.Object);
+
+            var list = leaderController.OlderReportsStress(1);
+
+            Assert.NotNull(list);
+        }
+
+        [Fact]
+        public void ShouldBeAbleToReturnListOfOlderReportsWorkload()
+        {
+            var leaderService = new Mock<ILeaderSevice>();
+
+            leaderService.Setup(l => l.StateSort(1, 'W')).Returns(new List<OverallReports>());
+
+            LeaderController leaderController = new LeaderController(leaderService.Object);
+
+            var list = leaderController.OlderReportsWorkload(1);
+
+            Assert.NotNull(list);
+        }
+
+        [Fact]
+        public void ShouldBeAbleToReturnListOfCurenReports()
+        {
+            var leaderService = new Mock<ILeaderSevice>();
+
+            leaderService.Setup(l => l.CurentReports(1)).Returns(new List<PreviousReports>());
+
+            LeaderController leaderController = new LeaderController(leaderService.Object);
+
+            var list = leaderController.CurentPeriod(1);
+
+            Assert.NotNull(list);
         }
     }
 }

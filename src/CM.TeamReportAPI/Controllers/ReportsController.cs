@@ -2,7 +2,6 @@
 using CM.TeamReport.Domain.Services.Interfaces;
 using CM.TeamReportAPI.Models;
 using CM.TeamRepots.DataLayer.Entity;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CM.TeamReportAPI.Controllers
@@ -22,9 +21,9 @@ namespace CM.TeamReportAPI.Controllers
 
         [HttpPost]
         [Route("add")]
-        public IActionResult ReportAdd([FromBody] ReportFormBody rfb)
+        public IActionResult ReportAdd([FromBody] ReportFormBody reportFromBody)
         {
-            var report = _mapper.Map<ReportFormBody, Reports>(rfb);
+            var report = _mapper.Map<ReportFormBody, Reports>(reportFromBody);
 
             _reportsService.AddReport(report);
 

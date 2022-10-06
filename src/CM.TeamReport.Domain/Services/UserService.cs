@@ -1,14 +1,7 @@
-﻿
-using CM.TeamReport.Domain.Models;
+﻿using CM.TeamReport.Domain.Models;
 using CM.TeamReport.Domain.Services.Interfaces;
 using CM.TeamRepots.DataLayer.Entity;
 using CM.TeamRepots.DataLayer.Interfaces;
-using CM.TeamRepots.DataLayer.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CM.TeamReport.Domain.Services
 {
@@ -41,7 +34,7 @@ namespace CM.TeamReport.Domain.Services
             {
                 var leader = new Leaders() { TeamId = teamId, UserId = userId };
 
-                _leaderRepository.Delete(userId);
+                _leaderRepository.Delete(userId, teamId);
 
                 _leaderRepository.Create(leader);
 

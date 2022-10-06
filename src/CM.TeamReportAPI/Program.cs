@@ -7,7 +7,6 @@ using CM.TeamRepots.DataLayer.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using AutoMapper;
 using CM.TeamRepots.DataLayer.Entity;
 
 var builder = WebApplication.CreateBuilder(args);

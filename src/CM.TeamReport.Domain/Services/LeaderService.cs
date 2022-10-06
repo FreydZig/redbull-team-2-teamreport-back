@@ -1,12 +1,6 @@
 ﻿using CM.TeamReport.Domain.Models;
 using CM.TeamReport.Domain.Services.Interfaces;
-using CM.TeamRepots.DataLayer.Entity;
 using CM.TeamRepots.DataLayer.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CM.TeamReport.Domain.Services
 {
@@ -23,20 +17,11 @@ namespace CM.TeamReport.Domain.Services
             _leadersRepository = leadersRepository;
         }
 
-        //public void InviteTeam(string email, int TeamId)
-        //{
-        //    var user = _userRepository.Read(email);
-
-        //    user.TeamId = TeamId;
-
-        //    _userRepository.Update(user);
-        //}
-
         public List<OverallReports> OverallReports(int TeamId)
         {
             var users = _userRepository.GetAll(TeamId);
 
-            List<OverallReports> teamReports = new List<OverallReports>();
+            var teamReports = new List<OverallReports>();
 
             foreach (var user in users)
             {
@@ -53,7 +38,7 @@ namespace CM.TeamReport.Domain.Services
                 teamReport.ago2 = _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 14), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 7), user.UserId);
                 teamReport.ago1 = _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 7), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now)), user.UserId);
 
-                teamReport.UserName = user.FirstName + ' ' + user.LastName; 
+                teamReport.UserName = string.Format("{0} {1}", user.FirstName, user.LastName);
 
                 teamReports.Add(teamReport);
             }
@@ -65,8 +50,9 @@ namespace CM.TeamReport.Domain.Services
         {
             var users = _userRepository.GetAll(TeamId);
 
-            List<OverallReports> teamReports = new List<OverallReports>();
+            var teamReports = new List<OverallReports>();
 
+            if(users != null)
             foreach (var user in users)
             {
                 var teamReport = new OverallReports();
@@ -82,7 +68,7 @@ namespace CM.TeamReport.Domain.Services
                 teamReport.ago2 = _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 14), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 7));
                 teamReport.ago1 = _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 7), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now)));
 
-                teamReport.UserName = user.FirstName + ' ' + user.LastName; 
+                teamReport.UserName = string.Format("{0} {1}", user.FirstName, user.LastName);
 
                 teamReports.Add(teamReport);
             }
@@ -102,7 +88,7 @@ namespace CM.TeamReport.Domain.Services
 
                 var report = _reportsRepository.ReadByUserIdAndPeriod(user.UserId, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now)), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 7));
 
-                previousReport.Name = user.FirstName + ' ' + user.LastName;
+                previousReport.Name = string.Format("{0} {1}",user.FirstName, user.LastName);
 
                 if (report != null)
                 {         
@@ -129,7 +115,7 @@ namespace CM.TeamReport.Domain.Services
 
                 var report = _reportsRepository.ReadByUserIdAndPeriod(user.UserId, DateTime.Now, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now)));
 
-                previousReport.Name = user.FirstName + ' ' + user.LastName;
+                previousReport.Name = string.Format("{0} {1}", user.FirstName, user.LastName);
 
                 if (report != null)
                 {

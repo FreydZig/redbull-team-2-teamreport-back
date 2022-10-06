@@ -5,7 +5,7 @@ using Xunit;
 
 namespace CM.TeamReports.DataLayer.tests
 {
-    public class LeadeRepositoryTests
+    public class LeaderRepositoryTests
     {
         [Fact]
         public void ShouldBeAbleToGetAllLeaders()
@@ -14,7 +14,7 @@ namespace CM.TeamReports.DataLayer.tests
 
             var leaders2 = leaders.GetAll();
 
-            Assert.Equal(4, leaders2.Count);
+            Assert.Equal(1, leaders2.Count);
         }
 
         [Fact]
@@ -22,9 +22,9 @@ namespace CM.TeamReports.DataLayer.tests
         {
             LeaderRepository leaders = new LeaderRepository();
 
-            var leader = leaders.Read(28);
+            var leader = leaders.Read(34);
 
-            Assert.Equal(9, leader.LeaderId);
+            Assert.Equal(10, leader.LeaderId);
         }
 
         [Fact]
@@ -42,9 +42,9 @@ namespace CM.TeamReports.DataLayer.tests
         {
             LeaderRepository leaders = new LeaderRepository();
 
-            leaders.Create(new Leaders { TeamId = 1, UserId = 28 });
+            leaders.Create(new Leaders { TeamId = 14, UserId = 36 });
 
-            Assert.Equal(28, leaders.Read(28).UserId);
+            Assert.Equal(36, leaders.Read(36).UserId);
         }
 
         [Fact]
@@ -60,9 +60,29 @@ namespace CM.TeamReports.DataLayer.tests
         {
             LeaderRepository leader = new LeaderRepository();
 
-            leader.Delete(5);
+            leader.Delete(41);
 
-            Assert.Null(leader.Read(5));
+            Assert.Null(leader.Read(41));
+        }
+
+        [Fact]
+        public void ShouldBeAbleToReadByTeamId()
+        {
+            LeaderRepository leaderRepository = new LeaderRepository();
+
+            var leader = leaderRepository.ReadByTeamId(14);
+
+            Assert.Equal(14, leader.LeaderId);
+        }
+
+        [Fact]
+        public void ShouldBeAbleToDeleteLeaderByTwoArgs()
+        {
+            var leader = new LeaderRepository();
+
+            leader.Delete(34, 13);
+
+            Assert.Null(leader.ReadByTeamId(13));
         }
     }
 }

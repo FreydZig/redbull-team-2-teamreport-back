@@ -5,12 +5,7 @@ using CM.TeamReportAPI.Models;
 using CM.TeamRepots.DataLayer.Entity;
 using CM.TeamRepots.DataLayer.Interfaces;
 using Moq;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CM.TeamReportAPI.UnitTests.Controllers
 {
@@ -37,33 +32,35 @@ namespace CM.TeamReportAPI.UnitTests.Controllers
             var userRpository = new Mock<IUserRepository>();
             var mapper = new Mock<IMapper>();
 
-            var ucm = new Models.UserCreateModel()
+            var userCreateModel = new UserCreateModel()
             {
                 FirstName = "Men",
                 LastName = "NoMen",
                 Email = "z@mail.com",
+                Title = "Title",
                 Password = "dadsadasd"
             };
 
             var user = new Users()
             {
                 UserId = 1,
-                FirstName = ucm.FirstName,
-                LastName = ucm.LastName,
-                Email = ucm.Email,
-                Password = ucm.Password
+                FirstName = userCreateModel.FirstName,
+                LastName = userCreateModel.LastName,
+                Email = userCreateModel.Email,
+                Title = userCreateModel.Title,
+                Password = userCreateModel.Password
             };
 
             mapper.Setup(m => m.Map<UserCreateModel, Users>(It.IsAny<UserCreateModel>())).Returns(user);
 
-            userRpository.Setup(u => u.Read(ucm.Email)).Returns((Users)null);
+            userRpository.Setup(u => u.Read(userCreateModel.Email)).Returns((Users)null);
 
             authService.Setup(a => a.GetToken(user)).Returns("dsadwdwadwada");
 
             AuthenticationController controller = new AuthenticationController(authService.Object, userService.Object, userRpository.Object, mapper.Object);
 
-
-            Assert.NotNull(controller.Registration(ucm));
+            Assert.Equal("Title", userCreateModel.Title);
+            Assert.NotNull(controller.Registration(userCreateModel));
         }
 
         [Fact]
@@ -74,7 +71,7 @@ namespace CM.TeamReportAPI.UnitTests.Controllers
             var userRpository = new Mock<IUserRepository>();
             var mapper = new Mock<IMapper>();
 
-            var ucm = new Models.UserCreateModel()
+            var userCreateModel = new UserCreateModel()
             {
                 FirstName = "Men",
                 LastName = "NoMen",
@@ -85,21 +82,21 @@ namespace CM.TeamReportAPI.UnitTests.Controllers
             var user = new Users()
             {
                 UserId = 1,
-                FirstName = ucm.FirstName,
-                LastName = ucm.LastName,
-                Email = ucm.Email,
-                Password = ucm.Password
+                FirstName = userCreateModel.FirstName,
+                LastName = userCreateModel.LastName,
+                Email = userCreateModel.Email,
+                Password = userCreateModel.Password
             };
 
             mapper.Setup(m => m.Map<UserCreateModel, Users>(It.IsAny<UserCreateModel>())).Returns(user);
 
-            userRpository.Setup(u => u.Read(ucm.Email)).Returns(user);
+            userRpository.Setup(u => u.Read(userCreateModel.Email)).Returns(user);
 
 
             AuthenticationController controller = new AuthenticationController(authService.Object, userService.Object, userRpository.Object, mapper.Object);
 
 
-            Assert.Throws<DataException>(() => controller.Registration(ucm));
+            Assert.Throws<DataException>(() => controller.Registration(userCreateModel));
         }
 
         [Fact]
