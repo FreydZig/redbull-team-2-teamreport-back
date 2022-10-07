@@ -1,5 +1,6 @@
 ﻿using CM.TeamRepots.DataLayer.Entity;
 using CM.TeamRepots.DataLayer.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace CM.TeamRepots.DataLayer.Repositories
 {
@@ -21,11 +22,11 @@ namespace CM.TeamRepots.DataLayer.Repositories
                 .SaveChanges();
         }
 
-        public void Delete(int entityCode)
+        public async void Delete(int entityCode)
         {
             _context
                 .Teams
-                .Remove(Read(entityCode));
+                .Remove(await Read(entityCode));
             _context
                 .SaveChanges();
         }
@@ -38,12 +39,11 @@ namespace CM.TeamRepots.DataLayer.Repositories
             return teams;
         }
 
-        public Teams Read(int entityCode)
+        public async Task<Teams> Read(int entityCode)
         {
-            var team = _context
+            return await _context
                 .Teams
-                .FirstOrDefault(t => t.TeamId == entityCode);
-            return team;
+                .FirstOrDefaultAsync(t => t.TeamId == entityCode);
         }
 
         public void Update(Teams entity)

@@ -7,9 +7,9 @@ namespace CM.TeamReport.Domain.Services.Interfaces
     {
         public void AddUser(Users user);
 
-        public bool ChoseLeader(int teamId, int userId);
+        public Task<bool> ChoseLeader(int teamId, int userId);
 
-        public List<UserForLeader> ListUsers(int teamId);
+        public Task<List<UserForLeader>> ListUsers(int teamId);
 
     }
 }

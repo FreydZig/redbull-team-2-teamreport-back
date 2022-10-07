@@ -17,9 +17,9 @@ namespace CM.TeamReport.Domain.Services
             _leadersRepository = leadersRepository;
         }
 
-        public List<OverallReports> OverallReports(int TeamId)
+        public async Task<List<OverallReports>> OverallReports(int TeamId)
         {
-            var users = _userRepository.GetAll(TeamId);
+            var users = await _userRepository.GetAll(TeamId);
 
             var teamReports = new List<OverallReports>();
 
@@ -27,28 +27,28 @@ namespace CM.TeamReport.Domain.Services
             {
                 var teamReport = new OverallReports();
 
-                teamReport.Current = _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now)), DateTime.Now, user.UserId);
-                teamReport.ago9 = _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 61), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 56), user.UserId);
-                teamReport.ago8 = _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 56), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 49), user.UserId);
-                teamReport.ago7 = _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 49), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 42), user.UserId);
-                teamReport.ago6 = _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 42), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 35), user.UserId);
-                teamReport.ago5 = _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 35), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 28), user.UserId);
-                teamReport.ago4 = _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 28), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 21), user.UserId);
-                teamReport.ago3 = _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 21), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 14), user.UserId);
-                teamReport.ago2 = _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 14), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 7), user.UserId);
-                teamReport.ago1 = _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 7), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now)), user.UserId);
+                teamReport.Current = await _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now)), DateTime.Now, user.UserId);
+                teamReport.ago9 = await _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 61), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 56), user.UserId);
+                teamReport.ago8 = await _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 56), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 49), user.UserId);
+                teamReport.ago7 = await _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 49), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 42), user.UserId);
+                teamReport.ago6 = await _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 42), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 35), user.UserId);
+                teamReport.ago5 = await _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 35), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 28), user.UserId);
+                teamReport.ago4 = await _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 28), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 21), user.UserId);
+                teamReport.ago3 = await _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 21), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 14), user.UserId);
+                teamReport.ago2 = await _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 14), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 7), user.UserId);
+                teamReport.ago1 = await _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 7), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now)), user.UserId);
 
                 teamReport.UserName = string.Format("{0} {1}", user.FirstName, user.LastName);
 
                 teamReports.Add(teamReport);
             }
 
-            return  teamReports;
+            return teamReports;
         }
 
-        public List<OverallReports> StateSort(int TeamId, char state)
+        public async Task<List<OverallReports>> StateSort(int TeamId, char state)
         {
-            var users = _userRepository.GetAll(TeamId);
+            var users = await _userRepository.GetAll(TeamId);
 
             var teamReports = new List<OverallReports>();
 
@@ -57,16 +57,16 @@ namespace CM.TeamReport.Domain.Services
             {
                 var teamReport = new OverallReports();
 
-                teamReport.Current = _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now)), DateTime.Now);
-                teamReport.ago9 = _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 61), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 56));
-                teamReport.ago8 = _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 56), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 49));
-                teamReport.ago7 = _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 49), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 42));
-                teamReport.ago6 = _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 42), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 35));
-                teamReport.ago5 = _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 35), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 28));
-                teamReport.ago4 = _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 28), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 21));
-                teamReport.ago3 = _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 21), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 14));
-                teamReport.ago2 = _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 14), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 7));
-                teamReport.ago1 = _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 7), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now)));
+                teamReport.Current = await _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now)), DateTime.Now);
+                teamReport.ago9 = await _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 61), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 56));
+                teamReport.ago8 = await _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 56), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 49));
+                teamReport.ago7 = await _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 49), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 42));
+                teamReport.ago6 = await _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 42), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 35));
+                teamReport.ago5 = await _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 35), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 28));
+                teamReport.ago4 = await _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 28), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 21));
+                teamReport.ago3 = await _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 21), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 14));
+                teamReport.ago2 = await _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 14), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 7));
+                teamReport.ago1 = await _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 7), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now)));
 
                 teamReport.UserName = string.Format("{0} {1}", user.FirstName, user.LastName);
 
@@ -76,9 +76,9 @@ namespace CM.TeamReport.Domain.Services
             return  teamReports;
         }
 
-        public List<PreviousReports> PreviousReports(int TeamId)
+        public async Task<List<PreviousReports>> PreviousReports(int TeamId)
         {
-            var users = _userRepository.GetAll(TeamId);
+            var users = await _userRepository.GetAll(TeamId);
 
             List<PreviousReports> previousReports = new List<PreviousReports>();
 
@@ -86,7 +86,7 @@ namespace CM.TeamReport.Domain.Services
             {
                 var previousReport = new PreviousReports();
 
-                var report = _reportsRepository.ReadByUserIdAndPeriod(user.UserId, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now)), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 7));
+                var report = await _reportsRepository.ReadByUserIdAndPeriod(user.UserId, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now)), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 7));
 
                 previousReport.Name = string.Format("{0} {1}",user.FirstName, user.LastName);
 
@@ -103,9 +103,9 @@ namespace CM.TeamReport.Domain.Services
             return previousReports;
         }
 
-        public List<PreviousReports> CurentReports(int TeamId)
+        public async Task<List<PreviousReports>> CurentReports(int TeamId)
         {
-            var users = _userRepository.GetAll(TeamId);
+            var users = await _userRepository.GetAll(TeamId);
 
             List<PreviousReports> previousReports = new List<PreviousReports>();
 
@@ -113,7 +113,7 @@ namespace CM.TeamReport.Domain.Services
             {
                 var previousReport = new PreviousReports();
 
-                var report = _reportsRepository.ReadByUserIdAndPeriod(user.UserId, DateTime.Now, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now)));
+                var report = await _reportsRepository.ReadByUserIdAndPeriod(user.UserId, DateTime.Now, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now)));
 
                 previousReport.Name = string.Format("{0} {1}", user.FirstName, user.LastName);
 
@@ -130,9 +130,9 @@ namespace CM.TeamReport.Domain.Services
             return previousReports;
         }
 
-        public bool IsLeader(int UserId)
+        public async Task<bool> IsLeader(int UserId)
         {
-            var leader = _leadersRepository.Read(UserId);
+            var leader = await _leadersRepository.Read(UserId);
             
             return leader != null;
         }

@@ -30,13 +30,13 @@ namespace CM.TeamReport.Domain.Services
                     claims: new List<Claim>(){ new Claim("userId", user.UserId.ToString()), new Claim("teamId", user.TeamId.ToString()) },
                     signingCredentials: new SigningCredentials(JwtOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
 
-            return new JwtSecurityTokenHandler().WriteToken(jwt); 
+            return  new JwtSecurityTokenHandler().WriteToken(jwt); 
             throw new NotImplementedException();
         }
 
-        public Users UserLogin(string email, string password)
+        public async Task<Users> UserLogin(string email, string password)
         {
-            var user = _usersRepository.Read(email);
+            var user = await _usersRepository.Read(email);
             if (user == null || user.Email == null)
             {
                 throw new LoginException("Email isn't correct!");

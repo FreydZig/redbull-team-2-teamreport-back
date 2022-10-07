@@ -4,8 +4,8 @@ namespace CM.TeamRepots.DataLayer.Interfaces
 {
     public  interface IUserRepository : IRepository<Users>
     {
-        Users Read(string email);
+        Task<Users> Read(string email);
 
-        List<Users> GetAll(int entityId);
+        Task<List<Users>> GetAll(int entityId);
     }
 }
