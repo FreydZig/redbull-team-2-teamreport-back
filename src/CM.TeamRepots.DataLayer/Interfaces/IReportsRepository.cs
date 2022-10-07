@@ -6,9 +6,9 @@ namespace CM.TeamRepots.DataLayer.Interfaces
     {
         public List<Reports> GetAllByTeamId(int entityCode);
         public List<Reports> GetAllByUserId(int entityCode);
-        public int SumOfUserStates (DateTime start, DateTime end, int entityId);
-        public Reports ReadByUserIdAndPeriod(int entityCode, DateTime start, DateTime end);
-        public int UserState(int entityCode, char state, DateTime start, DateTime end);
+        public Task<int> SumOfUserStates (DateTime start, DateTime end, int entityId);
+        public Task<Reports> ReadByUserIdAndPeriod(int entityCode, DateTime start, DateTime end);
+        public Task<int> UserState(int entityCode, char state, DateTime start, DateTime end);
 
     }
 }

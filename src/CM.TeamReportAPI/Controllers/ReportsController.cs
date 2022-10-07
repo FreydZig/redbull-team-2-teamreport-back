@@ -21,7 +21,7 @@ namespace CM.TeamReportAPI.Controllers
 
         [HttpPost]
         [Route("add")]
-        public IActionResult ReportAdd([FromBody] ReportFormBody reportFromBody)
+        public async Task<IActionResult> ReportAdd([FromBody] ReportFormBody reportFromBody)
         {
             var report = _mapper.Map<ReportFormBody, Reports>(reportFromBody);
 

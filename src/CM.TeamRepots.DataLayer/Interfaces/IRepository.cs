@@ -4,7 +4,7 @@
     {
         void Create(TEntity entity);
 
-        TEntity Read(int entityCode);
+        Task<TEntity> Read(int entityCode);
 
         void Update(TEntity entity);
 

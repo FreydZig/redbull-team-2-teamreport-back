@@ -1,5 +1,6 @@
 ﻿using CM.TeamRepots.DataLayer.Entity;
 using CM.TeamRepots.DataLayer.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace CM.TeamRepots.DataLayer.Repositories
 {
@@ -21,11 +22,11 @@ namespace CM.TeamRepots.DataLayer.Repositories
                 .SaveChanges();
         }
 
-        public void Delete(int entityCode)
+        public async void Delete(int entityCode)
         {
             _context
                 .Reports
-                .Remove(Read(entityCode));
+                .Remove( await Read(entityCode));
             _context
                 .SaveChanges();
         }
@@ -70,20 +71,18 @@ namespace CM.TeamRepots.DataLayer.Repositories
             return reports;
         }
 
-        public Reports Read(int entityCode)
+        public async Task<Reports> Read(int entityCode)
         {
-            var report = _context
+            return await _context
                 .Reports
-                .FirstOrDefault(r => r.ReportId == entityCode);
-            
-            return report;
+                .FirstOrDefaultAsync(r => r.ReportId == entityCode);
         }
 
-        public Reports ReadByUserIdAndPeriod(int entityCode, DateTime start, DateTime end)
+        public async Task<Reports> ReadByUserIdAndPeriod(int entityCode, DateTime start, DateTime end)
         {
-            var report = _context
+            var report = await _context
                     .Reports
-                    .FirstOrDefault
+                    .FirstOrDefaultAsync
                     (r => 
                         r.UserId == entityCode
                         && 
@@ -95,11 +94,11 @@ namespace CM.TeamRepots.DataLayer.Repositories
             return report;
         }
 
-        public int UserState(int entityCode, char state, DateTime start, DateTime end)
+        public async Task<int> UserState(int entityCode, char state, DateTime start, DateTime end)
         {
-            var report = _context
+            var report = await _context
                     .Reports
-                    .FirstOrDefault
+                    .FirstOrDefaultAsync
                     (r =>
                         r.UserId == entityCode
                         &&
@@ -119,11 +118,11 @@ namespace CM.TeamRepots.DataLayer.Repositories
         }
 
             
-        public int SumOfUserStates(DateTime start, DateTime end, int Id)
+        public async Task<int> SumOfUserStates(DateTime start, DateTime end, int Id)
         {
-            var report = _context
+            var report = await _context
                    .Reports
-                   .FirstOrDefault
+                   .FirstOrDefaultAsync
                    (r =>
                         r.DateRange >= start
                         &&
