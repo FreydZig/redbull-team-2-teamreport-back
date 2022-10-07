@@ -1,13 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CM.TeamRepots.DataLayer.Entity
+namespace CM.TeamReportAPI.Models
 {
-    public class Leaders
+    public class LeaderFromBody
     {
-        [Required]
-        [Key]
-        public int LeaderId { get; set; }
-
         [Required]
         public int UserId { get; set; }
 

@@ -3,7 +3,6 @@ using CM.TeamReport.Domain.Services.Interfaces;
 using CM.TeamReportAPI.Models;
 using CM.TeamRepots.DataLayer.Entity;
 using CM.TeamRepots.DataLayer.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 
@@ -29,11 +28,11 @@ namespace CM.TeamReportAPI.Controllers
 
         [HttpPost]
         [Route("registration")]
-        public string Registration([FromBody] UserCreateModel ucm)
+        public string Registration([FromBody] UserCreateModel userCreateModel)
         {
-            var userModel = _mapper.Map<UserCreateModel, Users>(ucm);
+            var userModel = _mapper.Map<UserCreateModel, Users>(userCreateModel);
 
-            var email = _userRpository.Read(userModel.Email);
+            var email = _userRpository.Read(userCreateModel.Email);
 
             if (email != null) throw new DataException("This Email is registred!");
 
@@ -44,9 +43,9 @@ namespace CM.TeamReportAPI.Controllers
 
         [HttpPost]
         [Route("login")]
-        public string Login([FromBody] UserLogin login)
+        public string Login([FromBody] UserLogin userLogin)
         {
-            var user = _authService.UserLogin(login.Email, login.Password);
+            var user = _authService.UserLogin(userLogin.Email, userLogin.Password);
 
             return _authService.GetToken(user);
         }

@@ -28,7 +28,7 @@ namespace CM.TeamReport.Domain.Services
             myemail.From.Add(MailboxAddress.Parse(_configuration.GetSection("EmailConfig:EmailUsername").Value));
             myemail.To.Add(MailboxAddress.Parse(request.Email));
             myemail.Subject = "Team Invitation ";
-            myemail.Body = new TextPart(TextFormat.Html) { Text = $"<h1>Hello {request.FirstName} you were invited to the team.</h1><p>Follow this lonk to join us: <a href=\"{request.Link}\"></a>" };
+            myemail.Body = new TextPart(TextFormat.Html) { Text = $"<h1>Hello {request.FirstName} {request.LastName} you were invited to the team.</h1><p>Follow this link to join us: <a href=\"{request.Link}\">link</a>" };
 
             using var smtp = new SmtpClient();
             smtp.Connect(_configuration.GetSection("EmailConfig:EmailHost").Value,int.Parse(_configuration.GetSection("EmailConfig:EmailPort").Value), SecureSocketOptions.Auto);

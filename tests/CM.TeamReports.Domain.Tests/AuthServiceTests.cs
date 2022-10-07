@@ -5,7 +5,6 @@ using CM.TeamRepots.DataLayer.Interfaces;
 using FluentAssertions;
 using Moq;
 using System.Data;
-using System.Security.Cryptography.X509Certificates;
 
 namespace CM.TeamReports.Domain.Tests
 {

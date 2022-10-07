@@ -33,9 +33,9 @@ namespace CM.TeamReports.DataLayer.tests
         {
             ReportsRepository reports = new ReportsRepository();
 
-            var reports2 = reports.GetAllByUserId(13);
+            var reports2 = reports.GetAllByUserId(34);
 
-            Assert.Equal(3, reports2.Count);
+            Assert.Equal(5, reports2.Count);
         }
 
         [Fact]
@@ -43,29 +43,9 @@ namespace CM.TeamReports.DataLayer.tests
         {
             ReportsRepository reports = new ReportsRepository();
 
-            var report = reports.Read(1);
+            var report = reports.Read(31);
 
-            Assert.Equal(1, report.ReportId);
-        }
-
-        [Fact]
-        public void ShouldBeAbleToReturnReportByDate()
-        {
-            ReportsRepository reports = new ReportsRepository();
-
-            var report = reports.ReadByDate(new System.DateTime(2022 , 09 , 14));
-
-            Assert.Equal(15, report.ReportId);
-        }
-
-        [Fact]
-        public void ShouldNotBeAbleToReturnReportByDate()
-        {
-            ReportsRepository reports = new ReportsRepository();
-
-            var report = reports.ReadByDate(new System.DateTime(2021, 09, 14));
-
-            Assert.Null(report);
+            Assert.Equal(31, report.ReportId);
         }
 
         [Fact]
@@ -73,9 +53,29 @@ namespace CM.TeamReports.DataLayer.tests
         {
             ReportsRepository reports = new ReportsRepository();
 
-            var report = reports.ReadByPeriod(new System.DateTime(2021, 09, 14), new System.DateTime(2022, 09, 14), 28);
+            var report = reports.SumOfUserStates(System.DateTime.Now.AddDays(-3), System.DateTime.Now, 34);
 
-            Assert.Equal(3, report);
+            Assert.Equal(1, report);
+        }
+
+        [Fact]
+        public void ShouldBeAbleToReturnReportByUserIdAndPeriod()
+        {
+            ReportsRepository reports = new ReportsRepository();
+            //TODO: Fix this test and tests under him
+            var report = reports.ReadByUserIdAndPeriod(34, System.DateTime.Now, System.DateTime.Now.AddDays(-3));
+
+            Assert.Equal(34, report.UserId);
+        }
+
+        [Fact]
+        public void ShouldNotBeAbleToReturnReportByUserIdAndPeriod()
+        {
+            ReportsRepository reports = new ReportsRepository();
+
+            var report = reports.ReadByUserIdAndPeriod(31, System.DateTime.Now, System.DateTime.Now.AddDays(-3));
+
+            Assert.Null(report);
         }
 
         [Fact]
@@ -83,9 +83,9 @@ namespace CM.TeamReports.DataLayer.tests
         {
             ReportsRepository reports = new ReportsRepository();
 
-            var report = reports.ReadByPeriod(new System.DateTime(2021, 09, 14), new System.DateTime(2012, 09, 14), 28);
+            var report = reports.SumOfUserStates(new System.DateTime(2021, 09, 14), new System.DateTime(2012, 09, 14), 31);
 
-            Assert.Null(report);
+            Assert.Equal(0, report);
         }
 
         [Fact]
@@ -114,7 +114,7 @@ namespace CM.TeamReports.DataLayer.tests
                 High = "High",
                 Low = "Low",
                 //AnythingElse = "Nothing",
-                DateRange = new System.DateTime(2022, 09, 14)
+                DateRange = new System.DateTime(2022, 10, 4)
             });
 
             Assert.Equal(2, reports.Read(15).Morale);
@@ -126,6 +126,46 @@ namespace CM.TeamReports.DataLayer.tests
             ReportsRepository reports = new ReportsRepository();
 
             Assert.Throws<System.NotImplementedException>(() => reports.Update(new Reports()));
+        }
+
+        [Fact]
+        public void ShouldBeAbleToReturnUserMorale()
+        {
+            ReportsRepository reports = new ReportsRepository();
+
+            var morale = reports.UserState(37, 'M', System.DateTime.Now.AddDays(-4), System.DateTime.Now);
+
+            Assert.Equal(4, morale);
+        }
+
+        [Fact]
+        public void ShouldBeAbleToReturnUserStress()
+        {
+            ReportsRepository reports = new ReportsRepository();
+
+            var stress = reports.UserState(37, 'S', System.DateTime.Now.AddDays(-4), System.DateTime.Now);
+
+            Assert.Equal(2, stress);
+        }
+
+        [Fact]
+        public void ShouldBeAbleToReturnUserWorkload()
+        {
+            ReportsRepository reports = new ReportsRepository();
+
+            var workload = reports.UserState(37, 'W', System.DateTime.Now.AddDays(-4), System.DateTime.Now);
+
+            Assert.Equal(5, workload);
+        }
+
+        [Fact]
+        public void ShouldBeAbleToReturnUserStateLikeZero()
+        {
+            ReportsRepository reports = new ReportsRepository();
+
+            var state = reports.UserState(37, 'f', System.DateTime.Now.AddDays(-4), System.DateTime.Now);
+
+            Assert.Equal(0, state);
         }
     }
 }

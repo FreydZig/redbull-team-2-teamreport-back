@@ -9,6 +9,7 @@ namespace CM.TeamReport.Domain.Models
     public class InviteMember
     {
         public string FirstName { get; set; } = String.Empty;
+        public string LastName { get; set; } = String.Empty;
         public string Link { get; set; } = String.Empty;
         public string Email { get; set; } = String.Empty;
     }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace CM.TeamRepots.DataLayer.Entity
 {
@@ -19,6 +14,8 @@ namespace CM.TeamRepots.DataLayer.Entity
 
         [StringLength(50, MinimumLength = 1)]
         public string LastName { get; set; }
+
+        public string? Title { get; set; }
 
         [Required]
         [EmailAddress]

@@ -79,36 +79,63 @@ namespace CM.TeamRepots.DataLayer.Repositories
             return report;
         }
 
-        public Reports ReadByDate(DateTime date)
+        public Reports ReadByUserIdAndPeriod(int entityCode, DateTime start, DateTime end)
         {
-            try
-            {
-                var report = _context
-                   .Reports
-                   .First(r => r.DateRange == date);
+            var report = _context
+                    .Reports
+                    .FirstOrDefault
+                    (r => 
+                        r.UserId == entityCode
+                        && 
+                        r.DateRange <= start 
+                        &&
+                        r.DateRange >= end
+                    );
 
-                return report;
-            }
-            catch (Exception ex)
+            return report;
+        }
+
+        public int UserState(int entityCode, char state, DateTime start, DateTime end)
+        {
+            var report = _context
+                    .Reports
+                    .FirstOrDefault
+                    (r =>
+                        r.UserId == entityCode
+                        &&
+                        r.DateRange <= end
+                        &&
+                        r.DateRange >= start
+                    );
+            if(report == null) return 0;
+
+            switch (state)
             {
-                return null;
+                case 'M': return report.Morale;
+                case 'S': return report.Stress;
+                case 'W': return report.Workload;
+                default: return 0;
             }
         }
 
-        public int ReadByPeriod(DateTime start, DateTime end, int Id)
+            
+        public int SumOfUserStates(DateTime start, DateTime end, int Id)
         {
-            try
-            {
-                var report = _context
+            var report = _context
                    .Reports
-                   .First(r => r.DateRange >= start && r.DateRange <= end && r.UserId == Id);
+                   .FirstOrDefault
+                   (r =>
+                        r.DateRange >= start
+                        &&
+                        r.DateRange <= end
+                        &&
+                        r.UserId == Id
+                    );
 
-                return (report.Morale + report.Stress + report.Workload) / 3;
-            }
-            catch
-            { 
-                return 0;
-            }
+            if(report != null)
+            return (report.Morale + report.Stress + report.Workload) / 3;
+
+            return 0;
         }
 
 

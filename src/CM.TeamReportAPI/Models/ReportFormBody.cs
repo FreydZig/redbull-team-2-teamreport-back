@@ -1,13 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CM.TeamRepots.DataLayer.Entity
+namespace CM.TeamReportAPI.Models
 {
-    public class Reports
+    public class ReportFormBody
     {
-        [Required]
-        [Key]
-        public int ReportId { get; set; }
-
         [Required]
         public int UserId { get; set; }
 
@@ -15,19 +11,19 @@ namespace CM.TeamRepots.DataLayer.Entity
         public int Morale { get; set; }
 
         [StringLength(255)]
-        public string MoraleDescription { get; set; } = String.Empty;
+        public string MoraleDescription { get; set; } = string.Empty;
 
         [Required]
         public int Stress { get; set; }
 
         [StringLength(255)]
-        public string StressDescription { get; set; } = String.Empty;
+        public string StressDescription { get; set; } = string.Empty;
 
         [Required]
         public int Workload { get; set; }
 
         [StringLength(255)]
-        public string WorkloadDescription { get; set; } = String.Empty;
+        public string WorkloadDescription { get; set; } = string.Empty;
 
         [Required]
         [StringLength(255)]
@@ -40,8 +36,7 @@ namespace CM.TeamRepots.DataLayer.Entity
         [StringLength(255)]
         public string AnythingElse { get; set; } = String.Empty;
 
-        [Required]  
+        [Required]
         public DateTime DateRange { get; set; }
-
     }
 }

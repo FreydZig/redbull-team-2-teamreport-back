@@ -1,6 +1,5 @@
 ﻿using CM.TeamRepots.DataLayer.Entity;
 using CM.TeamRepots.DataLayer.Interfaces;
-using System;
 
 namespace CM.TeamRepots.DataLayer.Repositories
 {
@@ -50,23 +49,17 @@ namespace CM.TeamRepots.DataLayer.Repositories
         {
             var user = _context
                 .Users
-                .First( u => u.UserId == entityCode);
+                .FirstOrDefault( u => u.UserId == entityCode);
             return user;
         }
 
         public Users Read(string email)
         {
-            try
-            {
-                var user = _context
+
+            var user = _context
                         .Users
-                        .First(u => u.Email == email);
-                return user;
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
+                        .FirstOrDefault(u => u.Email == email);
+            return user;
         }
 
         public void Update(Users entity)
@@ -77,12 +70,5 @@ namespace CM.TeamRepots.DataLayer.Repositories
             _context
                 .SaveChanges();
         }
-
-        //public Users GetUserByEmail(string email)
-        //{
-        //    return _context.
-        //        Users.
-        //        FirstOrDefault(c => c.Email == email);
-        //}
     }
 }
