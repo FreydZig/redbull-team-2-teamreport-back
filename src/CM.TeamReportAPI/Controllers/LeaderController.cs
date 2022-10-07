@@ -18,57 +18,57 @@ namespace CM.TeamReportAPI.Controllers
 
         [HttpGet]
         [Route("olderreports")]
-        public IEnumerable<OverallReports> OlderReports(int id)
+        public async Task<List<OverallReports>> OlderReports(int id)
         {
-            var list = _leaderService.OverallReports(id);
+            var list = await _leaderService.OverallReports(id);
             return list;
         }
 
         [HttpGet]
         [Route("olderreports/morale")]
-        public IEnumerable<OverallReports> OlderReportsMorale(int id)
+        public async Task<List<OverallReports>> OlderReportsMorale(int id)
         {
-            var list = _leaderService.StateSort(id, 'M');
+            var list = await _leaderService.StateSort(id, 'M');
             return list;
         }
 
         [HttpGet]
         [Route("olderreports/stress")]
-        public IEnumerable<OverallReports> OlderReportsStress(int id)
+        public async Task<List<OverallReports>> OlderReportsStress(int id)
         {
-            var list = _leaderService.StateSort(id, 'S');
+            var list = await _leaderService.StateSort(id, 'S');
             return list;
         }
 
         [HttpGet]
         [Route("olderreports/workload")]
-        public IEnumerable<OverallReports> OlderReportsWorkload(int id)
+        public async Task<List<OverallReports>> OlderReportsWorkload(int id)
         {
-            var list = _leaderService.StateSort(id, 'W');
+            var list = await _leaderService.StateSort(id, 'W');
             return list;
         }
 
         [HttpGet]
         [Route("previousperiod")]
-        public IEnumerable<PreviousReports> PreviousPeriod(int id)
+        public async Task<List<PreviousReports>> PreviousPeriod(int id)
         {
-            var list = _leaderService.PreviousReports(id);
+            var list = await _leaderService.PreviousReports(id);
             return list;
         }
 
         [HttpGet]
         [Route("curentperiod")]
-        public IEnumerable<PreviousReports> CurentPeriod(int id)
+        public async Task<List<PreviousReports>> CurentPeriod(int id)
         {
-            var list = _leaderService.CurentReports(id);
+            var list = await _leaderService.CurentReports(id);
             return list;
         }
 
         [HttpGet]
         [Route("check")]
-        public bool Check(int id)
+        public async Task<bool> Check(int id)
         {
-            return _leaderService.IsLeader(id);
+            return await _leaderService.IsLeader(id);
         }
     }
 }

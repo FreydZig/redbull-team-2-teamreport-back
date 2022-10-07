@@ -1,5 +1,6 @@
 ﻿using CM.TeamRepots.DataLayer.Entity;
 using CM.TeamRepots.DataLayer.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace CM.TeamRepots.DataLayer.Repositories
 {
@@ -21,9 +22,9 @@ namespace CM.TeamRepots.DataLayer.Repositories
                 .SaveChanges();
         }
 
-        public void Delete(int entityCode)
+        public async void Delete(int entityCode)
         {
-            var user = Read(entityCode);
+            var user = await Read(entityCode);
             if (user != null)
             {
                 _context
@@ -57,13 +58,11 @@ namespace CM.TeamRepots.DataLayer.Repositories
             return leaders;
         }
 
-        public Leaders Read(int entityCode)
+        public async Task<Leaders> Read(int entityCode)
         {
-            var leader = _context
+            return await _context
                 .Leaders
-                .FirstOrDefault(l => l.UserId == entityCode);
-
-            return leader;
+                .FirstOrDefaultAsync(l => l.UserId == entityCode); ;
         }
 
         public Leaders ReadByTeamId(int teamId)

@@ -28,11 +28,11 @@ namespace CM.TeamReportAPI.Controllers
 
         [HttpPost]
         [Route("registration")]
-        public string Registration([FromBody] UserCreateModel userCreateModel)
+        public async Task<string> Registration([FromBody] UserCreateModel userCreateModel)
         {
             var userModel = _mapper.Map<UserCreateModel, Users>(userCreateModel);
 
-            var email = _userRpository.Read(userCreateModel.Email);
+            var email = await _userRpository.Read(userCreateModel.Email);
 
             if (email != null) throw new DataException("This Email is registred!");
 
@@ -43,9 +43,9 @@ namespace CM.TeamReportAPI.Controllers
 
         [HttpPost]
         [Route("login")]
-        public string Login([FromBody] UserLogin userLogin)
+        public async Task<string> Login([FromBody] UserLogin userLogin)
         {
-            var user = _authService.UserLogin(userLogin.Email, userLogin.Password);
+            var user =  await _authService.UserLogin(userLogin.Email, userLogin.Password);
 
             return _authService.GetToken(user);
         }

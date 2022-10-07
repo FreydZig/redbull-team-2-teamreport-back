@@ -1,5 +1,6 @@
 ﻿using CM.TeamRepots.DataLayer.Entity;
 using CM.TeamRepots.DataLayer.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace CM.TeamRepots.DataLayer.Repositories
 {
@@ -21,11 +22,11 @@ namespace CM.TeamRepots.DataLayer.Repositories
                 .SaveChanges();
         }
 
-        public void Delete(int entityCode)
+        public async void Delete(int entityCode)
         {
             _context
                 .Users
-                .Remove(Read(entityCode));
+                .Remove(await Read(entityCode));
             _context.SaveChanges();
         }
 
@@ -37,29 +38,26 @@ namespace CM.TeamRepots.DataLayer.Repositories
             return users;
         }
 
-        public List<Users> GetAll(int entityCode)
+        public async Task<List<Users>> GetAll(int entityCode)
         {
-            var users = _context
+            var users = await _context
                 .Users
-                .Where(u => u.TeamId == entityCode).ToList();
+                .Where(u => u.TeamId == entityCode).ToListAsync();
             return users;
         }
 
-        public Users Read(int entityCode)
+        public async Task<Users> Read(int entityCode)
         {
-            var user = _context
+            return await _context
                 .Users
-                .FirstOrDefault( u => u.UserId == entityCode);
-            return user;
+                .FirstOrDefaultAsync(u => u.UserId == entityCode);
         }
 
-        public Users Read(string email)
+        public async Task<Users> Read(string email)
         {
-
-            var user = _context
+            return await _context
                         .Users
-                        .FirstOrDefault(u => u.Email == email);
-            return user;
+                        .FirstOrDefaultAsync(u => u.Email == email);
         }
 
         public void Update(Users entity)

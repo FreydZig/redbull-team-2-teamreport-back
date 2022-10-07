@@ -25,10 +25,10 @@ namespace CM.TeamReport.Domain.Services
             _usersRepository.Create(user);
         }
 
-        public bool ChoseLeader(int teamId, int userId)
+        public async Task<bool> ChoseLeader(int teamId, int userId)
         {
-            var user = _usersRepository.Read(userId);
-            var team = _teamRepository.Read(teamId);
+            var user = await _usersRepository.Read(userId);
+            var team = await _teamRepository.Read(teamId);
 
             if(user != null && team != null)
             {
@@ -44,9 +44,9 @@ namespace CM.TeamReport.Domain.Services
             return false;
         }
 
-        public List<UserForLeader> ListUsers(int teamId)
+        public async Task<List<UserForLeader>> ListUsers(int teamId)
         {
-            var list = _usersRepository.GetAll(teamId);
+            var list = await _usersRepository.GetAll(teamId);
             var listUFL = new List<UserForLeader>();
 
             foreach (var user in list)

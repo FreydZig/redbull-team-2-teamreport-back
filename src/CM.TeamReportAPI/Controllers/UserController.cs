@@ -18,9 +18,9 @@ namespace CM.TeamReportAPI.Controllers
 
         [HttpPost]
         [Route("add")]
-        public IActionResult LeaderChose([FromBody] LeaderFromBody leaderFromBody)
+        public async Task<IActionResult> LeaderChose([FromBody] LeaderFromBody leaderFromBody)
         {
-            var response = _userService.ChoseLeader(leaderFromBody.TeamId, leaderFromBody.UserId);
+            var response = await _userService.ChoseLeader(leaderFromBody.TeamId, leaderFromBody.UserId);
 
             if(response) return Ok(response);
             return BadRequest(response);
@@ -28,9 +28,9 @@ namespace CM.TeamReportAPI.Controllers
 
         [HttpGet]
         [Route("all")]
-        public List<UserForLeader> GetAllUsersInTeam(int TeamId)
+        public async Task<List<UserForLeader>> GetAllUsersInTeam(int TeamId)
         {
-            var list = _userService.ListUsers(TeamId);
+            var list = await _userService.ListUsers(TeamId);
 
             return list;
         }

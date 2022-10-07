@@ -6,13 +6,13 @@ namespace CM.TeamReport.Domain.Services.Interfaces
     {
         //public void InviteTeam(string email, int TeamId);
 
-        public List<OverallReports> OverallReports(int TeamId);
+        public Task<List<OverallReports>> OverallReports(int TeamId);
 
-        public List<PreviousReports> PreviousReports(int TeamId);
+        public Task<List<PreviousReports>> PreviousReports(int TeamId);
 
-        public List<PreviousReports> CurentReports(int TeamId);
-        public List<OverallReports> StateSort(int TeamId, char state);
+        public Task<List<PreviousReports>> CurentReports(int TeamId);
+        public Task<List<OverallReports>> StateSort(int TeamId, char state);
 
-        public bool IsLeader (int UserId);
+        public Task<bool> IsLeader (int UserId);
     }
 }
