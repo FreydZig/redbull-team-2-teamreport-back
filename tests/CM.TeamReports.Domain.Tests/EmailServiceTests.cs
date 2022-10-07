@@ -22,21 +22,5 @@ namespace CM.TeamReports.Domain.Tests
             var emailService = new EmailService(configurationMock.Object);
             emailService.Should().NotBeNull();
         }
-
-/*        [Fact]
-        public void ShouldBeAbleToSendEmail()
-        {
-            var configurationMock = new Mock<IConfiguration>();
-            var emailService = new EmailService(configurationMock.Object);
-            InviteMember member = new InviteMember()
-            {
-                Email = "timoschenko.ivan5@gmai.com",
-                FirstName = "Ivan",
-                LastName = "Timoschenko",
-                Link = "youtube.com"
-            };
-            emailService.SendEmail(member);
-            
-        }*/
     }
 }

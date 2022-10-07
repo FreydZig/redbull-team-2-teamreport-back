@@ -11,11 +11,6 @@ using CM.TeamRepots.DataLayer.Entity;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-//builder.Services.AddTransient<IUserRepository, UsersRepository>();
-//builder.Services.AddTransient<IAuthService, AuthService>();
-//builder.Services.AddTransient<IUserService, UserService>();
-//builder.Services.AddTransient<ILeaderSevice, LeaderService>();
 builder.Services.AddTransient<IReportsService, ReportsService>();
 builder.Services.AddControllers();
 
