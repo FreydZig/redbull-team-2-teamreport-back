@@ -2,13 +2,12 @@
 
 namespace CM.TeamReportAPI.Models
 {
-    public class InviteUser
+    public class InviteMemberModel
     {
         
         public string FirstName { get; set; } = string.Empty;
 
-        [StringLength(50, MinimumLength = 1)]
-        public string LastName { get; set; }
+        public string Link { get; set; } = string.Empty;
 
         [Required]
         [EmailAddress]
