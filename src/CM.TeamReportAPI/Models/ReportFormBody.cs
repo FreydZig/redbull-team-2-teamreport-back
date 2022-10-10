@@ -37,6 +37,8 @@ namespace CM.TeamReportAPI.Models
         public string AnythingElse { get; set; } = String.Empty;
 
         [Required]
-        public DateTime DateRange { get; set; }
+        public DateTime DateRangeStart{ get; set; }
+        [Required]
+        public DateTime DateRangeEnd { get; set; }
     }
 }

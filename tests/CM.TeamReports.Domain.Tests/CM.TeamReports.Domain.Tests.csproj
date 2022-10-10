@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\CM.TeamReport.Domain\CM.TeamReport.Domain.csproj" />
+    <ProjectReference Include="..\..\src\CM.TeamReportAPI\CM.TeamReportAPI.csproj" />
     <ProjectReference Include="..\..\src\CM.TeamRepots.DataLayer\CM.TeamRepots.DataLayer.csproj" />
   </ItemGroup>
 
