@@ -22,11 +22,11 @@ namespace CM.TeamReportAPI.UnitTests.Controllers
         {
             var leaderService = new Mock<ILeaderSevice>();
 
-            leaderService.Setup(l => l.OverallReports(It.IsAny<int>())).Returns(new List<TeamReport.Domain.Models.OverallReports>() { new TeamReport.Domain.Models.OverallReports() });
+            leaderService.Setup(l => l.OverallReports(It.IsAny<int>())).ReturnsAsync(new List<TeamReport.Domain.Models.OverallReports>() { new TeamReport.Domain.Models.OverallReports() });
 
             LeaderController leaderController = new LeaderController(leaderService.Object);
 
-            Assert.Equal(1, leaderController.OlderReports(1).Count());
+            Assert.Equal(1, leaderController.OlderReports(1).Result.Count());
         }
 
         [Fact]
@@ -34,11 +34,11 @@ namespace CM.TeamReportAPI.UnitTests.Controllers
         {
             var leaderService = new Mock<ILeaderSevice>();
 
-            leaderService.Setup(l => l.PreviousReports(It.IsAny<int>())).Returns(new List<TeamReport.Domain.Models.PreviousReports> { new TeamReport.Domain.Models.PreviousReports() });
+            leaderService.Setup(l => l.PreviousReports(It.IsAny<int>())).ReturnsAsync(new List<TeamReport.Domain.Models.PreviousReports> { new TeamReport.Domain.Models.PreviousReports() });
 
             LeaderController leaderController = new LeaderController(leaderService.Object);
 
-            Assert.Equal(1, leaderController.PreviousPeriod(1).Count());
+            Assert.Equal(1, leaderController.PreviousPeriod(1).Result.Count());
         }
 
         [Fact]
@@ -46,10 +46,10 @@ namespace CM.TeamReportAPI.UnitTests.Controllers
         {
             var leaderService = new Mock<ILeaderSevice>();
 
-            leaderService.Setup(l => l.IsLeader(It.IsAny<int>())).Returns(true);
+            leaderService.Setup(l => l.IsLeader(It.IsAny<int>())).ReturnsAsync(true);
             LeaderController leaderController = new LeaderController(leaderService.Object);
 
-            Assert.True(leaderController.Check(1));
+            Assert.True(leaderController.Check(1).Result);
         }
 
         [Fact]
@@ -57,7 +57,7 @@ namespace CM.TeamReportAPI.UnitTests.Controllers
         {
             var leaderService = new Mock<ILeaderSevice>();
 
-            leaderService.Setup(l => l.StateSort(1, 'M')).Returns(new List<OverallReports>());
+            leaderService.Setup(l => l.StateSort(1, 'M')).ReturnsAsync(new List<OverallReports>());
 
             LeaderController leaderController = new LeaderController(leaderService.Object);
 
@@ -71,7 +71,7 @@ namespace CM.TeamReportAPI.UnitTests.Controllers
         {
             var leaderService = new Mock<ILeaderSevice>();
 
-            leaderService.Setup(l => l.StateSort(1, 'S')).Returns(new List<OverallReports>());
+            leaderService.Setup(l => l.StateSort(1, 'S')).ReturnsAsync(new List<OverallReports>());
 
             LeaderController leaderController = new LeaderController(leaderService.Object);
 
@@ -85,7 +85,7 @@ namespace CM.TeamReportAPI.UnitTests.Controllers
         {
             var leaderService = new Mock<ILeaderSevice>();
 
-            leaderService.Setup(l => l.StateSort(1, 'W')).Returns(new List<OverallReports>());
+            leaderService.Setup(l => l.StateSort(1, 'W')).ReturnsAsync(new List<OverallReports>());
 
             LeaderController leaderController = new LeaderController(leaderService.Object);
 
@@ -99,7 +99,7 @@ namespace CM.TeamReportAPI.UnitTests.Controllers
         {
             var leaderService = new Mock<ILeaderSevice>();
 
-            leaderService.Setup(l => l.CurentReports(1)).Returns(new List<PreviousReports>());
+            leaderService.Setup(l => l.CurentReports(1)).ReturnsAsync(new List<PreviousReports>());
 
             LeaderController leaderController = new LeaderController(leaderService.Object);
 

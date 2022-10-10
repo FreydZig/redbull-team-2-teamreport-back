@@ -3,6 +3,7 @@ using CM.TeamReport.Domain.Services.Interfaces;
 using CM.TeamReportAPI.Controllers;
 using CM.TeamReportAPI.Models;
 using CM.TeamRepots.DataLayer.Entity;
+using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 
@@ -39,7 +40,8 @@ namespace CM.TeamReportAPI.UnitTests.Controllers
                 High = "dawdawgagb",
                 Low = "hgtddthhd",
                 AnythingElse = "agqbsabae3sfa",
-                DateRange = new DateTime()
+                DateRangeStart = new DateTime(),
+                DateRangeEnd = new DateTime().AddHours(1)
             };
 
             var report = new Reports
@@ -55,7 +57,8 @@ namespace CM.TeamReportAPI.UnitTests.Controllers
                 High = "dawdawgagb",
                 Low = "hgtddthhd",
                 AnythingElse = "agqbsabae3sfa",
-                DateRange = new DateTime()
+                DateRangeStart = new DateTime(),
+                DateRangeEnd = new DateTime().AddHours(1)
             };
 
             mapperMock.Setup(m => m.Map<ReportFormBody, Reports>(reportsFromBody)).Returns(report);
@@ -64,7 +67,7 @@ namespace CM.TeamReportAPI.UnitTests.Controllers
 
             var okAnswer = reportsController.ReportAdd(reportsFromBody);
 
-            Assert.True(okAnswer is IActionResult);
+            okAnswer.Result.Should().BeOfType<OkResult>();
         }
     }
 }

@@ -86,9 +86,9 @@ namespace CM.TeamRepots.DataLayer.Repositories
                     (r => 
                         r.UserId == entityCode
                         && 
-                        r.DateRange <= start 
+                        r.DateRangeStart <= start 
                         &&
-                        r.DateRange >= end
+                        r.DateRangeEnd >= end
                     );
 
             return report;
@@ -102,9 +102,9 @@ namespace CM.TeamRepots.DataLayer.Repositories
                     (r =>
                         r.UserId == entityCode
                         &&
-                        r.DateRange <= end
+                        r.DateRangeStart <= end
                         &&
-                        r.DateRange >= start
+                        r.DateRangeEnd >= start
                     );
             if(report == null) return 0;
 
@@ -124,9 +124,9 @@ namespace CM.TeamRepots.DataLayer.Repositories
                    .Reports
                    .FirstOrDefaultAsync
                    (r =>
-                        r.DateRange >= start
+                        r.DateRangeStart >= start
                         &&
-                        r.DateRange <= end
+                        r.DateRangeEnd <= end
                         &&
                         r.UserId == Id
                     );
