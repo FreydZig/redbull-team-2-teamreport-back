@@ -23,7 +23,7 @@ namespace CM.TeamReports.DataLayer.tests
 
             var users = user.GetAll(1);
 
-            Assert.Equal(2, users.Count);
+            Assert.Equal(2, users.Result.Count);
         }
 
         [Fact]
@@ -33,7 +33,7 @@ namespace CM.TeamReports.DataLayer.tests
 
             var user2 = user.Read(28);
 
-            Assert.Equal(28, user2.UserId);
+            Assert.Equal(28, user2.Result.UserId);
         }
 
         [Fact]
@@ -43,7 +43,7 @@ namespace CM.TeamReports.DataLayer.tests
 
             var user2 = user.Read("second@example.com");
 
-            Assert.Equal(31, user2.UserId);
+            Assert.Equal(31, user2.Result.UserId);
         }
 
         [Fact]
@@ -70,8 +70,8 @@ namespace CM.TeamReports.DataLayer.tests
                 Password = "qwerty" 
             });
 
-            Assert.Equal("Tom", users.Read(39).FirstName);
-            Assert.Equal("dawdwadw", users.Read(39).Title);
+            Assert.Equal("Tom", users.Read(39).Result.FirstName);
+            Assert.Equal("dawdwadw", users.Read(39).Result.Title);
         }
 
         [Fact]
@@ -88,7 +88,7 @@ namespace CM.TeamReports.DataLayer.tests
                 Password = "12345566"
             });
 
-            Assert.Equal("Tim", users.Read(39).FirstName);
+            Assert.Equal("Tim", users.Read(39).Result.FirstName);
         }
 
         [Fact]

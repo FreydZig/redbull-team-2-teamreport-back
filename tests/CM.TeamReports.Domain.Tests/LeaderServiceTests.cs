@@ -29,7 +29,7 @@ namespace CM.TeamReports.Domain.Tests
             var usersMock = new Mock<IUserRepository>();
             var leaderMock = new Mock<ILeaderRepository>();
 
-            usersMock.Setup(u => u.GetAll(It.IsAny<int>())).Returns(new List<Users>()
+            usersMock.Setup(u => u.GetAll(It.IsAny<int>())).ReturnsAsync(new List<Users>()
             {
                 new Users()
             });
@@ -38,7 +38,7 @@ namespace CM.TeamReports.Domain.Tests
 
             var list = leader.OverallReports(1);
 
-            Assert.Single(list);
+            Assert.Single(list.Result);
         }
 
 
@@ -49,7 +49,7 @@ namespace CM.TeamReports.Domain.Tests
             var usersMock = new Mock<IUserRepository>();
             var leaderMock = new Mock<ILeaderRepository>();
 
-            usersMock.Setup(u => u.GetAll(It.IsAny<int>())).Returns(new List<Users>()
+            usersMock.Setup(u => u.GetAll(It.IsAny<int>())).ReturnsAsync(new List<Users>()
             {
                 new Users()
             });
@@ -58,7 +58,7 @@ namespace CM.TeamReports.Domain.Tests
 
             var list = leader.PreviousReports(1);
 
-            Assert.Single(list);
+            Assert.Single(list.Result);
         }
 
         [Fact]
@@ -68,18 +68,18 @@ namespace CM.TeamReports.Domain.Tests
             var usersMock = new Mock<IUserRepository>();
             var leaderMock = new Mock<ILeaderRepository>();
 
-            usersMock.Setup(u => u.GetAll(It.IsAny<int>())).Returns(new List<Users>()
+            usersMock.Setup(u => u.GetAll(It.IsAny<int>())).ReturnsAsync(new List<Users>()
             {
                 new Users()
             });
 
-            reportsMock.Setup(r => r.ReadByUserIdAndPeriod(It.IsAny<int>(), It.IsAny<DateTime>(), It.IsAny<DateTime>())).Returns(new Reports());
+            reportsMock.Setup(r => r.ReadByUserIdAndPeriod(It.IsAny<int>(), It.IsAny<DateTime>(), It.IsAny<DateTime>())).ReturnsAsync(new Reports());
 
             LeaderService leader = new LeaderService(usersMock.Object, reportsMock.Object, leaderMock.Object);
 
             var list = leader.PreviousReports(1);
 
-            Assert.Single(list);
+            Assert.Single(list.Result);
         }
 
         [Fact]
@@ -89,7 +89,7 @@ namespace CM.TeamReports.Domain.Tests
             var usersMock = new Mock<IUserRepository>();
             var leaderMock = new Mock<ILeaderRepository>();
 
-          leaderMock.Setup(l => l.Read(It.IsAny<int>())).Returns(new Leaders { 
+          leaderMock.Setup(l => l.Read(It.IsAny<int>())).ReturnsAsync(new Leaders { 
           
               UserId = 28,
               TeamId = 1,
@@ -99,7 +99,7 @@ namespace CM.TeamReports.Domain.Tests
 
             LeaderService leader = new LeaderService(usersMock.Object, reportsMock.Object, leaderMock.Object);
 
-            Assert.True(leader.IsLeader(28));
+            Assert.True(leader.IsLeader(28).Result);
         }
 
         [Fact]
@@ -109,11 +109,11 @@ namespace CM.TeamReports.Domain.Tests
             var usersMock = new Mock<IUserRepository>();
             var leaderMock = new Mock<ILeaderRepository>();
 
-            leaderMock.Setup(l => l.Read(It.IsAny<int>())).Returns((Leaders)null);
+            leaderMock.Setup(l => l.Read(It.IsAny<int>())).ReturnsAsync((Leaders)null);
 
             LeaderService leader = new LeaderService(usersMock.Object, reportsMock.Object, leaderMock.Object);
 
-            Assert.False(leader.IsLeader(21));
+            Assert.False(leader.IsLeader(21).Result);
         }
 
         [Fact]
@@ -133,17 +133,17 @@ namespace CM.TeamReports.Domain.Tests
                 Title = "dwwad"
             };
 
-            usersMock.Setup(u => u.GetAll(It.IsAny<int>())).Returns(new List<Users> { user });
+            usersMock.Setup(u => u.GetAll(It.IsAny<int>())).ReturnsAsync(new List<Users> { user });
 
-            reportsMock.Setup(r => r.UserState(It.IsAny<int>(), It.IsAny<char>(), It.IsAny<DateTime>(), It.IsAny<DateTime>())).Returns(1);
+            reportsMock.Setup(r => r.UserState(It.IsAny<int>(), It.IsAny<char>(), It.IsAny<DateTime>(), It.IsAny<DateTime>())).ReturnsAsync(1);
 
             LeaderService leader = new LeaderService(usersMock.Object, reportsMock.Object, leaderMock.Object);
 
             var list = leader.StateSort(1, 'd');
 
-            Assert.Single(list);
-            Assert.Equal(1, list[0].Current);
-            Assert.Equal("Tom Andelson", list[0].UserName);
+            Assert.Single(list.Result);
+            Assert.Equal(1, list.Result[0].Current);
+            Assert.Equal("Tom Andelson", list.Result[0].UserName);
         }
 
         [Fact]
@@ -163,13 +163,13 @@ namespace CM.TeamReports.Domain.Tests
                 Title = "dwwad"
             };
 
-            usersMock.Setup(u => u.GetAll(It.IsAny<int>())).Returns((List<Users>)null);
+            usersMock.Setup(u => u.GetAll(It.IsAny<int>())).ReturnsAsync((List<Users>)null);
 
             LeaderService leader = new LeaderService(usersMock.Object, reportsMock.Object, leaderMock.Object);
 
             var list = leader.StateSort(1, 'd');
 
-            Assert.Equal(new List<OverallReports>(),list);
+            Assert.Equal(new List<OverallReports>(),list.Result);
         }
 
         [Fact]
@@ -200,20 +200,21 @@ namespace CM.TeamReports.Domain.Tests
                 WorkloadDescription = "wewqqeqwd",
                 High = "dawdaxsc",
                 Low = "lmpmpompiom",
-                DateRange = new DateTime(),
+                DateRangeStart = new DateTime(),
+                DateRangeEnd = new DateTime(),
                 AnythingElse = "wddw"
             };
 
-            usersMock.Setup(u => u.GetAll(It.IsAny<int>())).Returns(new List<Users> { user });
+            usersMock.Setup(u => u.GetAll(It.IsAny<int>())).ReturnsAsync(new List<Users> { user });
 
-            reportsMock.Setup(r => r.ReadByUserIdAndPeriod(It.IsAny<int>(), It.IsAny<DateTime>(), It.IsAny<DateTime>())).Returns(report);
+            reportsMock.Setup(r => r.ReadByUserIdAndPeriod(It.IsAny<int>(), It.IsAny<DateTime>(), It.IsAny<DateTime>())).ReturnsAsync(report);
 
             LeaderService leader = new LeaderService(usersMock.Object, reportsMock.Object, leaderMock.Object);
 
             var list = leader.CurentReports(1);
 
-            Assert.Single(list);
-            Assert.Equal("Tom Andelson", list[0].Name);
+            Assert.Single(list.Result);
+            Assert.Equal("Tom Andelson", list.Result[0].Name);
         }
     }
 }

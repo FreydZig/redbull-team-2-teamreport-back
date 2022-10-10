@@ -25,7 +25,7 @@ namespace CM.TeamReports.DataLayer.tests
 
             var team1 = team.Read(1);
 
-            Assert.Equal(1, team1.TeamId);
+            Assert.Equal(1, team1.Result.TeamId);
 
         }
 
@@ -36,7 +36,7 @@ namespace CM.TeamReports.DataLayer.tests
 
             team.Create(new Teams{ TeamName = "Team" });
 
-            Assert.Equal("Team", team.Read(8).TeamName);
+            Assert.Equal("Team", team.Read(8).Result.TeamName);
         }
 
         [Fact]
@@ -46,7 +46,7 @@ namespace CM.TeamReports.DataLayer.tests
 
             team.Update(new Teams { TeamId = 8, TeamName = "NoName" });
 
-            Assert.Equal("NoName", team.Read(8).TeamName);
+            Assert.Equal("NoName", team.Read(8).Result.TeamName);
         }
 
         [Fact]

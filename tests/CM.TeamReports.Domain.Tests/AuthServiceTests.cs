@@ -22,7 +22,7 @@ namespace CM.TeamReports.Domain.Tests
         public void ShouldBeAbleTologinUser()
         {
             var repositoryMock = new Mock<IUserRepository>();
-            repositoryMock.Setup(x => x.Read(It.IsAny<string>())).Returns(new Users() { Email = "example@gmail.com" , Password = "h4Z1snEzaTyYkEhLoNEMxq4NKBmIxRkmz4p2/4s0HYDuAVCAM1UI9NgnxaA1Rl6lUBZILCG76Dfdve+yZIspL0q5eW6ppZ7bfj09j+q3LiAOWz1G5e++7R5c9UqqB9WvYGLR4NruCbVI2biUn4QdzArYimIoFb2saTd6cOJ/a74=.LMpXLuSeU1qIYP5l5Y6EAM9MzimLj0kKttgFoI0z1Sc51I+d9qYMcW+drNcVG8HT4e58/EKgUs7h9NKggA5Q7w==" }); ;
+            repositoryMock.Setup(x => x.Read(It.IsAny<string>())).ReturnsAsync(new Users() { Email = "example@gmail.com" , Password = "h4Z1snEzaTyYkEhLoNEMxq4NKBmIxRkmz4p2/4s0HYDuAVCAM1UI9NgnxaA1Rl6lUBZILCG76Dfdve+yZIspL0q5eW6ppZ7bfj09j+q3LiAOWz1G5e++7R5c9UqqB9WvYGLR4NruCbVI2biUn4QdzArYimIoFb2saTd6cOJ/a74=.LMpXLuSeU1qIYP5l5Y6EAM9MzimLj0kKttgFoI0z1Sc51I+d9qYMcW+drNcVG8HT4e58/EKgUs7h9NKggA5Q7w==" }); ;
             var authService = new AuthService(repositoryMock.Object);
             var result = authService.UserLogin("example@gmail.com", "pass123");
             result.Should().BeOfType<Users>();
@@ -32,7 +32,7 @@ namespace CM.TeamReports.Domain.Tests
         public void ShouldNotBeAbleToLogin()
         {
             var repositoryMock = new Mock<IUserRepository>();
-            repositoryMock.Setup(x => x.Read(It.IsAny<string>())).Returns((Users)null); ;
+            repositoryMock.Setup(x => x.Read(It.IsAny<string>())).ReturnsAsync((Users)null); ;
             var authService = new AuthService(repositoryMock.Object);
             
         }
@@ -41,20 +41,20 @@ namespace CM.TeamReports.Domain.Tests
         public void ShouldBeIncorrectPassword()
         {
             var repositoryMock = new Mock<IUserRepository>();
-            repositoryMock.Setup(x => x.Read(It.IsAny<string>())).Returns(new Users() { Email = "example@gmail.com", Password = "h4Z1snEzaTyYkEhLoNEMxq4NKBmIxRkmz4p2/4s0HYDuAVCAM1UI9NgnxaA1Rl6lUBZILCG76Dfdve+yZIspL0q5eW6ppZ7bfj09j+q3LiAOWz1G5e++7R5c9UqqB9WvYGLR4NruCbVI2biUn4QdzArYimIoFb2saTd6cOJ/a74=.LMpXLuSeU1qIYP5l5Y6EAM9MzimLj0kKttgFoI0z1Sc51I+d9qYMcW+drNcVG8HT4e58/EKgUs7h9NKggA5Q7w==" }); ;
+            repositoryMock.Setup(x => x.Read(It.IsAny<string>())).ReturnsAsync(new Users() { Email = "example@gmail.com", Password = "h4Z1snEzaTyYkEhLoNEMxq4NKBmIxRkmz4p2/4s0HYDuAVCAM1UI9NgnxaA1Rl6lUBZILCG76Dfdve+yZIspL0q5eW6ppZ7bfj09j+q3LiAOWz1G5e++7R5c9UqqB9WvYGLR4NruCbVI2biUn4QdzArYimIoFb2saTd6cOJ/a74=.LMpXLuSeU1qIYP5l5Y6EAM9MzimLj0kKttgFoI0z1Sc51I+d9qYMcW+drNcVG8HT4e58/EKgUs7h9NKggA5Q7w==" }); ;
             var authService = new AuthService(repositoryMock.Object);
             authService.Invoking(a => a.UserLogin("example@gmail.com", "pass1"))
-                .Should().Throw<LoginException>().WithMessage("Password isn't correct!");
+                .Should().ThrowAsync<LoginException>().WithMessage("Password isn't correct!");
         }
 
         [Fact]
         public void ShouldBeIncorrectEmail()
         {
             var repositoryMock = new Mock<IUserRepository>();
-            repositoryMock.Setup(x => x.Read(It.IsAny<string>())).Returns((Users)null); ;
+            repositoryMock.Setup(x => x.Read(It.IsAny<string>())).ReturnsAsync((Users)null); ;
             var authService = new AuthService(repositoryMock.Object);
             authService.Invoking(a => a.UserLogin("example@gmail.com", "pass1"))
-                .Should().Throw<LoginException>().WithMessage("Email isn't correct!");
+                .Should().ThrowAsync<LoginException>().WithMessage("Email isn't correct!");
         }
 
         [Fact]

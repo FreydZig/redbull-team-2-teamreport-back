@@ -45,7 +45,7 @@ namespace CM.TeamReports.DataLayer.tests
 
             var report = reports.Read(31);
 
-            Assert.Equal(31, report.ReportId);
+            Assert.Equal(31, report.Result.ReportId);
         }
 
         [Fact]
@@ -55,7 +55,7 @@ namespace CM.TeamReports.DataLayer.tests
 
             var report = reports.SumOfUserStates(System.DateTime.Now.AddDays(-3), System.DateTime.Now, 34);
 
-            Assert.Equal(1, report);
+            Assert.Equal(1, report.Result);
         }
 
         [Fact]
@@ -65,7 +65,7 @@ namespace CM.TeamReports.DataLayer.tests
             //TODO: Fix this test and tests under him
             var report = reports.ReadByUserIdAndPeriod(34, System.DateTime.Now, System.DateTime.Now.AddDays(-3));
 
-            Assert.Equal(34, report.UserId);
+            Assert.Equal(34, report.Result.UserId);
         }
 
         [Fact]
@@ -85,7 +85,7 @@ namespace CM.TeamReports.DataLayer.tests
 
             var report = reports.SumOfUserStates(new System.DateTime(2021, 09, 14), new System.DateTime(2012, 09, 14), 31);
 
-            Assert.Equal(0, report);
+            Assert.Equal(0, report.Result);
         }
 
         [Fact]
@@ -114,10 +114,11 @@ namespace CM.TeamReports.DataLayer.tests
                 High = "High",
                 Low = "Low",
                 //AnythingElse = "Nothing",
-                DateRange = new System.DateTime(2022, 10, 4)
+                DateRangeStart = new System.DateTime(2022, 10, 4),
+                DateRangeEnd = new System.DateTime(2022,10,5)
             });
 
-            Assert.Equal(2, reports.Read(15).Morale);
+            Assert.Equal(2, reports.Read(15).Result.Morale);
         }
 
         [Fact]
@@ -135,7 +136,7 @@ namespace CM.TeamReports.DataLayer.tests
 
             var morale = reports.UserState(37, 'M', System.DateTime.Now.AddDays(-4), System.DateTime.Now);
 
-            Assert.Equal(4, morale);
+            Assert.Equal(4, morale.Result);
         }
 
         [Fact]
@@ -145,7 +146,7 @@ namespace CM.TeamReports.DataLayer.tests
 
             var stress = reports.UserState(37, 'S', System.DateTime.Now.AddDays(-4), System.DateTime.Now);
 
-            Assert.Equal(2, stress);
+            Assert.Equal(2, stress.Result);
         }
 
         [Fact]
@@ -155,7 +156,7 @@ namespace CM.TeamReports.DataLayer.tests
 
             var workload = reports.UserState(37, 'W', System.DateTime.Now.AddDays(-4), System.DateTime.Now);
 
-            Assert.Equal(5, workload);
+            Assert.Equal(5, workload.Result);
         }
 
         [Fact]
@@ -165,7 +166,7 @@ namespace CM.TeamReports.DataLayer.tests
 
             var state = reports.UserState(37, 'f', System.DateTime.Now.AddDays(-4), System.DateTime.Now);
 
-            Assert.Equal(0, state);
+            Assert.Equal(0, state.Result);
         }
     }
 }

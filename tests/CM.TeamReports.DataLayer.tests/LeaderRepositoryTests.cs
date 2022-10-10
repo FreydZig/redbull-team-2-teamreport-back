@@ -24,7 +24,7 @@ namespace CM.TeamReports.DataLayer.tests
 
             var leader = leaders.Read(34);
 
-            Assert.Equal(10, leader.LeaderId);
+            Assert.Equal(10, leader.Result.LeaderId);
         }
 
         [Fact]
@@ -44,7 +44,7 @@ namespace CM.TeamReports.DataLayer.tests
 
             leaders.Create(new Leaders { TeamId = 14, UserId = 36 });
 
-            Assert.Equal(36, leaders.Read(36).UserId);
+            Assert.Equal(36, leaders.Read(36).Result.LeaderId);
         }
 
         [Fact]

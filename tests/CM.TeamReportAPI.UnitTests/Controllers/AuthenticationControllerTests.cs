@@ -53,7 +53,7 @@ namespace CM.TeamReportAPI.UnitTests.Controllers
 
             mapper.Setup(m => m.Map<UserCreateModel, Users>(It.IsAny<UserCreateModel>())).Returns(user);
 
-            userRpository.Setup(u => u.Read(userCreateModel.Email)).Returns((Users)null);
+            userRpository.Setup(u => u.Read(userCreateModel.Email)).Returns((Task<Users>)null);
 
             authService.Setup(a => a.GetToken(user)).Returns("dsadwdwadwada");
 
@@ -90,13 +90,13 @@ namespace CM.TeamReportAPI.UnitTests.Controllers
 
             mapper.Setup(m => m.Map<UserCreateModel, Users>(It.IsAny<UserCreateModel>())).Returns(user);
 
-            userRpository.Setup(u => u.Read(userCreateModel.Email)).Returns(user);
+            userRpository.Setup(u => u.Read(userCreateModel.Email)).ReturnsAsync(user);
 
 
             AuthenticationController controller = new AuthenticationController(authService.Object, userService.Object, userRpository.Object, mapper.Object);
 
 
-            Assert.Throws<DataException>(() => controller.Registration(userCreateModel));
+            Assert.ThrowsAsync<DataException>(() => controller.Registration(userCreateModel));
         }
 
         [Fact]
@@ -126,7 +126,7 @@ namespace CM.TeamReportAPI.UnitTests.Controllers
 
             AuthenticationController controller = new AuthenticationController(authService.Object, userService.Object, userRpository.Object, mapper.Object);
                        
-            authService.Setup(a => a.UserLogin(It.IsAny<string>(), It.IsAny<string>())).Returns(user);
+            authService.Setup(a => a.UserLogin(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(user);
 
             Assert.NotNull(controller.Login(ul));
         }

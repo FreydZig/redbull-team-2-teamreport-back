@@ -59,12 +59,12 @@ namespace CM.TeamReports.Domain.Tests
                 TeamName = "Team"
             };
 
-            userMock.Setup(u => u.Read(It.IsAny<int>())).Returns(user);
-            teamMock.Setup(t => t.Read(It.IsAny<int>())).Returns(team);
+            userMock.Setup(u => u.Read(It.IsAny<int>())).ReturnsAsync(user);
+            teamMock.Setup(t => t.Read(It.IsAny<int>())).ReturnsAsync(team);
 
             UserService userService = new UserService(userMock.Object, leaderMock.Object, teamMock.Object);
 
-            Assert.True(userService.ChoseLeader(1,1));
+            Assert.True(userService.ChoseLeader(1,1).Result);
         }
 
         [Fact]
@@ -88,12 +88,12 @@ namespace CM.TeamReports.Domain.Tests
                 TeamName = "Team"
             };
 
-            userMock.Setup(u => u.Read(It.IsAny<int>())).Returns((Users)null);
-            teamMock.Setup(t => t.Read(It.IsAny<int>())).Returns((Teams)null);
+            userMock.Setup(u => u.Read(It.IsAny<int>())).ReturnsAsync((Users)null);
+            teamMock.Setup(t => t.Read(It.IsAny<int>())).ReturnsAsync((Teams)null);
 
             UserService userService = new UserService(userMock.Object, leaderMock.Object, teamMock.Object);
 
-            Assert.False(userService.ChoseLeader(1, 1));
+            Assert.False(userService.ChoseLeader(1, 1).Result);
         }
 
         [Fact]
@@ -112,13 +112,13 @@ namespace CM.TeamReports.Domain.Tests
                 TeamId = 1
             };
 
-            userMock.Setup(u => u.GetAll(It.IsAny<int>())).Returns(new List<Users> { user });
+            userMock.Setup(u => u.GetAll(It.IsAny<int>())).ReturnsAsync(new List<Users> { user });
 
             UserService userService = new UserService(userMock.Object, leaderMock.Object, teamMock.Object);
 
             var users = userService.ListUsers(1);
 
-            Assert.Single(users);
+            Assert.Single(users.Result);
         }
     }
 }

@@ -2,6 +2,7 @@
 using CM.TeamReport.Domain.Services.Interfaces;
 using CM.TeamReportAPI.Controllers;
 using CM.TeamReportAPI.Models;
+using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 
@@ -24,14 +25,14 @@ namespace CM.TeamReportAPI.UnitTests.Controllers
         {
             var userMock = new Mock<IUserService>();
 
-            userMock.Setup(u => u.ChoseLeader(It.IsAny<int>(), It.IsAny<int>())).Returns(true);
+            userMock.Setup(u => u.ChoseLeader(It.IsAny<int>(), It.IsAny<int>())).ReturnsAsync(true);
 
             UserController userController = new UserController(userMock.Object);
 
             var choseLeader = userController
                 .LeaderChose(new LeaderFromBody());
 
-            Assert.True(choseLeader is OkObjectResult);
+            choseLeader.Result.Should().BeOfType<OkObjectResult>();
         }
 
         [Fact]
@@ -39,14 +40,14 @@ namespace CM.TeamReportAPI.UnitTests.Controllers
         {
             var userMock = new Mock<IUserService>();
 
-            userMock.Setup(u => u.ChoseLeader(It.IsAny<int>(), It.IsAny<int>())).Returns(false);
+            userMock.Setup(u => u.ChoseLeader(It.IsAny<int>(), It.IsAny<int>())).ReturnsAsync(false);
 
             UserController userController = new UserController(userMock.Object);
 
             var choseLeader = userController
                 .LeaderChose(new LeaderFromBody());
 
-            Assert.True(choseLeader is BadRequestObjectResult);
+            choseLeader.Result.Should().BeOfType<BadRequestObjectResult>();
         }
 
         [Fact]
@@ -60,13 +61,13 @@ namespace CM.TeamReportAPI.UnitTests.Controllers
                 UserName = "Tom Thomson"
             };
 
-            userMock.Setup(u => u.ListUsers(It.IsAny<int>())).Returns(new List<UserForLeader> { userForLeader });
+            userMock.Setup(u => u.ListUsers(It.IsAny<int>())).ReturnsAsync(new List<UserForLeader> { userForLeader });
 
             UserController userController = new UserController(userMock.Object);
 
             var list = userController.GetAllUsersInTeam(1);
 
-            Assert.Single(list);
+            Assert.Single(list.Result);
         }
     }
 }
