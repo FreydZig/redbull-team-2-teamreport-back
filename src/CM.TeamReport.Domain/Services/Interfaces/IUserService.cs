@@ -11,5 +11,7 @@ namespace CM.TeamReport.Domain.Services.Interfaces
 
         public Task<List<UserForLeader>> ListUsers(int teamId);
 
+        public Task<Users> EditUserInformation(Users user);
+
     }
 }

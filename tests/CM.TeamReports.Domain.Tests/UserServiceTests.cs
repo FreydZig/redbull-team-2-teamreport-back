@@ -3,6 +3,7 @@ using CM.TeamRepots.DataLayer.Entity;
 using CM.TeamRepots.DataLayer.Interfaces;
 using FluentAssertions;
 using Moq;
+using System.Data;
 
 namespace CM.TeamReports.Domain.Tests
 {
@@ -119,6 +120,79 @@ namespace CM.TeamReports.Domain.Tests
             var users = userService.ListUsers(1);
 
             Assert.Single(users.Result);
+        }
+
+        [Fact]
+        public void ShouldBeAbleToEdituserInformation()
+        {
+            var userMock = new Mock<IUserRepository>();
+            var leaderMock = new Mock<ILeaderRepository>();
+            var teamMock = new Mock<IRepository<Teams>>();
+
+            var user = new Users()
+            {
+                FirstName = "Examplr Name",
+                LastName = "Examplr Last Name",
+                Email = "user@example.com",
+                Password = "passwordhashhere",
+                TeamId = 1
+            };
+
+            var editUser = new Users()
+            {
+                FirstName = "Chenged Name",
+                LastName = "Chenged Last Name",
+                Email = "ChengedUser@example.com",
+                Password = "passwordhashhere",
+                TeamId = 1
+            };
+
+            userMock.Setup(u => u.Read(It.IsAny<int>())).ReturnsAsync(user);
+
+            userMock.Setup(u => u.Update(It.IsAny<Users>()));
+
+            UserService userService = new UserService(userMock.Object, leaderMock.Object, teamMock.Object);
+
+            var result = userService.EditUserInformation(editUser);
+
+            userMock.Verify(x => x.Update(It.IsAny<Users>()));
+        }
+
+        [Fact]
+        public void ShouldNotBeAbleToEdituserInformation()
+        {
+            var userMock = new Mock<IUserRepository>();
+            var leaderMock = new Mock<ILeaderRepository>();
+            var teamMock = new Mock<IRepository<Teams>>();
+
+            var user = new Users()
+            {
+                FirstName = "Examplr Name",
+                LastName = "Examplr Last Name",
+                Email = "user@example.com",
+                Password = "passwordhashhere",
+                TeamId = 1
+            };
+
+            var editUser = new Users()
+            {
+                FirstName = "Chenged Name",
+                LastName = "Chenged Last Name",
+                Email = "ChengedUser@example.com",
+                Password = "passwordhashhere",
+                TeamId = 1
+            };
+
+            userMock.Setup(u => u.Read(It.IsAny<int>())).ReturnsAsync((Users)null);
+
+            userMock.Setup(u => u.Update(It.IsAny<Users>()));
+
+            UserService userService = new UserService(userMock.Object, leaderMock.Object, teamMock.Object);
+
+            var result = userService.EditUserInformation(editUser);
+
+            userService.Invoking(x=>x.EditUserInformation(editUser)).Should().ThrowAsync<DataException>();
+            
         }
     }
 }

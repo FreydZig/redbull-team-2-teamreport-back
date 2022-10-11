@@ -12,6 +12,7 @@ namespace CM.TeamReportAPI.MapperStore
             CreateMap<UserCreateModel, Users>();
             CreateMap<InviteMemberModel, InviteMember>();
             CreateMap<ReportFormBody, Reports>();
+            CreateMap<EditUserInformationModel, Users>();
 
         }
     }
