@@ -27,7 +27,13 @@ namespace CM.TeamReport.Domain.Services
                     issuer: JwtOptions.ISSUER,
                     audience: JwtOptions.AUDIENCE,
                     expires: DateTime.UtcNow.Add(TimeSpan.FromDays(1)),
-                    claims: new List<Claim>(){ new Claim("userId", user.UserId.ToString()), new Claim("teamId", user.TeamId.ToString()) },
+                    claims: new List<Claim>(){new Claim("firstName", user.FirstName),
+                        new Claim("lastName", user.LastName),
+                        new Claim("email", user.Email),
+                        new Claim("title", user.Title),
+                        new Claim("userId", user.UserId.ToString()),
+                        new Claim("company", user.TeamId.ToString())
+                    },
                     signingCredentials: new SigningCredentials(JwtOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
 
             return  new JwtSecurityTokenHandler().WriteToken(jwt); 

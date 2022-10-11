@@ -51,5 +51,14 @@ namespace CM.TeamReportAPI.Controllers
             var editModel = await _userService.EditUserInformation(model);
             return Ok(editModel);
         } 
+
+        [HttpGet]
+        [Route("reports")]
+        public async Task<List<Reports>> GetAllReports(int UserId)
+        {
+            var list = await _userService.ReportsList(UserId);
+
+            return list;
+        }
     }
 }

@@ -11,12 +11,18 @@ namespace CM.TeamReport.Domain.Services
         private readonly IUserRepository _usersRepository;
         private readonly ILeaderRepository _leaderRepository;
         private readonly IRepository<Teams> _teamRepository;
+        private readonly IReportsRepository _reportsRepository;
 
-        public UserService(IUserRepository usersRepository, ILeaderRepository leaderRepository, IRepository<Teams> teamsRepository)
+        public UserService(
+            IUserRepository usersRepository,
+            ILeaderRepository leaderRepository,
+            IRepository<Teams> teamsRepository,
+            IReportsRepository reportsRepository)
         {
             _usersRepository = usersRepository;
             _leaderRepository = leaderRepository;
             _teamRepository = teamsRepository;
+            _reportsRepository = reportsRepository;
         }
 
         public void AddUser(Users user)
@@ -61,7 +67,7 @@ namespace CM.TeamReport.Domain.Services
         public async Task<Users> EditUserInformation(Users user)
         {
             var userEdit = await _usersRepository.Read(user.UserId);
-            if (userEdit == null )
+            if (userEdit == null)
             {
                 throw new DataException("Can't find user to edit");
             }
@@ -72,6 +78,13 @@ namespace CM.TeamReport.Domain.Services
             _usersRepository.Update(userEdit);
 
             return userEdit;
+        }
+
+        public async Task<List<Reports>> ReportsList(int userId)
+        {
+            var list = await _reportsRepository.GetAllByUserId(userId);
+
+            return list;
         }
     }
 }
