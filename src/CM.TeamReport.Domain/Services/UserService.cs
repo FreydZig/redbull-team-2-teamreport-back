@@ -10,12 +10,18 @@ namespace CM.TeamReport.Domain.Services
         private readonly IUserRepository _usersRepository;
         private readonly ILeaderRepository _leaderRepository;
         private readonly IRepository<Teams> _teamRepository;
+        private readonly IReportsRepository _reportsRepository;
 
-        public UserService(IUserRepository usersRepository, ILeaderRepository leaderRepository, IRepository<Teams> teamsRepository)
+        public UserService(
+            IUserRepository usersRepository,
+            ILeaderRepository leaderRepository,
+            IRepository<Teams> teamsRepository,
+            IReportsRepository reportsRepository)
         {
             _usersRepository = usersRepository;
             _leaderRepository = leaderRepository;
             _teamRepository = teamsRepository;
+            _reportsRepository = reportsRepository;
         }
 
         public void AddUser(Users user)
@@ -55,6 +61,13 @@ namespace CM.TeamReport.Domain.Services
             }
             
             return listUFL;
+        }
+
+        public async Task<List<Reports>> ReportsList(int userId)
+        {
+            var list = await _reportsRepository.GetAllByUserId(userId);
+
+            return list;
         }
     }
 }

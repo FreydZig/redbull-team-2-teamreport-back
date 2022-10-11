@@ -2,6 +2,7 @@
 using CM.TeamReport.Domain.Services.Interfaces;
 using CM.TeamReportAPI.Controllers;
 using CM.TeamReportAPI.Models;
+using CM.TeamRepots.DataLayer.Entity;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -68,6 +69,36 @@ namespace CM.TeamReportAPI.UnitTests.Controllers
             var list = userController.GetAllUsersInTeam(1);
 
             Assert.Single(list.Result);
+        }
+
+        [Fact]
+        public void ShouldBeAbleToReturnListOfReports()
+        {
+            var userMock = new Mock<IUserService>();
+
+            var report = new Reports
+            {
+                UserId = 1,
+                Morale = 1,
+                MoraleDescription = "dwadaw",
+                Stress = 2,
+                StressDescription = "fefe",
+                Workload = 3,
+                WorkloadDescription = "dwadawd",
+                High = "dawdwad",
+                Low = "dawdawda",
+                AnythingElse = "dawdawdwa",
+                DateRangeStart = new DateTime(2022 - 10 - 10),
+                DateRangeEnd = new DateTime(2022 - 10 - 10)
+            };
+
+            userMock.Setup(u => u.ReportsList(It.IsAny<int>())).ReturnsAsync(new List<Reports> { report });
+
+            UserController userController = new UserController(userMock.Object);
+
+            var list = userController.GetAllReports(1);
+
+            Assert.Equal(3, list.Result[0].Workload);
         }
     }
 }
