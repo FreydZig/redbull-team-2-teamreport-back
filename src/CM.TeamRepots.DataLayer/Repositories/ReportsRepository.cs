@@ -61,12 +61,12 @@ namespace CM.TeamRepots.DataLayer.Repositories
             return result;
         }
 
-        public List<Reports> GetAllByUserId(int entityCode)
+        public async Task<List<Reports>> GetAllByUserId(int entityCode)
         {
-            var reports = _context
+            var reports = await _context
                 .Reports
                 .Where(r => r.UserId == entityCode)
-                .ToList();
+                .ToListAsync();
 
             return reports;
         }
