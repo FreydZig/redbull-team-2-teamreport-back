@@ -4,6 +4,7 @@ using CM.TeamReportAPI.Controllers;
 using CM.TeamReportAPI.Models;
 using CM.TeamRepots.DataLayer.Entity;
 using CM.TeamRepots.DataLayer.Interfaces;
+using FluentAssertions;
 using Moq;
 using System.Data;
 
@@ -61,6 +62,50 @@ namespace CM.TeamReportAPI.UnitTests.Controllers
 
             Assert.Equal("Title", userCreateModel.Title);
             Assert.NotNull(controller.Registration(userCreateModel));
+        }
+
+        [Fact]
+        public void SHouldBeAbleToSignUp()
+        {
+            var authService = new Mock<IAuthService>();
+            var userService = new Mock<IUserService>();
+            var userRpository = new Mock<IUserRepository>();
+            var mapper = new Mock<IMapper>();
+
+            var userCreateModel = new UserCreateModel()
+            {
+                FirstName = "Men",
+                LastName = "NoMen",
+                Email = "z@mail.com",
+                Title = "Title",
+                Password = "dadsadasd"
+            };
+
+            var user = new Users()
+            {
+                UserId = 1,
+                FirstName = userCreateModel.FirstName,
+                LastName = userCreateModel.LastName,
+                Email = userCreateModel.Email,
+                Title = userCreateModel.Title,
+                Password = userCreateModel.Password
+            };
+
+            mapper.Setup(m => m.Map<UserCreateModel, Users>(It.IsAny<UserCreateModel>())).Returns(user);
+
+            userService.Setup(u => u.AddUser(It.IsAny<Users>()));
+
+            userRpository.Setup(u => u.Read(userCreateModel.Email)).ReturnsAsync((Users)null);
+
+            authService.Setup(a => a.GetToken(user)).Returns("dsadwdwadwada");
+
+            AuthenticationController controller = new AuthenticationController(authService.Object, userService.Object, userRpository.Object, mapper.Object);
+
+            Assert.Equal("Title", userCreateModel.Title);
+
+            var result = controller.Registration(userCreateModel);
+
+            result.Should().BeOfType<Task<string>>();
         }
 
         [Fact]

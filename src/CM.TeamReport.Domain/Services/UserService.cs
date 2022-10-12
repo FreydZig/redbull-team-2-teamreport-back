@@ -2,6 +2,7 @@
 using CM.TeamReport.Domain.Services.Interfaces;
 using CM.TeamRepots.DataLayer.Entity;
 using CM.TeamRepots.DataLayer.Interfaces;
+using System.Data;
 
 namespace CM.TeamReport.Domain.Services
 {
@@ -61,6 +62,22 @@ namespace CM.TeamReport.Domain.Services
             }
             
             return listUFL;
+        }
+
+        public async Task<Users> EditUserInformation(Users user)
+        {
+            var userEdit = await _usersRepository.Read(user.UserId);
+            if (userEdit == null)
+            {
+                throw new DataException("Can't find user to edit");
+            }
+            userEdit.FirstName = user.FirstName;
+            userEdit.LastName = user.LastName;
+            userEdit.Title = user.Title;
+
+            _usersRepository.Update(userEdit);
+
+            return userEdit;
         }
 
         public async Task<List<Reports>> ReportsList(int userId)

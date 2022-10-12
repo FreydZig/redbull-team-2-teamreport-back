@@ -11,6 +11,7 @@ using CM.TeamRepots.DataLayer.Entity;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors();
 builder.Services.AddTransient<IReportsService, ReportsService>();
 builder.Services.AddControllers();
 
@@ -56,6 +57,14 @@ builder.Services.AddAuthentication(options =>
 
 
 var app = builder.Build();
+
+app.UseCors(builder =>
+{
+    builder.SetIsOriginAllowed(origin => true)
+           .AllowAnyMethod()
+           .AllowAnyHeader()
+           .AllowCredentials();
+});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

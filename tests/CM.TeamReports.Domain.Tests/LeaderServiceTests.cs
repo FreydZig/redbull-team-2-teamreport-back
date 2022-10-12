@@ -142,7 +142,7 @@ namespace CM.TeamReports.Domain.Tests
             var list = leader.StateSort(1, 'd');
 
             Assert.Single(list.Result);
-            Assert.Equal(1, list.Result[0].Current);
+            Assert.Equal(1, list.Result.Count);
             Assert.Equal("Tom Andelson", list.Result[0].UserName);
         }
 

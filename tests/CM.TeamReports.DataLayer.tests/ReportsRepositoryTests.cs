@@ -35,7 +35,7 @@ namespace CM.TeamReports.DataLayer.tests
 
             var reports2 = reports.GetAllByUserId(34);
 
-            Assert.Equal(5, reports2.Count);
+            Assert.Equal(5, reports2.Result.Count);
         }
 
         [Fact]
