@@ -1,0 +1,11 @@
+version: "3.7"
+services:
+  web:
+    container_name: team1-backend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports: 
+      - 8088:80
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
