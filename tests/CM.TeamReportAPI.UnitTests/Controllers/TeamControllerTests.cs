@@ -18,7 +18,7 @@ namespace CM.TeamReportAPI.UnitTests.Controllers
 
             var answer = teamController.CreateCompany("dasdsada");
 
-            Assert.True(answer.Result is OkResult);
+            Assert.True(answer is OkResult);
         }
 
         [Fact]
@@ -26,13 +26,13 @@ namespace CM.TeamReportAPI.UnitTests.Controllers
         {
             var teamMock = new Mock<ITeamService>();
 
-            teamMock.Setup(t => t.Add(It.IsAny<string>())).ThrowsAsync(new TeamExeption("Team name is't correct!"));
+            teamMock.Setup(t => t.Add(It.IsAny<string>())).Throws(new TeamExeption("Team name is't correct!"));
 
             var teamController = new TeamController(teamMock.Object);
 
             var answer = teamController.CreateCompany("dasdsada");
 
-            Assert.True(answer.Result is BadRequestObjectResult);
+            Assert.True(answer is BadRequestObjectResult);
         }
 
         [Fact]
@@ -44,7 +44,7 @@ namespace CM.TeamReportAPI.UnitTests.Controllers
 
             var answer = teamController.EditCompany(new Teams());
 
-            Assert.True(answer.Result is OkResult);
+            Assert.True(answer is OkResult);
         }
 
         [Fact]
@@ -52,13 +52,13 @@ namespace CM.TeamReportAPI.UnitTests.Controllers
         {
             var teamMock = new Mock<ITeamService>();
 
-            teamMock.Setup(t => t.Edit(It.IsAny<Teams>())).ThrowsAsync(new TeamExeption("Team name is't correct!"));
+            teamMock.Setup(t => t.Edit(It.IsAny<Teams>())).Throws(new TeamExeption("Team name is't correct!"));
 
             var teamController = new TeamController(teamMock.Object);
 
             var answer = teamController.EditCompany(new Teams());
 
-            Assert.True(answer.Result is BadRequestObjectResult);
+            Assert.True(answer is BadRequestObjectResult);
         }
     }
 }

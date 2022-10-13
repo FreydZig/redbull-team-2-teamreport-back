@@ -14,20 +14,24 @@ namespace CM.TeamReport.Domain.Services
             _teamsRepository = teamRepository;
         }
 
-        public async Task Add(string teamName)
+        public void Add(string teamName)
         {
             var team = new Teams();
 
-            if(string.IsNullOrWhiteSpace(teamName)) throw new TeamExeption("Team name is't correct!");
+            if(string.IsNullOrWhiteSpace(teamName)) throw new TeamExeption(TeamMessages.TeamNameIstCorrect);
 
             team.TeamName = teamName;
             _teamsRepository.Create(team);
         }
 
-        public async Task Edit(Teams teams)
+        public void Edit(Teams teams)
         {
-            if (teams == null) throw new TeamExeption("Team is null!");
-            if (string.IsNullOrWhiteSpace(teams.TeamName)) throw new TeamExeption("Team name is't correct!");
+            string? message = null;
+            if (teams == null) message = "Team is null!";
+            else
+                if (string.IsNullOrWhiteSpace(teams.TeamName)) message = TeamMessages.TeamNameIstCorrect;
+
+            if (!string.IsNullOrWhiteSpace(message)) throw new TeamExeption(message);
 
             _teamsRepository.Update(teams);
         }

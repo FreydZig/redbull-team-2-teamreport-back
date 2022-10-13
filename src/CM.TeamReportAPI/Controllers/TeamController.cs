@@ -19,11 +19,11 @@ namespace CM.TeamReportAPI.Controllers
 
         [HttpPost]
         [Route("add")]
-        public async Task<IActionResult> CreateCompany([FromBody] string teamName)
+        public IActionResult CreateCompany([FromBody] string teamName)
         {
             try
             {
-                await _teamService.Add(teamName);
+                _teamService.Add(teamName);
 
                 return Ok();
             }
@@ -37,11 +37,11 @@ namespace CM.TeamReportAPI.Controllers
 
         [HttpPost]
         [Route("edit")]
-        public async Task<IActionResult> EditCompany([FromBody] Teams teams)
+        public IActionResult EditCompany([FromBody] Teams teams)
         {
             try
             {
-                await _teamService.Edit(teams);
+                _teamService.Edit(teams);
 
                 return Ok();
             }
