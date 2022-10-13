@@ -21,9 +21,8 @@ namespace CM.TeamReport.Domain.Services
             if(string.IsNullOrWhiteSpace(teamName)) throw new TeamExeption(TeamMessages.TeamNameIstCorrect);
 
             team.TeamName = teamName;
-            _teamsRepository.Create(team);
 
-            var teamId = await _teamsRepository.ReadByTeamName(teamName);
+            var teamId = await _teamsRepository.CreateWithReturn(team);
 
             return teamId.TeamId;
         }

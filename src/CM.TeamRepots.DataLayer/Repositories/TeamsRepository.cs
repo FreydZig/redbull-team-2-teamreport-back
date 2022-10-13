@@ -13,6 +13,17 @@ namespace CM.TeamRepots.DataLayer.Repositories
             _context = new TRDbContext();
         }
 
+        public async Task<Teams> CreateWithReturn(Teams entity)
+        {
+            _context
+                .Teams
+                .Add(entity);
+            _context
+                .SaveChanges();
+
+            return await ReadByTeamName(entity.TeamName);
+        }
+
         public void Create(Teams entity)
         {
             _context
