@@ -4,7 +4,7 @@ namespace CM.TeamReport.Domain.Services.Interfaces
 {
     public interface ITeamService
     {
-        void Add(string teamName);
+        Task<int> Add(string teamName);
         void Edit(Teams teams);
     }
 }

@@ -10,13 +10,13 @@ namespace CM.TeamReport.Domain.Services
     {
         private readonly IUserRepository _usersRepository;
         private readonly ILeaderRepository _leaderRepository;
-        private readonly IRepository<Teams> _teamRepository;
+        private readonly ITeamRepository _teamRepository;
         private readonly IReportsRepository _reportsRepository;
 
         public UserService(
             IUserRepository usersRepository,
             ILeaderRepository leaderRepository,
-            IRepository<Teams> teamsRepository,
+            ITeamRepository teamsRepository,
             IReportsRepository reportsRepository)
         {
             _usersRepository = usersRepository;
