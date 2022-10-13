@@ -38,7 +38,7 @@ namespace CM.TeamReport.Domain.Services
                 teamReport.ago2 = await _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 14), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 7), user.UserId);
                 teamReport.ago1 = await _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 7), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now)), user.UserId);
 
-                teamReport.UserName = string.Format("{0} {1}", user.FirstName, user.LastName);
+                teamReport.UserName = $"{user.FirstName} {user.LastName}";
 
                 teamReports.Add(teamReport);
             }
@@ -88,7 +88,7 @@ namespace CM.TeamReport.Domain.Services
 
                 var report = await _reportsRepository.ReadByUserIdAndPeriod(user.UserId, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now)), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 7));
 
-                previousReport.Name = string.Format("{0} {1}",user.FirstName, user.LastName);
+                previousReport.Name = $"{user.FirstName} {user.LastName}";
 
                 if (report != null)
                 {         
@@ -115,7 +115,7 @@ namespace CM.TeamReport.Domain.Services
 
                 var report = await _reportsRepository.ReadByUserIdAndPeriod(user.UserId, DateTime.Now, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now)));
 
-                previousReport.Name = string.Format("{0} {1}", user.FirstName, user.LastName);
+                previousReport.Name = $"{user.FirstName} {user.LastName}";
 
                 if (report != null)
                 {

@@ -1,4 +1,5 @@
-﻿using CM.TeamReport.Domain.Models;
+﻿using AutoMapper;
+using CM.TeamReport.Domain.Models;
 using CM.TeamReport.Domain.Services.Interfaces;
 using CM.TeamReportAPI.Models;
 using CM.TeamRepots.DataLayer.Entity;
@@ -11,10 +12,12 @@ namespace CM.TeamReportAPI.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IMapper _mapper;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, IMapper mapper)
         {
             _userService = userService;
+            _mapper = mapper;
         }
 
         [HttpPost]
@@ -35,6 +38,19 @@ namespace CM.TeamReportAPI.Controllers
 
             return list;
         }
+
+        [HttpPost]
+        [Route("edit")]
+        public async Task<IActionResult> EditUserInformation(EditUserInformationModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Can't find user to edit");
+            }
+            var model = _mapper.Map<EditUserInformationModel, Users>(request);
+            var editModel = await _userService.EditUserInformation(model);
+            return Ok(editModel);
+        } 
 
         [HttpGet]
         [Route("reports")]

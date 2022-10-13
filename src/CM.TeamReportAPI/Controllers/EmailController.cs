@@ -21,7 +21,7 @@ namespace CM.TeamReportAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult SendEmail(InviteMemberModel member)
+        public async Task<IActionResult> SendEmail(InviteMemberModel member)
         {
             var request = _mapper.Map<InviteMemberModel, InviteMember>(member);
             _emailService.SendEmail(request);
