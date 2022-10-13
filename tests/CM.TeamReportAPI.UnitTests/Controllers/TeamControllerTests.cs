@@ -18,7 +18,7 @@ namespace CM.TeamReportAPI.UnitTests.Controllers
 
             var answer = teamController.CreateCompany("dasdsada");
 
-            Assert.True(answer.Result is OkObjectResult);
+            Assert.True(answer is OkObjectResult);
         }
 
         [Fact]
@@ -26,13 +26,13 @@ namespace CM.TeamReportAPI.UnitTests.Controllers
         {
             var teamMock = new Mock<ITeamService>();
 
-            teamMock.Setup(t => t.Add(It.IsAny<string>())).ThrowsAsync(new TeamExeption("Team name is't correct!"));
+            teamMock.Setup(t => t.Add(It.IsAny<string>())).Throws(new TeamExeption("Team name is't correct!"));
 
             var teamController = new TeamController(teamMock.Object);
 
             var answer = teamController.CreateCompany("dasdsada");
 
-            Assert.True(answer.Result is BadRequestObjectResult);
+            Assert.True(answer is BadRequestObjectResult);
         }
 
         [Fact]
@@ -59,6 +59,44 @@ namespace CM.TeamReportAPI.UnitTests.Controllers
             var answer = teamController.EditCompany(new Teams());
 
             Assert.True(answer is BadRequestObjectResult);
+        }
+
+        [Fact]
+        public void ShouldBeAbleToReturnTeam()
+        {
+            var teamMock = new Mock<ITeamService>();
+
+            var team = new Teams
+            {
+                TeamId = 1,
+                TeamName = "dawdwawada"
+            };
+
+            teamMock.Setup(t => t.Get(It.IsAny<int>())).ReturnsAsync(team);
+
+            var teamController = new TeamController(teamMock.Object);
+
+            var answer = teamController.GetCompany(1);
+
+            Assert.True(answer.Result is OkObjectResult);
+        }
+
+        [Fact]
+        public void ShouldNotBeAbleToReturnTeam()
+        {
+            var teamMock = new Mock<ITeamService>();
+
+            var team = new Teams
+            {
+                TeamId = 1,
+                TeamName = "dawdwawada"
+            };
+
+            teamMock.Setup(t => t.Get(It.IsAny<int>())).ThrowsAsync(new TeamExeption("There is no that company!"));
+
+            var teamController = new TeamController(teamMock.Object);
+
+            Assert.True(teamController.GetCompany(1).Result is BadRequestObjectResult);
         }
     }
 }

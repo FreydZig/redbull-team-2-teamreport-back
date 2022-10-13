@@ -14,7 +14,7 @@ namespace CM.TeamReports.Domain.Tests
         {
             var repositoryMock = new Mock<IUserRepository>();
             var leaderMock = new Mock<ILeaderRepository>();
-            var teamMock = new Mock<IRepository<Teams>>();
+            var teamMock = new Mock<ITeamRepository>();
             var reportsMock = new Mock<IReportsRepository>();
             UserService userService = new UserService(repositoryMock.Object, leaderMock.Object, teamMock.Object, reportsMock.Object);
             userService.Should().NotBeNull();
@@ -25,7 +25,7 @@ namespace CM.TeamReports.Domain.Tests
         {
             var repositoryMock = new Mock<IUserRepository>();
             var leaderMock = new Mock<ILeaderRepository>();
-            var teamMock = new Mock<IRepository<Teams>>();
+            var teamMock = new Mock<ITeamRepository>();
             var reportsMock = new Mock<IReportsRepository>();
             repositoryMock.Setup(r => r.Create(It.IsAny<Users>()));
             UserService userService = new UserService(repositoryMock.Object, leaderMock.Object, teamMock.Object, reportsMock.Object);
@@ -46,7 +46,7 @@ namespace CM.TeamReports.Domain.Tests
         {
             var userMock = new Mock<IUserRepository>();
             var leaderMock = new Mock<ILeaderRepository>();
-            var teamMock = new Mock<IRepository<Teams>>();
+            var teamMock = new Mock<ITeamRepository>();
             var reportsMock = new Mock<IReportsRepository>();
 
             var user = new Users()
@@ -76,7 +76,7 @@ namespace CM.TeamReports.Domain.Tests
         {
             var userMock = new Mock<IUserRepository>();
             var leaderMock = new Mock<ILeaderRepository>();
-            var teamMock = new Mock<IRepository<Teams>>();
+            var teamMock = new Mock<ITeamRepository>();
             var reportsMock = new Mock<IReportsRepository>();
 
             var user = new Users()
@@ -106,7 +106,7 @@ namespace CM.TeamReports.Domain.Tests
         {
             var userMock = new Mock<IUserRepository>();
             var leaderMock = new Mock<ILeaderRepository>();
-            var teamMock = new Mock<IRepository<Teams>>();
+            var teamMock = new Mock<ITeamRepository>();
             var reportsMock = new Mock<IReportsRepository>();
 
             var user = new Users()
@@ -132,7 +132,7 @@ namespace CM.TeamReports.Domain.Tests
         {
             var userMock = new Mock<IUserRepository>();
             var leaderMock = new Mock<ILeaderRepository>();
-            var teamMock = new Mock<IRepository<Teams>>();
+            var teamMock = new Mock<ITeamRepository>();
 
             var reportsMock = new Mock<IReportsRepository>();
 
@@ -171,7 +171,7 @@ namespace CM.TeamReports.Domain.Tests
             var reportsMock = new Mock<IReportsRepository>();
             var userMock = new Mock<IUserRepository>();
             var leaderMock = new Mock<ILeaderRepository>();
-            var teamMock = new Mock<IRepository<Teams>>();
+            var teamMock = new Mock<ITeamRepository>();
 
             var user = new Users()
             {
@@ -209,7 +209,7 @@ namespace CM.TeamReports.Domain.Tests
             var userMock = new Mock<IUserRepository>();
             var reportsMock = new Mock<IReportsRepository>();
             var leaderMock = new Mock<ILeaderRepository>();
-            var teamMock = new Mock<IRepository<Teams>>();
+            var teamMock = new Mock<ITeamRepository>();
 
             var report = new Reports
             {

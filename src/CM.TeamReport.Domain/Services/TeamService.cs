@@ -14,7 +14,7 @@ namespace CM.TeamReport.Domain.Services
             _teamsRepository = teamRepository;
         }
 
-        public async Task<int> Add(string teamName)
+        public int Add(string teamName)
         {
             var team = new Teams();
 
@@ -37,6 +37,15 @@ namespace CM.TeamReport.Domain.Services
             if (!string.IsNullOrWhiteSpace(message)) throw new TeamExeption(message);
 
             _teamsRepository.Update(teams);
+        }
+
+        public async Task<Teams> Get(int teamId)
+        {
+            var team = await _teamsRepository.Read(teamId);
+
+            if (team == null) throw new TeamExeption("There is no that company!");
+
+            return team;
         }
     }
 }

@@ -8,6 +8,8 @@ namespace CM.TeamReportAPI.Models
         public string FirstName { get; set; } = string.Empty;
 
         public string LastName { get; set; }
+
+        public int TeamId { get; set; }
         
         [Email]
         public string Email { get; set; }
