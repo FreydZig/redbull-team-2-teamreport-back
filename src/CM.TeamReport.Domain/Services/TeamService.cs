@@ -1,4 +1,5 @@
-﻿using CM.TeamReport.Domain.Services.Interfaces;
+﻿using CM.TeamReport.Domain.Exceptions;
+using CM.TeamReport.Domain.Services.Interfaces;
 using CM.TeamRepots.DataLayer.Entity;
 using CM.TeamRepots.DataLayer.Interfaces;
 
@@ -13,25 +14,22 @@ namespace CM.TeamReport.Domain.Services
             _teamsRepository = teamRepository;
         }
 
-        public async Task<bool> Add(string teamName)
+        public async Task Add(string teamName)
         {
             var team = new Teams();
 
-            if(string.IsNullOrWhiteSpace(teamName)) return false;
+            if(string.IsNullOrWhiteSpace(teamName)) throw new TeamExeption("Team name is't correct!");
 
             team.TeamName = teamName;
             _teamsRepository.Create(team);
-
-            return true;
         }
 
-        public async Task<bool> Edit(Teams teams)
+        public async Task Edit(Teams teams)
         {
-            if (teams == null ||string.IsNullOrWhiteSpace(teams.TeamName)) return false;
+            if (teams == null) throw new TeamExeption("Team is null!");
+            if (string.IsNullOrWhiteSpace(teams.TeamName)) throw new TeamExeption("Team name is't correct!");
 
             _teamsRepository.Update(teams);
-
-            return true;
         }
     }
 }

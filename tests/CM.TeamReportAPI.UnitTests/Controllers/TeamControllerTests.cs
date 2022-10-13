@@ -1,4 +1,5 @@
-﻿using CM.TeamReport.Domain.Services.Interfaces;
+﻿using CM.TeamReport.Domain.Exceptions;
+using CM.TeamReport.Domain.Services.Interfaces;
 using CM.TeamReportAPI.Controllers;
 using CM.TeamRepots.DataLayer.Entity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,8 +14,6 @@ namespace CM.TeamReportAPI.UnitTests.Controllers
         {
             var teamMock = new Mock<ITeamService>();
 
-            teamMock.Setup(t => t.Add(It.IsAny<string>())).ReturnsAsync(true);
-
             var teamController = new TeamController(teamMock.Object);
 
             var answer = teamController.CreateCompany("dasdsada");
@@ -27,7 +26,7 @@ namespace CM.TeamReportAPI.UnitTests.Controllers
         {
             var teamMock = new Mock<ITeamService>();
 
-            teamMock.Setup(t => t.Add(It.IsAny<string>())).ReturnsAsync(false);
+            teamMock.Setup(t => t.Add(It.IsAny<string>())).ThrowsAsync(new TeamExeption("Team name is't correct!"));
 
             var teamController = new TeamController(teamMock.Object);
 
@@ -41,8 +40,6 @@ namespace CM.TeamReportAPI.UnitTests.Controllers
         {
             var teamMock = new Mock<ITeamService>();
 
-            teamMock.Setup(t => t.Edit(It.IsAny<Teams>())).ReturnsAsync(true);
-
             var teamController = new TeamController(teamMock.Object);
 
             var answer = teamController.EditCompany(new Teams());
@@ -55,7 +52,7 @@ namespace CM.TeamReportAPI.UnitTests.Controllers
         {
             var teamMock = new Mock<ITeamService>();
 
-            teamMock.Setup(t => t.Edit(It.IsAny<Teams>())).ReturnsAsync(false);
+            teamMock.Setup(t => t.Edit(It.IsAny<Teams>())).ThrowsAsync(new TeamExeption("Team name is't correct!"));
 
             var teamController = new TeamController(teamMock.Object);
 

@@ -1,4 +1,5 @@
-﻿using CM.TeamReport.Domain.Services;
+﻿using CM.TeamReport.Domain.Exceptions;
+using CM.TeamReport.Domain.Services;
 using CM.TeamRepots.DataLayer.Entity;
 using CM.TeamRepots.DataLayer.Interfaces;
 using Moq;
@@ -14,7 +15,7 @@ namespace CM.TeamReports.Domain.Tests
 
             var teamService = new TeamService(teamsMock.Object);
 
-            Assert.True(teamService.Add("Team").Result);
+            Assert.True(teamService.Add("Team") is Task);
         }
 
         [Fact]
@@ -30,7 +31,7 @@ namespace CM.TeamReports.Domain.Tests
 
             var teamService = new TeamService(teamsMock.Object);
 
-            Assert.True(teamService.Edit(team).Result);
+            Assert.True(teamService.Edit(team) is Task);
         }
     }
 }
