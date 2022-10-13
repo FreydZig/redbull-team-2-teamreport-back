@@ -58,7 +58,7 @@ namespace CM.TeamReport.Domain.Services
 
             foreach (var user in list)
             {
-                listUFL.Add(new UserForLeader() { UserId = user.UserId, UserName = user.FirstName + ' ' + user.LastName, Title = user.Title });
+                listUFL.Add(new UserForLeader() { UserId = user.UserId, UserName = $"{user.FirstName} {user.LastName}", Title = user.Title });
             }
             
             return listUFL;
