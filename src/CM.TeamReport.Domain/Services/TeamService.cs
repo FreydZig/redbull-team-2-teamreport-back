@@ -22,9 +22,9 @@ namespace CM.TeamReport.Domain.Services
 
             team.TeamName = teamName;
 
-            var teamId = await _teamsRepository.CreateWithReturn(team);
+            var teamId = _teamsRepository.CreateWithReturn(team);
 
-            return teamId.TeamId;
+            return teamId;
         }
 
         public void Edit(Teams teams)
