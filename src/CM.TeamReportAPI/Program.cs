@@ -27,6 +27,7 @@ builder.Services.AddScoped<ILeaderSevice, LeaderService>();
 builder.Services.AddScoped<IReportsRepository, ReportsRepository>();
 builder.Services.AddScoped<ILeaderRepository, LeaderRepository>();
 builder.Services.AddScoped<IRepository<Teams>, TeamsRepository>();
+builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddAutoMapper(typeof(MapperProfile));
 
 builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection("JwtConfig"));
