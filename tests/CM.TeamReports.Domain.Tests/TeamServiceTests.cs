@@ -12,17 +12,19 @@ namespace CM.TeamReports.Domain.Tests
         [Fact]
         public void ShouldBeAbleToCreateTeam()
         {
-            var teamsMock = new Mock<IRepository<Teams>>();
+            var teamsMock = new Mock<ITeamRepository>();
+
+            teamsMock.Setup(t => t.CreateWithReturn(It.IsAny<Teams>())).Returns(2);
 
             var teamService = new TeamService(teamsMock.Object);
 
-            teamService.Invoking(t => t.Add("dawd")).Should().NotThrow();
+            Assert.Equal(2, teamService.Add("sdada"));
         }
 
         [Fact]
         public void ShouldNotBeAbleToCreateTeam()
         {
-            var teamsMock = new Mock<IRepository<Teams>>();
+            var teamsMock = new Mock<ITeamRepository>();
 
             var teamService = new TeamService(teamsMock.Object);
 
@@ -33,7 +35,7 @@ namespace CM.TeamReports.Domain.Tests
         [Fact]
         public void ShouldBeAbleToEditTeam()
         {
-            var teamsMock = new Mock<IRepository<Teams>>();
+            var teamsMock = new Mock<ITeamRepository>();
 
             var team = new Teams
             {
@@ -49,7 +51,7 @@ namespace CM.TeamReports.Domain.Tests
         [Fact]
         public void ShouldNotBeAbleToEditTeam()
         {
-            var teamsMock = new Mock<IRepository<Teams>>();
+            var teamsMock = new Mock<ITeamRepository>();
 
             var team = new Teams
             {
@@ -64,6 +66,43 @@ namespace CM.TeamReports.Domain.Tests
 
             var exeptionWithTeam = Assert.Throws<TeamExeption>(() => teamService.Edit(team));
             Assert.Equal("Team name is't correct!", exeptionWithTeam.Message);
+        }
+
+        [Fact]
+        public void ShouldBeAbleToReturnTeam()
+        {
+            var teamsMock = new Mock<ITeamRepository>();
+
+            var team = new Teams
+            {
+                TeamId = 1,
+                TeamName = "dawdwawada"
+            };
+
+            teamsMock.Setup(t => t.Read(It.IsAny<int>())).ReturnsAsync(team);
+
+            var teamService = new TeamService(teamsMock.Object);
+
+            Assert.Equal("dawdwawada", teamService.Get(1).Result.TeamName);
+        }
+
+        [Fact]
+        public void ShouldNotBeAbleToReturnTeam()
+        {
+            var teamsMock = new Mock<ITeamRepository>();
+
+            var team = new Teams
+            {
+                TeamId = 1,
+                TeamName = "dawdwawada"
+            };
+
+            teamsMock.Setup(t => t.Read(It.IsAny<int>())).ThrowsAsync(new TeamExeption("There is no that company!"));
+
+            var teamService = new TeamService(teamsMock.Object);
+
+            var exeption = Assert.ThrowsAsync<TeamExeption>(() => teamService.Get(1));
+            Assert.Equal("There is no that company!", exeption.Result.Message);
         }
 
     }

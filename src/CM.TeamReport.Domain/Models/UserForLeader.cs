@@ -9,5 +9,7 @@ namespace CM.TeamReport.Domain.Models
 
         [Required]
         public string UserName { get; set; }
+
+        public string? Title { get; set; }
     }
 }

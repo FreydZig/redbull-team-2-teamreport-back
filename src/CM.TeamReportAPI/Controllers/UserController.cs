@@ -4,6 +4,7 @@ using CM.TeamReport.Domain.Services.Interfaces;
 using CM.TeamReportAPI.Models;
 using CM.TeamRepots.DataLayer.Entity;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace CM.TeamReportAPI.Controllers
 {
@@ -13,11 +14,13 @@ namespace CM.TeamReportAPI.Controllers
     {
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
+        private readonly IAuthService _authService;
 
-        public UserController(IUserService userService, IMapper mapper)
+        public UserController(IUserService userService, IMapper mapper, IAuthService authService)
         {
             _userService = userService;
             _mapper = mapper;
+            _authService = authService;
         }
 
         [HttpPost]
@@ -47,9 +50,18 @@ namespace CM.TeamReportAPI.Controllers
             {
                 return BadRequest("Can't find user to edit");
             }
-            var model = _mapper.Map<EditUserInformationModel, Users>(request);
-            var editModel = await _userService.EditUserInformation(model);
-            return Ok(editModel);
+            try
+            {
+                var model = _mapper.Map<EditUserInformationModel, Users>(request);
+                var editModel = await _userService.EditUserInformation(model);
+                var token = _authService.GetToken(editModel);
+                return Ok(token);
+            }
+            catch(DataException e)
+            {
+                return BadRequest(e.Message);
+            }
+            
         } 
 
         [HttpGet]

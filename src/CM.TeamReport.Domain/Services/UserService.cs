@@ -58,7 +58,7 @@ namespace CM.TeamReport.Domain.Services
 
             foreach (var user in list)
             {
-                listUFL.Add(new UserForLeader() { UserId = user.UserId, UserName = user.FirstName + ' ' + user.LastName });
+                listUFL.Add(new UserForLeader() { UserId = user.UserId, UserName = $"{user.FirstName} {user.LastName}", Title = user.Title });
             }
             
             return listUFL;
@@ -71,9 +71,21 @@ namespace CM.TeamReport.Domain.Services
             {
                 throw new DataException("Can't find user to edit");
             }
-            userEdit.FirstName = user.FirstName;
-            userEdit.LastName = user.LastName;
-            userEdit.Title = user.Title;
+
+            if(user.FirstName != null)
+                userEdit.FirstName = user.FirstName;
+            if (user.LastName != null)
+                userEdit.LastName = user.LastName;
+            if (user.Title != null)
+                userEdit.Title = user.Title;
+
+
+            if(user.TeamId != null)
+            {
+                var team = _teamRepository.Read((int)user.TeamId);
+                if (team == null) throw new DataException("There is no that team!");
+                userEdit.TeamId = user.TeamId;
+            }           
 
             _usersRepository.Update(userEdit);
 
