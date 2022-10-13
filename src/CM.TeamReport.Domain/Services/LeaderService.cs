@@ -27,16 +27,16 @@ namespace CM.TeamReport.Domain.Services
             {
                 var teamReport = new OverallReports();
 
-                teamReport.Current = await _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now)), DateTime.Now, user.UserId);
-                teamReport.ago9 = await _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 61), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 56), user.UserId);
-                teamReport.ago8 = await _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 56), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 49), user.UserId);
-                teamReport.ago7 = await _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 49), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 42), user.UserId);
-                teamReport.ago6 = await _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 42), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 35), user.UserId);
-                teamReport.ago5 = await _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 35), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 28), user.UserId);
-                teamReport.ago4 = await _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 28), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 21), user.UserId);
-                teamReport.ago3 = await _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 21), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 14), user.UserId);
-                teamReport.ago2 = await _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 14), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 7), user.UserId);
-                teamReport.ago1 = await _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 7), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now)), user.UserId);
+                teamReport.Current = await _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now)), DateTime.Now.AddDays(7 - Utils.DayOfWeekToInt(DateTime.Now)), user.UserId);
+                teamReport.ago9 = await _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now) - 61), DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now) - 56), user.UserId);
+                teamReport.ago8 = await _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now) - 56), DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now) - 49), user.UserId);
+                teamReport.ago7 = await _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now) - 49), DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now) - 42), user.UserId);
+                teamReport.ago6 = await _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now) - 42), DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now) - 35), user.UserId);
+                teamReport.ago5 = await _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now) - 35), DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now) - 28), user.UserId);
+                teamReport.ago4 = await _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now) - 28), DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now) - 21), user.UserId);
+                teamReport.ago3 = await _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now) - 21), DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now) - 14), user.UserId);
+                teamReport.ago2 = await _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now) - 14), DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now) - 7), user.UserId);
+                teamReport.ago1 = await _reportsRepository.SumOfUserStates(DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now) - 7), DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now)), user.UserId);
 
                 teamReport.UserName = $"{user.FirstName} {user.LastName}";
 
@@ -57,16 +57,16 @@ namespace CM.TeamReport.Domain.Services
             {
                 var teamReport = new OverallReports();
 
-                teamReport.Current = await _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now)), DateTime.Now);
-                teamReport.ago9 = await _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 61), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 56));
-                teamReport.ago8 = await _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 56), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 49));
-                teamReport.ago7 = await _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 49), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 42));
-                teamReport.ago6 = await _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 42), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 35));
-                teamReport.ago5 = await _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 35), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 28));
-                teamReport.ago4 = await _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 28), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 21));
-                teamReport.ago3 = await _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 21), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 14));
-                teamReport.ago2 = await _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 14), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 7));
-                teamReport.ago1 = await _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 7), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now)));
+                teamReport.Current = await _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now)), DateTime.Now.AddDays(7 - Utils.DayOfWeekToInt(DateTime.Now)));
+                teamReport.ago9 = await _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now) - 61), DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now) - 56));
+                teamReport.ago8 = await _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now) - 56), DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now) - 49));
+                teamReport.ago7 = await _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now) - 49), DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now) - 42));
+                teamReport.ago6 = await _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now) - 42), DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now) - 35));
+                teamReport.ago5 = await _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now) - 35), DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now) - 28));
+                teamReport.ago4 = await _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now) - 28), DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now) - 21));
+                teamReport.ago3 = await _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now) - 21), DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now) - 14));
+                teamReport.ago2 = await _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now) - 14), DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now) - 7));
+                teamReport.ago1 = await _reportsRepository.UserState(user.UserId, state, DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now) - 7), DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now)));
 
                 teamReport.UserName = string.Format("{0} {1}", user.FirstName, user.LastName);
 
@@ -86,7 +86,7 @@ namespace CM.TeamReport.Domain.Services
             {
                 var previousReport = new PreviousReports();
 
-                var report = await _reportsRepository.ReadByUserIdAndPeriod(user.UserId, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now)), DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now) - 7));
+                var report = await _reportsRepository.ReadByUserIdAndPeriod(user.UserId, DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now)), DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now) - 7));
 
                 previousReport.Name = $"{user.FirstName} {user.LastName}";
 
@@ -113,7 +113,7 @@ namespace CM.TeamReport.Domain.Services
             {
                 var previousReport = new PreviousReports();
 
-                var report = await _reportsRepository.ReadByUserIdAndPeriod(user.UserId, DateTime.Now, DateTime.Now.AddDays(DayOfWeekToInt(DateTime.Now)));
+                var report = await _reportsRepository.ReadByUserIdAndPeriod(user.UserId, DateTime.Now, DateTime.Now.AddDays(Utils.DayOfWeekToInt(DateTime.Now)));
 
                 previousReport.Name = $"{user.FirstName} {user.LastName}";
 
@@ -137,19 +137,6 @@ namespace CM.TeamReport.Domain.Services
             return leader != null;
         }
 
-        private int DayOfWeekToInt(DateTime date)
-        {
-            switch (date.DayOfWeek)
-            {
-                case DayOfWeek.Monday: return -1;
-                case DayOfWeek.Tuesday: return -2;
-                case DayOfWeek.Wednesday: return -3;
-                case DayOfWeek.Thursday: return -4;
-                case DayOfWeek.Friday: return -5;
-                case DayOfWeek.Saturday: return -6;
-                case DayOfWeek.Sunday: return -7;
-                default: return 0;
-            } 
-        }
+        
     }
 }
