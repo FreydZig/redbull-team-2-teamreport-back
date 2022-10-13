@@ -7,21 +7,24 @@ namespace CM.TeamReport.Domain.Services
 {
     public class TeamService: ITeamService
     {
-        private readonly IRepository<Teams> _teamsRepository;
+        private readonly ITeamRepository _teamsRepository;
 
-        public TeamService(IRepository<Teams> teamRepository)
+        public TeamService(ITeamRepository teamRepository)
         {
             _teamsRepository = teamRepository;
         }
 
-        public void Add(string teamName)
+        public async Task<int> Add(string teamName)
         {
             var team = new Teams();
 
             if(string.IsNullOrWhiteSpace(teamName)) throw new TeamExeption(TeamMessages.TeamNameIstCorrect);
 
             team.TeamName = teamName;
-            _teamsRepository.Create(team);
+
+            var teamId = _teamsRepository.CreateWithReturn(team);
+
+            return teamId;
         }
 
         public void Edit(Teams teams)

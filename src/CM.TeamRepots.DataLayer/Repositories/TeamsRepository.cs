@@ -4,13 +4,24 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CM.TeamRepots.DataLayer.Repositories
 {
-    public class TeamsRepository : IRepository<Teams>
+    public class TeamsRepository : ITeamRepository
     {
         private readonly TRDbContext _context;
 
         public TeamsRepository()
         {
             _context = new TRDbContext();
+        }
+
+        public int CreateWithReturn(Teams entity)
+        {
+            _context
+                .Teams
+                .Add(entity);
+            _context
+                .SaveChanges();
+
+            return entity.TeamId;
         }
 
         public void Create(Teams entity)
@@ -44,6 +55,13 @@ namespace CM.TeamRepots.DataLayer.Repositories
             return await _context
                 .Teams
                 .FirstOrDefaultAsync(t => t.TeamId == entityCode);
+        }
+
+        public async Task<Teams> ReadByTeamName(string teamName)
+        {
+            return await _context
+                .Teams
+                .FirstOrDefaultAsync(t => t.TeamName == teamName);
         }
 
         public void Update(Teams entity)

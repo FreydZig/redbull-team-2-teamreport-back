@@ -19,13 +19,13 @@ namespace CM.TeamReportAPI.Controllers
 
         [HttpPost]
         [Route("add")]
-        public IActionResult CreateCompany([FromBody] string teamName)
+        public async Task<IActionResult> CreateCompany([FromBody] string teamName)
         {
             try
             {
-                _teamService.Add(teamName);
+                var teamid = await _teamService.Add(teamName);
 
-                return Ok();
+                return Ok(teamid);
             }
             catch(TeamExeption e)
             {
