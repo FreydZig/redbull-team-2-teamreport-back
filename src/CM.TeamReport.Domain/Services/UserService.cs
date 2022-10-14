@@ -25,10 +25,17 @@ namespace CM.TeamReport.Domain.Services
             _reportsRepository = reportsRepository;
         }
 
-        public void AddUser(Users user)
+        public async void AddUser(Users user)
         {
             var passwordHashSalt = new PasswordHash().CreatePasswordHash(user.Password);
             user.Password = Convert.ToBase64String(passwordHashSalt.salt) + "." + Convert.ToBase64String(passwordHashSalt.hash) ;
+
+            if (user.TeamId != null) {
+                var team = await _teamRepository.Read((int)user.TeamId);
+                if(team == null)
+                    user.TeamId = null;
+            }
+
             _usersRepository.Create(user);
         }
 
